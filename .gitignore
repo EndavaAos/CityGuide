@@ -26,6 +26,9 @@ dist/
 # JetBrains IDE
 .idea/
 
+# Gradle
+.gradle/
+
 # Unit test reports
 TEST*.xml
 
@@ -47,4 +50,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+local.properties
+
 
