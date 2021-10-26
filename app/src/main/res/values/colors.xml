@@ -27,7 +27,7 @@
 
     <color name="button_start_color_midnight">#95ecee</color>
     <color name="button_pressed_start_color_midnight">#86d4d6</color>
-    <color name="button_disabled_start_color_midnight">"#80cce2e2</color>
+    <color name="button_disabled_start_color_midnight">#80cce2e2</color>
     <color name="button_end_color_midnight">#767ae8</color>
     <color name="button_pressed_end_color_midnight">#6a6ed0</color>
     <color name="button_disabled_end_color_midnight">#80c4c5e1</color>
