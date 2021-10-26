@@ -4,6 +4,8 @@
     <string name="trip_item_title_format">%1$s – %2$s</string>
     <string name="trip_item_period_hint">14.12.2021 – 13.12.2021</string>
     <string name="trip_item_period_format">%1$s – %2$s</string>
+    <string name="trips_preview_list">my trips</string>
+    <string name="trips_preview_list_category_hint">Active trips</string>
     <string name="nav_home">Home</string>
     <string name="nav_mytrips">My Trips</string>
     <string name="nav_settngs">Settings</string>
@@ -12,8 +14,6 @@
     <string name="search_text_question">Would you like to go somewhere in the near future?</string>
     <string name="search_edittext_text">Where to?</string>
     <string name="search_button_text">plan trip</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button_schedule_trip_text">SCHEDULE TRIP</string>
     <string name="destination_not_found_text">Destination not found</string>
     <string name="error_text_sugestion">Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again.</string>
