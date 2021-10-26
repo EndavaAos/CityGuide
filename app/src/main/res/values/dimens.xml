@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="round_corners">10dp</dimen>
+    <dimen name="round_corners_background_padding">10dp</dimen>
+    <dimen name="item_vertical_medium_padding">20dp</dimen>
+    <dimen name="item_horizontal_medium_padding">15dp</dimen>
+    <dimen name="text_size_medium">28sp</dimen>
+    <dimen name="text_size_small">18sp</dimen>
+    <dimen name="drawable_padding_small">4dp</dimen>
+</resources>
