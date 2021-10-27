@@ -18,6 +18,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -34,6 +40,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -63,6 +70,12 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     // RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$roomVersion"
+    // Coroutines support for Room
+    implementation "androidx.room:room-ktx:$roomVersion"
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     //Dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -94,4 +107,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    // Desugaring for backwards compatibility
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }

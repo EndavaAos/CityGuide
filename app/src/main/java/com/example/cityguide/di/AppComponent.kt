@@ -11,10 +11,12 @@ import javax.inject.Singleton
         LocationSearchActivityModule::class,
         AndroidInjectionModule::class,
         LocationSearchFragmentModule::class,
+        AppModule::class,
+        DatabaseModule::class,
         POIScreenFragmentModule::class,
         MakeTripFragmentModule::class,
-        AppModule::class,
-        PoiDetailsFragmentModule::class]
+        PoiDetailsFragmentModule::class
+    ]
 
 )
 @Singleton
