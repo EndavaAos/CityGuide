@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+        <!-- create gradient you want to use with the angle you want to use -->
+        <shape android:shape="rectangle" >
+            <corners android:radius="50dp"></corners>
+            <gradient
+                android:angle="0"
+                android:endColor="@color/button_end_color_midnight"
+                android:startColor="@color/button_start_color_midnight" />
+
+        </shape>
+    </item>
+    <!-- create the stroke for top, left, bottom and right with the dp you want -->
+    <item
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp">
+        <shape android:shape="rectangle" >
+            <corners android:radius="50dp"></corners>
+            <!-- fill the inside in the color you want (could also be a gradient again if you want to, just change solid to gradient and enter angle, start, maybe center, and end color) -->
+            <solid android:color="@color/background_end_color_midnight" />
+        </shape>
+    </item>
+
+</layer-list>
