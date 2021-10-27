@@ -39,8 +39,15 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
 
 
     private fun buttonStatusOnTextChanged() {
-        searchButton.isEnabled = true
-        searchButton.setBackgroundResource(R.drawable.gradient_button)
+        if (searchEditText.text.isNotEmpty()) {
+            searchButton.isEnabled = true
+            searchButton.setBackgroundResource(R.drawable.gradient_button)
+        }
+        else {
+            searchButton.isEnabled = false
+            searchButton.setBackgroundResource(R.drawable.rectangle_for_button_screen_search)
+            searchEditText.clearFocus()
+        }
     }
 
     private fun onSearchButtonClick() {
