@@ -8,8 +8,8 @@
     android:background="@drawable/gradient_background">
 
     <soup.neumorphism.NeumorphCardView
-        android:layout_width="@dimen/start_logo_size"
-        android:layout_height="@dimen/start_logo_size"
+        android:layout_width="@dimen/card_view_size"
+        android:layout_height="@dimen/card_view_size"
         app:neumorph_shapeAppearance="@style/RoundShapeLogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,8 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:circularflow_defaultAngle="15"
         app:neumorph_shadowColorLight="@color/background_start_color_midnight"
-        app:neumorph_shadowColorDark="@color/dark_shadow_midnight"
-        >
+        app:neumorph_shadowColorDark="@color/dark_shadow_midnight">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/splashScreenAnimation"
