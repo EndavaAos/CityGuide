@@ -18,6 +18,7 @@ class CityGuideApp : Application(), HasAndroidInjector {
         super.onCreate()
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
+            .databaseModule(DatabaseModule())
             .build()
             .inject(this)
     }
