@@ -10,6 +10,7 @@ import javax.inject.Singleton
         LocationSearchActivityModule::class,
         AndroidInjectionModule::class,
         LocationSearchFragmentModule::class,
+        POIScreenFragmentModule::class,
         AppModule::class]
 )
 @Singleton

@@ -5,6 +5,7 @@ import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.network.RemoteDataSource
 import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
+import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -26,6 +27,12 @@ class AppModule(
     fun providesLocationApi(remoteDataSource: RemoteDataSource, context: Context): LocationApi {
         return remoteDataSource.buildApi(LocationApi::class.java, context)
 
+    }
+
+    @Singleton
+    @Provides
+    fun providesRecyclerViewAdapter(context: Context): RecyclerViewAdapter {
+        return RecyclerViewAdapter(context)
     }
 
     @Singleton
