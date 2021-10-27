@@ -70,12 +70,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     // RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$roomVersion"
-    // Coroutines support for Room
-    implementation "androidx.room:room-ktx:$roomVersion"
-
-    // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     //Dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
