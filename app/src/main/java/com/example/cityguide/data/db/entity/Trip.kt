@@ -1,13 +1,19 @@
-package com.example.cityguide.data.db
+package com.example.cityguide.data.db.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 @Entity
 data class Trip(
+    @PrimaryKey
     val xid: String,
+    @Embedded
     val address: TripAddress,
+    @Embedded
     val bbox: TripBBox,
+    @Embedded
     val wikipedia_extracts: TripDetails,
     var dateStart: LocalDate? = null,
     var dateEnd: LocalDate? = null

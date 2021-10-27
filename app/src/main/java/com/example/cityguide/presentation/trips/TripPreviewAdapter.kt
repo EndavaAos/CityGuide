@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
-import com.example.cityguide.data.db.Trip
+import com.example.cityguide.data.db.entity.Trip
 import com.example.cityguide.databinding.TripsPreviewListItemBinding
 
 class TripPreviewAdapter

@@ -10,7 +10,9 @@ import javax.inject.Singleton
         LocationSearchActivityModule::class,
         AndroidInjectionModule::class,
         LocationSearchFragmentModule::class,
-        AppModule::class]
+        AppModule::class,
+        DatabaseModule::class,
+    ]
 )
 @Singleton
 interface AppComponent {
