@@ -15,6 +15,8 @@ import javax.inject.Singleton
         MyTripsFragmentModule::class,
         AppModule::class,
         DatabaseModule::class,
+        POIScreenFragmentModule::class,
+        AppModule::class
     ]
 )
 @Singleton

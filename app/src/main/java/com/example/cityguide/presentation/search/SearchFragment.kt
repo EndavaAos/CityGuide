@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.example.cityguide.R
 
 class SearchFragment: Fragment(R.layout.fragment_search) {
@@ -55,10 +56,8 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         searchButton.startAnimation(buttonClick)
 
         val inputText = searchEditText.text // Text from EditText
-            // TODO ("Implement POI page")
-
-        // Delete after implementation
-        Toast.makeText(context, searchEditText.text, Toast.LENGTH_SHORT).show()
+        val action = SearchFragmentDirections.navigateFromSearchToPOIScreen(inputText.toString())
+        Navigation.findNavController(requireView()).navigate(action)
 
         searchEditText.clearFocus()
         searchEditText.text.clear()

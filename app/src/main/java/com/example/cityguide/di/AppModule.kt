@@ -1,13 +1,12 @@
 package com.example.cityguide.di
 
 import android.content.Context
-import androidx.room.Room
 import com.example.cityguide.data.db.TripDatabase
-import com.example.cityguide.data.db.dao.TripDao
 import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.network.RemoteDataSource
 import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
+import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.example.cityguide.data.repository.TripRepository
 import com.example.cityguide.data.repository.TripRepositoryImpl
 import com.example.cityguide.presentation.trips.ActiveTripsViewModel
@@ -34,6 +33,12 @@ class AppModule(
     fun providesLocationApi(remoteDataSource: RemoteDataSource, context: Context): LocationApi {
         return remoteDataSource.buildApi(LocationApi::class.java, context)
 
+    }
+
+    @Singleton
+    @Provides
+    fun providesRecyclerViewAdapter(context: Context): RecyclerViewAdapter {
+        return RecyclerViewAdapter(context)
     }
 
     @Singleton
