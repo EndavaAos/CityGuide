@@ -42,6 +42,8 @@ class LocationSearchVM @Inject constructor(private val repository: LocationRepos
         )
     }
 
+
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
