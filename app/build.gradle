@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.github.fornewid:neumorphism:0.3.0'
 
     implementation 'androidx.cardview:cardview:1.0.0'
+
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
