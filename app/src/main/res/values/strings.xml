@@ -18,4 +18,12 @@
     <string name="no_completed_trips_description">You really do not feel the need for a holiday?</string>
     <string name="expandable_button">Expand or collapse the list.</string>
     <string name="preview_item_icon_description">Preview item</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_mytrips">My Trips</string>
+    <string name="nav_settngs">Settings</string>
+    <string name="home_screen_title">city guide</string>
+    <string name="welcome_message_start_screen">Good Morning!</string>
+    <string name="search_text_question">Would you like to go somewhere in the near future?</string>
+    <string name="search_edittext_text">Where to?</string>
+    <string name="search_button_text">plan trip</string>
 </resources>
