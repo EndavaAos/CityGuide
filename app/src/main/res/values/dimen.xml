@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_screen_title">40sp</dimen>
+    <dimen name="home_screen_welcome">20sp</dimen>
+    <dimen name="home_screen_search_qustion">18sp</dimen>
+</resources>

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CityGuide</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_mytrips">My Trips</string>
+    <string name="nav_settngs">Settings</string>
+    <string name="home_screen_title">city guide</string>
+    <string name="welcome_message_start_screen">Good Morning!</string>
+    <string name="search_text_question">Would you like to go somewhere in the near future?</string>
+    <string name="search_edittext_text">Where to?</string>
+    <string name="search_button_text">plan trip</string>
 </resources>

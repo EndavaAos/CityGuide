@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent = Intent(this,LocationSearchActivity::class.java)
+        val intent = Intent(this,StartScreenActivity::class.java)
         startActivity(intent)
     }
 }
