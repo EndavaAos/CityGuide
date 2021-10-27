@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/guide_nav"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/POIScreenFragment"
+        android:name="com.example.cityguide.presentation.POIsScreen.POIScreenFragment"
+        android:label="POIScreenFragment" >
+        <argument
+            android:name="place"
+            app:argType="string" />
+        <action
+            android:id="@+id/navigateFromPOIScreenToSearch"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.cityguide.presentation.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/navigateFromSearchToPOIScreen"
+            app:destination="@id/POIScreenFragment" />
+    </fragment>
+</navigation>

@@ -1,5 +1,6 @@
 package com.example.cityguide.di
 
+import com.example.cityguide.presentation.location.LocationSearchFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -7,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class LocationSearchFragmentModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeLocationShareFragmentModule() : LocationSearchFragmentModule
+    abstract fun contributeLocationShareFragmentModule() : LocationSearchFragment
 }

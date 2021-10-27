@@ -8,4 +8,6 @@
     <string name="search_text_question">Would you like to go somewhere in the near future?</string>
     <string name="search_edittext_text">Where to?</string>
     <string name="search_button_text">plan trip</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

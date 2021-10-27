@@ -1,4 +1,4 @@
-package com.example.cityguide.presentation.location
+package com.example.cityguide.presentation.POIsScreen
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +16,7 @@ class LocationSearchVM @Inject constructor(private val repository: LocationRepos
 
     private val compositeDisposable = CompositeDisposable()
 
+
     val locationLivedata = MutableLiveData<Resource<LocationResponseItem>>()
     val suggestionLiveData = MutableLiveData<Resource<SuggestionResponse>>()
 
@@ -26,8 +27,8 @@ class LocationSearchVM @Inject constructor(private val repository: LocationRepos
         compositeDisposable.add(
             repository.getLocation(name, apiKey).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({result -> locationLivedata.value = Resource.Success(result)
-                    getSuggestion(result.name, 1000, result.lon, result.lat, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")},
-                    { error -> locationLivedata.value = Resource.Error(error.message ?: "")},
+                           getSuggestion(result.name, 1000, result.lon, result.lat, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")},
+            { error -> locationLivedata.value = Resource.Error(error.message ?: "")},
                     {Log.d("Test", "Complete") })
         )
     }
@@ -41,8 +42,6 @@ class LocationSearchVM @Inject constructor(private val repository: LocationRepos
                     {Log.d("Test", "Complete")})
         )
     }
-
-
 
     override fun onCleared() {
         super.onCleared()
