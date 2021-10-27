@@ -55,5 +55,7 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
 
         searchEditText.clearFocus()
         searchEditText.text.clear()
+        searchButton.isEnabled = false
+        searchButton.setBackgroundResource(R.drawable.rectangle_for_button_screen_search)
     }
 }
