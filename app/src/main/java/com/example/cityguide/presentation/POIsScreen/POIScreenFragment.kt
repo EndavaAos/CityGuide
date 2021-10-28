@@ -1,6 +1,7 @@
 package com.example.cityguide.presentation.POIsScreen
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,10 +33,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     @Inject
     lateinit var locationRepositoryImpl: LocationRepositoryImpl
 
-    @Inject
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
 
-    val args: POIScreenFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +43,10 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
-        val placeToSearch = args.place
-
         activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
+
+        val intent: Intent? = activity?.intent
+        val placeToSearch = intent?.getStringExtra("place")
 
         view?.rootView?.locationNameText?.text = placeToSearch + " trip"
 
@@ -54,7 +54,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
         view?.rootView?.scheduleTripButton?.setOnClickListener {
             var allUnChecked: Boolean = false
-           /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 recyclerViewAdapter.locations.forEach { allUnChecked = it.isChecked.or(allUnChecked)  }
             }*/
             for(item in recyclerViewAdapter.locations){
@@ -66,26 +66,19 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
             }
         }
 
-        vm.getLocation(placeToSearch, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+        if (placeToSearch != null) {
+            vm.getLocation(placeToSearch, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+        }
 
         vm.locationLivedata.observe(viewLifecycleOwner,{
             when (it) {
                 is Resource.Success -> {
+                    //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
                 }
                 is Resource.Error -> {
-                    view?.poiText?.visibility = View.INVISIBLE
-                    view?.descriptionText?.visibility = View.INVISIBLE
-                    view?.scheduleTripButton?.visibility = View.INVISIBLE
-                    view?.backArrowButton?.visibility = View.VISIBLE
-                    view?.tripNotFoundCard?.visibility = View.VISIBLE
-                    backArrowButton.setOnClickListener{
-                        if (view != null) {
-                            Navigation.findNavController(view).navigate(R.id.navigateFromPOIScreenToSearch)
-                        }
-                    }
+                    errorDisplay()
                 }
                 is Resource.Loading -> {
-                    Toast.makeText(context, "loading", Toast.LENGTH_LONG).show()
                 }
             }
         })
@@ -93,26 +86,45 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         vm.suggestionLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    view?.backArrowButton?.visibility = View.INVISIBLE
-                    view?.tripNotFoundCard?.visibility = View.INVISIBLE
                     val locations = mutableListOf<LocationPOIScreen>()
-                    it.data?.features?.forEach { it2 -> locations.add(LocationPOIScreen(it2.properties.name, it2.properties.kinds)) }
-                    recyclerViewAdapter.setLocationMutableList(locations)
+                    it.data?.features?.forEach { it2 -> locations.add(LocationPOIScreen(it2.properties.name, it2.properties.kinds, false, it2.properties.xid)) }
+                    recyclerViewAdapter = RecyclerViewAdapter(locations, requireContext())
                     recycleView?.adapter = recyclerViewAdapter
                     recycleView?.layoutManager = LinearLayoutManager(context)
-                    println("Succees")
+                    if(locations.size == 0){
+                        errorDisplay()
+                    }
+                    else
+                    {
+                        okayDisplay()
+                    }
                 }
                 is Resource.Error -> {
+                    errorDisplay()
                 }
                 is Resource.Loading -> {
-                    Toast.makeText(context, "loading", Toast.LENGTH_LONG).show()
-                    println("Loading")
 
                 }
             }
         })
 
         return view
+    }
+
+    fun errorDisplay(){
+        view?.poiText?.visibility = View.INVISIBLE
+        view?.descriptionText?.visibility = View.INVISIBLE
+        view?.scheduleTripButton?.visibility = View.INVISIBLE
+        view?.backArrowButton?.visibility = View.VISIBLE
+        view?.tripNotFoundCard?.visibility = View.VISIBLE
+    }
+
+    fun okayDisplay(){
+        view?.poiText?.visibility = View.VISIBLE
+        view?.descriptionText?.visibility = View.VISIBLE
+        view?.scheduleTripButton?.visibility = View.VISIBLE
+        view?.backArrowButton?.visibility = View.INVISIBLE
+        view?.tripNotFoundCard?.visibility = View.INVISIBLE
     }
 
     override fun onAttach(context: Context) {
