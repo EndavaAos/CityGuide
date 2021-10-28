@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/round_corners_background"
-    android:orientation="vertical"
-    android:padding="@dimen/card_padding_medium">
+    android:layout_height="wrap_content" >
 
-    <ImageView
-        android:layout_width="@dimen/image_size_large"
-        android:layout_height="@dimen/image_size_large"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/no_active_trip_image_description"
-        android:src="@drawable/ic_active_trip"
-        app:tint="@color/white" />
-
-    <TextView
+    <com.example.cityguide.presentation.trips.TripsErrorView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/no_active_trips_title"
-        android:textColor="@color/primary_text_color"
-        android:textSize="@dimen/text_size_medium" />
+        app:trips_error_view_image="@drawable/ic_active_trip"
+        app:trips_error_view_title="@string/no_active_trips_title"
+        app:trips_error_view_description="@string/no_active_trips_description"
+        />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/no_active_trips_description"
-        android:textColor="@color/secondary_text_color"
-        android:textSize="@dimen/text_size_small" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</FrameLayout>
