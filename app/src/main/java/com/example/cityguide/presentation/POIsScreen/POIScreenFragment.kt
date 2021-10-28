@@ -46,23 +46,31 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
 
         val intent: Intent? = activity?.intent
+
         val placeToSearch = intent?.getStringExtra("place")
 
         view?.rootView?.locationNameText?.text = placeToSearch + " trip"
 
         val recycleView : RecyclerView? = view?.rootView?.rv
+        view?.rootView?.backArrowButton?.setOnClickListener {
+            activity?.finish()
+        }
 
         view?.rootView?.scheduleTripButton?.setOnClickListener {
+            var totalPoints: Int = 0
             var allUnChecked: Boolean = false
-            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                recyclerViewAdapter.locations.forEach { allUnChecked = it.isChecked.or(allUnChecked)  }
-            }*/
+
             for(item in recyclerViewAdapter.locations){
                 allUnChecked = item.isChecked.or(allUnChecked)
+                if(item.isChecked) {
+                    totalPoints += 1
+                }
             }
             if(allUnChecked == false){
                 val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment()
                 confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
+            } else {
+
             }
         }
 

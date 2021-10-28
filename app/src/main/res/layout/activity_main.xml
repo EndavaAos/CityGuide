@@ -24,6 +24,7 @@
             android:layout_gravity="center"
             android:layout_width="400dp"
             android:layout_height="400dp"
+            app:lottie_speed="2"
             app:lottie_rawRes="@raw/splash_screen_animation"
             app:lottie_autoPlay="true"
             />
