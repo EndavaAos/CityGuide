@@ -8,6 +8,7 @@ import android.view.animation.AlphaAnimation
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.cityguide.R
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.alert_dialog_view.view.*
@@ -20,6 +21,8 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
     lateinit var button: Button
 
+    val args: MakeTripFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,14 +30,22 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_make_trip, container, false)
 
-        button = view.findViewById(R.id.calendarButton)
+        button = view.findViewById(R.id.setTripButton)
 
-        view.calendarButton.setOnClickListener {
-            onButtonCick()
+
+        val expPoints = args.points
+        view.expected_points.text = expPoints.toString()
+
+        val titleExpect = args.title
+        view.titleTrip.text = titleExpect + " trip"
+
+
+        view.setTripButton.setOnClickListener {
+            onButtonClick()
             showDataRangePicker()
         }
 
-        view.calendarButton2.setOnClickListener {
+        view.finishScheduleButton.setOnClickListener {
             if (expect.text.equals("-")) {
                 val view = View.inflate(context, R.layout.alert_dialog_view, null)
                 val builder = AlertDialog.Builder(requireContext())
@@ -57,7 +68,11 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 view.dismiss.setOnClickListener {
                     dialog.dismiss()
                 }
-            }
+            } /*else {
+                    val date = expect.text.toString()
+                    val action = MakeTripFragmentDirections.navigateToAdrianFragment(date)
+                    Navigation.findNavController(view).navigate(action)
+            }*/
 
         }
         return view
@@ -82,7 +97,8 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
             val endDate = dateSelected.second
 
             if (startDate != null && endDate != null) {
-                calendarButton.text = "Edit Trip Period"
+                setTripButton.text = "Edit Trip Period"
+
 
                 requireView().expect.text =
                     "${convertLongToTime(startDate)} - ${convertLongToTime(endDate)}"
@@ -100,7 +116,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         return format.format(date)
     }
 
-    private fun onButtonCick() {
+    private fun onButtonClick() {
         val buttonClick = AlphaAnimation(1F, 0.8F)
         button.startAnimation(buttonClick)
     }

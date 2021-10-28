@@ -8,23 +8,24 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/titleTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/grade_cursive"
-        android:text="new york city trip"
+        android:text=""
         android:textAlignment="center"
         android:textColor="@color/secondary_text_color"
         android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.33"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/backArrowButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/backArrowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -51,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/backArrowButton" />
 
     <TextView
         android:id="@+id/description"
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/background_border"
-        android:backgroundTint="@color/background_end_color_midnight"
+        android:backgroundTint="@color/black_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.312"
@@ -120,7 +121,7 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/calendarButton"
+            android:id="@+id/setTripButton"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -128,7 +129,8 @@
             android:background="@drawable/rectangle_for_trip_button"
             android:fontFamily="@font/proxima_nova_regular"
             android:text="SET TRIP PERIOD"
-            android:textAlignment="center"
+            android:gravity="right|center_vertical"
+            android:paddingRight="60dp"
             android:textColor="@color/secondary_text_color"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -146,12 +148,11 @@
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/ic_calendar"
-            android:backgroundTint="@color/secondary_text_color"
             android:translationZ="90dp"
-            app:layout_constraintBottom_toBottomOf="@+id/calendarButton"
-            app:layout_constraintEnd_toEndOf="@+id/calendarButton"
-            app:layout_constraintHorizontal_bias="0.196"
-            app:layout_constraintStart_toStartOf="@+id/calendarButton"
+            app:layout_constraintBottom_toBottomOf="@+id/setTripButton"
+            app:layout_constraintEnd_toEndOf="@+id/setTripButton"
+            app:layout_constraintHorizontal_bias="0.253"
+            app:layout_constraintStart_toStartOf="@+id/setTripButton"
             app:layout_constraintTop_toBottomOf="@+id/expect"
             app:layout_constraintVertical_bias="0.461" />
 
@@ -164,7 +165,7 @@
         android:layout_margin="8dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/background_border"
-        android:backgroundTint="@color/background_end_color_midnight"
+        android:backgroundTint="@color/black_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,11 +174,14 @@
 
         <TextView
             android:id="@+id/expected_points"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="11dp"
             android:background="@drawable/circle_border"
             android:text="8"
+            android:fontFamily="@font/proxima_nova_alt_bold"
             android:textAlignment="center"
             android:textColor="@color/secondary_text_color"
             android:textSize="22sp"
@@ -229,7 +233,7 @@
         android:textAlignment="center"
         android:textColor="@color/primary_text_color"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarButton2"
+        app:layout_constraintBottom_toTopOf="@+id/finishScheduleButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -237,11 +241,11 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/calendarButton2"
+        android:id="@+id/finishScheduleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/ic_button_state"
         android:fontFamily="@font/proxima_nova_alt_light"
         android:text="Finish trip scheduling"
         android:textColor="@color/secondary_text_color"

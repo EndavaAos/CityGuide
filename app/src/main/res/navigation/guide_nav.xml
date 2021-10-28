@@ -11,5 +11,22 @@
         <argument
             android:name="place"
             app:argType="string" />
+        <action
+            android:id="@+id/navigateFromPOIScreenToMakeTripFragment"
+            app:destination="@id/makeTripFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeTripFragment"
+        android:name="com.example.cityguide.presentation.makeATrip.MakeTripFragment"
+        android:label="MakeTripFragment" >
+        <argument
+            android:name="points"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/navigateFromMakeTripFragmentToPOIScreenFragment"
+            app:destination="@id/POIScreenFragment" />
     </fragment>
 </navigation>
