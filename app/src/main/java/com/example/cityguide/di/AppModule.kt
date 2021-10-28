@@ -8,6 +8,9 @@ import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.repository.TripRepository
 import com.example.cityguide.data.repository.TripRepositoryImpl
+import com.example.cityguide.presentation.trips.ActiveTripsViewModel
+import com.example.cityguide.presentation.trips.CompletedTripsViewModel
+import com.example.cityguide.presentation.trips.UpcomingTripsViewModel
 import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.google.gson.Gson
 import dagger.Module
@@ -46,4 +49,19 @@ class AppModule(
     @Singleton
     @Provides
     fun providesGson(): Gson = Gson()
+
+    @Singleton
+    @Provides
+    fun providesActiveTripsViewModel(repo: TripRepository): ActiveTripsViewModel
+        = ActiveTripsViewModel(repo)
+
+    @Singleton
+    @Provides
+    fun providesUpcomingTripsViewModel(repo: TripRepository): UpcomingTripsViewModel
+        = UpcomingTripsViewModel(repo)
+
+    @Singleton
+    @Provides
+    fun providesCompletedTripsViewModel(repo: TripRepository): CompletedTripsViewModel
+        = CompletedTripsViewModel(repo)
 }
