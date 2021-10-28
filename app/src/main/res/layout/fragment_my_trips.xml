@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.trips.TripsPreviewList">
+    tools:context=".presentation.trips.MyTripsFragment">
 
     <TextView
         android:id="@+id/trips_preview_list_title"
@@ -20,26 +20,35 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trips_active"
-        android:name="com.example.cityguide.presentation.trips.TripsPreviewList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="trips_active"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/trips_preview_list_title" />
+        app:layout_constraintTop_toBottomOf="@+id/trips_preview_list_title"
+        android:name="com.example.cityguide.presentation.trips.TripsPreviewList"
+        tools:layout="@layout/trips_preview_list" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trips_upcoming"
-        android:name="com.example.cityguide.presentation.trips.TripsPreviewList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="trips_upcoming"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/trips_active" />
+        app:layout_constraintTop_toBottomOf="@+id/trips_active"
+        android:name="com.example.cityguide.presentation.trips.TripsPreviewList"
+        tools:layout="@layout/fragment_my_trips" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trips_completed"
-        android:name="com.example.cityguide.presentation.trips.TripsPreviewList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="trips_completed"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/trips_upcoming" />
+        app:layout_constraintTop_toBottomOf="@+id/trips_upcoming"
+        android:name="com.example.cityguide.presentation.trips.TripsPreviewList"
+        tools:layout="@layout/fragment_my_trips" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
