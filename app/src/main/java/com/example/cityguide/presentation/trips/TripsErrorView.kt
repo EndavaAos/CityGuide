@@ -21,9 +21,9 @@ class TripsErrorView(
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.TripsErrorView)
         image.setImageDrawable(attributes.getDrawable(R.styleable.TripsErrorView_trips_error_view_image))
+        image.contentDescription = attributes.getString(R.styleable.TripsErrorView_trips_error_view_image_description)
         title.text = attributes.getString(R.styleable.TripsErrorView_trips_error_view_title)
         description.text = attributes.getString(R.styleable.TripsErrorView_trips_error_view_description)
         attributes.recycle()
-        // TODO: also set image description here
     }
 }

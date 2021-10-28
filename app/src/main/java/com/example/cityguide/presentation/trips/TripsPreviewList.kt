@@ -1,6 +1,5 @@
 package com.example.cityguide.presentation.trips
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -9,9 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trip
 import com.example.cityguide.databinding.TripsPreviewListBinding
-import dagger.android.support.AndroidSupportInjection
 
-class TripsPreviewList : Fragment(R.layout.fragment_my_trips) {
+class TripsPreviewList : Fragment(R.layout.trips_preview_list) {
 
     private var _binding: TripsPreviewListBinding? = null
     private val binding get() = _binding!!
@@ -20,11 +18,6 @@ class TripsPreviewList : Fragment(R.layout.fragment_my_trips) {
 
     fun setObservable(observable: LiveData<List<Trip>>) {
         observableData = observable
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

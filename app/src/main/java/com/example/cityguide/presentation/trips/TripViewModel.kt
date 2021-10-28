@@ -6,6 +6,7 @@ import com.example.cityguide.data.db.entity.Trip
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 abstract class TripViewModel : ViewModel() {
 
@@ -15,13 +16,10 @@ abstract class TripViewModel : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    init {
-        getTrips()
-    }
-
-    private fun getTrips() {
+    fun getTrips() {
         compositeDisposable.add(
-            data.observeOn(AndroidSchedulers.mainThread())
+            data.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result -> trips.value = result }
         )
     }

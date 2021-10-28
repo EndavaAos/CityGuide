@@ -1,5 +1,7 @@
 package com.example.cityguide.presentation.trips
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.example.cityguide.R
@@ -19,4 +21,10 @@ class ActiveTripsFragment : GeneralTripFragment() {
 
     override val errorScreen: Fragment
         get() = Fragment(R.layout.no_active_trips)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getTrips()
+    }
 }

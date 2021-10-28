@@ -10,8 +10,10 @@
     <string name="no_active_trip_image_description">A hotel</string>
     <string name="no_active_trips_title">No active trips</string>
     <string name="no_active_trips_description">You could have been in Rome or Paris right now…</string>
+    <string name="no_upcoming_trip_image_description">A loaded car.</string>
     <string name="no_upcoming_trips_title">No upcoming trips</string>
     <string name="no_upcoming_trips_description">Why not plan a trip from the main screen?</string>
+    <string name="no_completed_trip_image_description">A passport and some credit cards.</string>
     <string name="no_completed_trips_title">No completed trips</string>
     <string name="no_completed_trips_description">You really do not feel the need for a holiday?</string>
     <string name="expandable_button">Expand or collapse the list.</string>

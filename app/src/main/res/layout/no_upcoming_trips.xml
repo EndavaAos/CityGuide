@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:trips_error_view_image="@drawable/ic_upcoming_trip"
+        app:trips_error_view_image_description="@string/no_upcoming_trip_image_description"
         app:trips_error_view_title="@string/no_upcoming_trips_title"
         app:trips_error_view_description="@string/no_upcoming_trips_description"
         />
