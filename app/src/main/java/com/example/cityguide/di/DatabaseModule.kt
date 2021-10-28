@@ -13,10 +13,23 @@ import javax.inject.Singleton
 @Module
 class DatabaseModule {
 
-    @ApplicationScope
-    @Provides
-    @Singleton
-    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
+//    @Provides
+//    @Singleton
+//    fun providesDatabase(context: Context) = Room.databaseBuilder(
+//        context,
+//        TripDatabase::class.java,
+//        "trip_database"
+//    ).fallbackToDestructiveMigration()
+//        .build()
+//
+//    @Provides
+//    @Singleton
+//    fun providesTripDao(db: TripDatabase) =  db.tripDao()
+//
+//    @ApplicationScope
+//    @Provides
+//    @Singleton
+//    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 }
 
 @Qualifier

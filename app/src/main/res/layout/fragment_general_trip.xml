@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/background_start_color_20_darker_midnight"
+    tools:context=".presentation.trips.TripsPreviewList">
+
+    <TextView
+        android:id="@+id/trips_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/list_title_margin_medium"
+        android:hint="@string/trips_preview_list_category_hint"
+        android:textColor="@color/primary_text_color"
+        android:textColorHint="@color/primary_text_color"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintBottom_toTopOf="@+id/trips_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/expandableButton"
+        android:layout_width="@dimen/ic_caret_size"
+        android:layout_height="@dimen/ic_caret_size"
+        android:layout_marginEnd="@dimen/list_expandable_icon_margin_medium"
+        android:background="@drawable/ic_caret_up"
+        android:contentDescription="@string/expandable_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/trips_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_items_padding_small"
+        android:tag="trips_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expandableButton"
+        tools:layout="@layout/trips_preview_list" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
