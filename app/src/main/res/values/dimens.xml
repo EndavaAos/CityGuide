@@ -5,8 +5,9 @@
     <dimen name="round_corners_background_padding">10dp</dimen>
     <dimen name="item_vertical_medium_padding">20dp</dimen>
     <dimen name="item_horizontal_medium_padding">15dp</dimen>
-    <dimen name="text_size_medium">24sp</dimen>
-    <dimen name="text_size_small">18sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
     <dimen name="drawable_padding_small">4dp</dimen>
     <dimen name="title_size_large">36sp</dimen>
     <dimen name="ic_caret_size">54dp</dimen>
@@ -24,6 +25,8 @@
     <dimen name="list_expandable_icon_margin_medium">16dp</dimen>
     <dimen name="item_margin_small">6dp</dimen>
     <dimen name="item_margin_medium">12dp</dimen>
-    <dimen name="image_size_large">150dp</dimen>
     <dimen name="card_padding_medium">16dp</dimen>
+    <dimen name="title_margin_medium">20dp</dimen>
+    <dimen name="error_image_width">100dp</dimen>
+    <dimen name="error_image_height">80dp</dimen>
 </resources>

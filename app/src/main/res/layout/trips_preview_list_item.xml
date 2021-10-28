@@ -14,11 +14,11 @@
         android:id="@+id/trip_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/proxima_nova_bold"
         android:hint="@string/trip_item_title_hint"
         android:textColor="@color/primary_text_color"
         android:textColorHint="@color/primary_text_color"
         android:textSize="@dimen/text_size_medium"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,6 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/drawable_padding_small"
+        android:fontFamily="@font/proxima_nova_alt_regular"
+        android:gravity="center"
         android:hint="@string/trip_item_period_hint"
         android:textColor="@color/primary_text_color"
         android:textColorHint="@color/primary_text_color"
