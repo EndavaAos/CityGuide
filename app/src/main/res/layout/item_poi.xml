@@ -6,13 +6,13 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_margin="5dp"
-        app:cardCornerRadius="25dp"
+        android:layout_margin="@dimen/poi_card_margin"
+        app:cardCornerRadius="@dimen/poi_card_corner_radius"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/poi_card_height"
         android:clickable="true"
         app:cardBackgroundColor="@color/cardview_background_state"
-        app:cardElevation="0dp">
+        app:cardElevation="@dimen/poi_card_elevation">
 
         <RelativeLayout
 
@@ -23,17 +23,17 @@
                 android:scaleType="centerCrop"
                 app:lottie_autoPlay="false"
                 app:lottie_rawRes="@raw/check_animation_midnight"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/poi_lottie_margin_left"
                 android:layout_centerVertical="true"
                 android:id="@+id/checkBox"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_width="@dimen/poi_lottie_dim"
+                android:layout_height="@dimen/poi_lottie_dim"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/poi_linear_layout_margin"
                 android:layout_toRightOf="@+id/checkBox"
                 android:orientation="vertical">
 
@@ -41,10 +41,9 @@
                     android:id="@+id/nameText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:text="Point of interest"
+                    android:layout_marginBottom="@dimen/poi_name_text_margin"
                     android:textColor="@color/primary_text_color"
-                    android:textSize="20dp"
+                    android:textSize="@dimen/poi_name_text_size"
                     android:textStyle="bold" />
 
                 <TextView
@@ -52,23 +51,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/tag_shape"
-                    android:paddingHorizontal="12dp"
+                    android:paddingHorizontal="@dimen/poi_category_text_padding_horizontal"
                     android:gravity="center"
-                    android:paddingVertical="2dp"
-                    android:text="Category"
+                    android:paddingVertical="@dimen/poi_category_text_padding_vertical"
                     android:textColor="@color/primary_text_color"
-                    android:textSize="12dp" />
+                    android:textSize="@dimen/poi_category_text_size" />
 
 
             </LinearLayout>
 
             <ImageView
                 android:src="@drawable/ic_baseline_navigate_next_24"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/poi_navigate_dim"
+                android:layout_height="@dimen/poi_navigate_dim"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="@dimen/poi_navigate_margin_right"/>
 
 
 

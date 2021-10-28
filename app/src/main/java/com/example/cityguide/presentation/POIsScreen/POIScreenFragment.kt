@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.Trip
 import com.example.cityguide.data.repository.LocationRepositoryImpl
+import com.example.cityguide.data.responses.Feature
 import com.example.cityguide.data.responses.Resource
+import com.example.cityguide.data.responses.SuggestionResponse
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.AndroidSupportInjection
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_location_search.view.*
 import kotlinx.android.synthetic.main.fragment_poi_screen.*
 import kotlinx.android.synthetic.main.fragment_poi_screen.view.*
 import kotlinx.android.synthetic.main.item_poi.view.*
+import java.util.*
 import javax.inject.Inject
 
 class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
@@ -34,6 +38,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     lateinit var locationRepositoryImpl: LocationRepositoryImpl
 
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
+
+    lateinit var data: SuggestionResponse
 
 
     override fun onCreateView(
@@ -52,17 +58,31 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
         val recycleView : RecyclerView? = view?.rootView?.rv
 
+        val listOfTrips: Trip = Trip(mutableListOf(),null,null)
+
+        view?.rootView?.backArrowButton?.setOnClickListener {
+            activity?.finish()
+        }
+
         view?.rootView?.scheduleTripButton?.setOnClickListener {
             var allUnChecked: Boolean = false
-            /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                recyclerViewAdapter.locations.forEach { allUnChecked = it.isChecked.or(allUnChecked)  }
-            }*/
+
+           recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
+
+                if(recyclerViewAdapter.locations[index].isChecked && recyclerViewAdapter.locations[index].name == data.features[index].properties.name){
+
+                    listOfTrips.listOfPoints.add(data.features[index])
+                }
+            }
             for(item in recyclerViewAdapter.locations){
                 allUnChecked = item.isChecked.or(allUnChecked)
             }
             if(allUnChecked == false){
                 val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment()
                 confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
+            }
+            else{
+                Toast.makeText(requireContext(), listOfTrips.listOfPoints.toString(), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -96,6 +116,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                     }
                     else
                     {
+                        data = it.data!!
                         okayDisplay()
                     }
                 }
