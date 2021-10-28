@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cityguide.R
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -32,6 +34,10 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
         button = view.findViewById(R.id.setTripButton)
 
+        val backButton = view.findViewById<ImageView>(R.id.backArrowButton)
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.navigateFromMakeTripFragmentToPOIScreenFragment)
+        }
 
         val expPoints = args.points
         view.expected_points.text = expPoints.toString()
