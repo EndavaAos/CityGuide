@@ -45,6 +45,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/layouts/my_trips',
+                    'src/main/res/layouts/my_trips/errors'
+            ]
+        }
+    }
 }
 
 dependencies {
