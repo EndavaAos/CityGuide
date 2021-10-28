@@ -2,9 +2,7 @@ package com.example.cityguide.data.db.dao
 
 import androidx.room.*
 import com.example.cityguide.data.db.entity.Trip
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TripDao {

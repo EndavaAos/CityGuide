@@ -7,7 +7,6 @@ import com.example.cityguide.R
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
 import dagger.android.AndroidInjection
-import java.security.AccessController.getContext
 import javax.inject.Inject
 
 class LocationSearchActivity : AppCompatActivity() {

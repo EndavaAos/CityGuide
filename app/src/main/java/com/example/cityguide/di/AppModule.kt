@@ -10,6 +10,9 @@ import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.repository.TripRepository
 import com.example.cityguide.data.repository.TripRepositoryImpl
+import com.example.cityguide.presentation.trips.ActiveTripsViewModel
+import com.example.cityguide.presentation.trips.CompletedTripsViewModel
+import com.example.cityguide.presentation.trips.UpcomingTripsViewModel
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -19,19 +22,6 @@ import javax.inject.Singleton
 class AppModule(
     private val context: Context
 ) {
-
-    @Provides
-    @Singleton
-    fun providesDatabase(context: Context) : TripDatabase = Room.databaseBuilder(
-        context,
-        TripDatabase::class.java,
-        "trip_database"
-    ).fallbackToDestructiveMigration()
-        .build()
-
-    @Provides
-    @Singleton
-    fun providesTripDao(db: TripDatabase) : TripDao =  db.tripDao()
 
     @Provides
     @Singleton
@@ -60,4 +50,19 @@ class AppModule(
     @Singleton
     @Provides
     fun providesGson(): Gson = Gson()
+
+    @Singleton
+    @Provides
+    fun providesActiveTripsViewModel(repo: TripRepository): ActiveTripsViewModel
+        = ActiveTripsViewModel(repo)
+
+    @Singleton
+    @Provides
+    fun providesUpcomingTripsViewModel(repo: TripRepository): UpcomingTripsViewModel
+        = UpcomingTripsViewModel(repo)
+
+    @Singleton
+    @Provides
+    fun providesCompletedTripsViewModel(repo: TripRepository): CompletedTripsViewModel
+        = CompletedTripsViewModel(repo)
 }

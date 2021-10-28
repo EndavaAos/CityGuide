@@ -1,9 +1,7 @@
 package com.example.cityguide.data.repository
 
-import android.util.Log
 import com.example.cityguide.data.db.TripDatabase
 import com.example.cityguide.data.db.entity.Trip
-import com.example.cityguide.data.responses.BitCoinRespone
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
