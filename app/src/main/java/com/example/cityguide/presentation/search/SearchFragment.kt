@@ -2,6 +2,7 @@ package com.example.cityguide.presentation.search
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.LightingColorFilter
 import android.os.Bundle
 import android.text.Editable
@@ -21,6 +22,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.cityguide.R
+import com.example.cityguide.StartScreenActivity
+import com.example.cityguide.presentation.POIsScreen.POIScreenActivity
 
 class SearchFragment: Fragment(R.layout.fragment_search) {
 
@@ -55,9 +58,10 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         val buttonClick = AlphaAnimation(1F, 0.8F)
         searchButton.startAnimation(buttonClick)
 
+        val intent = Intent(context, POIScreenActivity::class.java)
         val inputText = searchEditText.text // Text from EditText
-        val action = SearchFragmentDirections.navigateFromSearchToPOIScreen(inputText.toString())
-        Navigation.findNavController(requireView()).navigate(action)
+        intent.putExtra("place", inputText.toString())
+        startActivity(intent)
 
         searchEditText.clearFocus()
         searchEditText.text.clear()

@@ -9,7 +9,7 @@
         android:layout_margin="5dp"
         app:cardCornerRadius="25dp"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:clickable="true"
         app:cardBackgroundColor="@color/cardview_background_state"
         app:cardElevation="0dp">
@@ -41,7 +41,7 @@
                     android:id="@+id/nameText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:text="Point of interest"
                     android:textColor="@color/primary_text_color"
                     android:textSize="20dp"
@@ -52,11 +52,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/tag_shape"
-                    android:paddingHorizontal="15dp"
+                    android:paddingHorizontal="12dp"
+                    android:gravity="center"
                     android:paddingVertical="2dp"
                     android:text="Category"
                     android:textColor="@color/primary_text_color"
-                    android:textSize="15dp" />
+                    android:textSize="12dp" />
 
 
             </LinearLayout>

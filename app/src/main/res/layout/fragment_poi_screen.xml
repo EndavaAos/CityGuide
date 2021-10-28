@@ -8,6 +8,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:visibility="invisible"
         android:id="@+id/scheduleTripButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -45,7 +46,7 @@
             android:gravity="center"
             android:text="new york city trip"
             android:textColor="@color/white"
-            android:textSize="30dp"
+            android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,7 @@
                 app:tint="@color/primary_text_color" />
 
             <TextView
-                android:layout_width="match_parent"
+                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Destination not found"
                 android:textSize="18dp"
@@ -111,9 +112,11 @@
 
 
     <TextView
+        android:visibility="invisible"
         android:id="@+id/poiText"
         android:layout_below="@+id/constraintlayout"
         android:textSize="20dp"
+        android:fontFamily="@font/proxima_nova_alt_bold"
         android:text="Points of Interest"
         android:layout_marginLeft="10dp"
         android:textColor="@color/secondary_text_color"
@@ -121,8 +124,10 @@
         android:layout_height="wrap_content"/>
 
     <TextView
+        android:visibility="invisible"
         android:id="@+id/descriptionText"
         android:layout_below="@+id/poiText"
+        android:fontFamily="@font/proxima_nova_alt_light"
         android:textSize="13dp"
         android:text="Please check the attractions that you wish to visit on this journey"
         android:layout_marginLeft="10dp"
