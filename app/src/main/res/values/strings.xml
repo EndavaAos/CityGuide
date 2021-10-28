@@ -10,4 +10,8 @@
     <string name="search_button_text">plan trip</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_schedule_trip_text">SCHEDULE TRIP</string>
+    <string name="destination_not_found_text">Destination not found</string>
+    <string name="error_text_sugestion">Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again.</string>
+    <string name="description_poi_text">Please check the attractions that you wish to visit on this journey</string>
 </resources>

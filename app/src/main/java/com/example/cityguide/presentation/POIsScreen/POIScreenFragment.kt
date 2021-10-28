@@ -9,14 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.Trip
 import com.example.cityguide.data.repository.LocationRepositoryImpl
+import com.example.cityguide.data.responses.Feature
 import com.example.cityguide.data.responses.Resource
+import com.example.cityguide.data.responses.SuggestionResponse
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.AndroidSupportInjection
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_location_search.view.*
 import kotlinx.android.synthetic.main.fragment_poi_screen.*
 import kotlinx.android.synthetic.main.fragment_poi_screen.view.*
 import kotlinx.android.synthetic.main.item_poi.view.*
+import java.util.*
 import javax.inject.Inject
 
 class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
@@ -36,6 +39,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
 
+    lateinit var data: SuggestionResponse
 
 
     override fun onCreateView(
@@ -48,35 +52,37 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
 
         val intent: Intent? = activity?.intent
-
         val placeToSearch = intent?.getStringExtra("place")
 
         view?.rootView?.locationNameText?.text = placeToSearch + " trip"
 
         val recycleView : RecyclerView? = view?.rootView?.rv
+
+        val listOfTrips: Trip = Trip(mutableListOf(),null,null)
+
         view?.rootView?.backArrowButton?.setOnClickListener {
             activity?.finish()
         }
 
         view?.rootView?.scheduleTripButton?.setOnClickListener {
-            var totalPoints: Int = 0
             var allUnChecked: Boolean = false
 
-            for(item in recyclerViewAdapter.locations){
-                allUnChecked = item.isChecked.or(allUnChecked)
-                if(item.isChecked) {
-                    totalPoints += 1
+           recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
+
+                if(recyclerViewAdapter.locations[index].isChecked && recyclerViewAdapter.locations[index].name == data.features[index].properties.name){
+
+                    listOfTrips.listOfPoints.add(data.features[index])
                 }
             }
+            for(item in recyclerViewAdapter.locations){
+                allUnChecked = item.isChecked.or(allUnChecked)
+            }
             if(allUnChecked == false){
-                if(placeToSearch != null) {
-                    val confirmationDialog: ConfirmationDialogFragment =
-                        ConfirmationDialogFragment(placeToSearch)
-                    confirmationDialog.show(childFragmentManager, "Confirmation Dialog")
-                }
-            } else {
-                val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(totalPoints, placeToSearch.toString())
-                findNavController().navigate(action)
+                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment()
+                confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
+            }
+            else{
+                Toast.makeText(requireContext(), listOfTrips.listOfPoints.toString(), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -110,6 +116,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                     }
                     else
                     {
+                        data = it.data!!
                         okayDisplay()
                     }
                 }
