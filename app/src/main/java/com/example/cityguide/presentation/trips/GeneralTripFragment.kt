@@ -23,6 +23,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
     private val expandableButtonAnimationRotation = 180f
 
     private var isListExpanded = true
+    private lateinit var expandableButtonAnimation: AnimatorSet
 
     private var _binding: FragmentGeneralTripBinding? = null
     private val binding get() = _binding!!
@@ -77,18 +78,19 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
                 }
             }
 
+            setExpandableAnimation(expandableButton)
+
             expandableButton.setOnClickListener {
-                handleExpandCollapse(it, tripsList)
+                handleExpandCollapse(tripsList)
             }
         }
     }
 
-    private fun handleExpandCollapse(button: View, tripsList: FragmentContainerView) {
-        animateExpandableButton(button)
+    private fun handleExpandCollapse(tripsList: FragmentContainerView) {
         expandCollapse(tripsList)
     }
 
-    private fun animateExpandableButton(button: View) {
+    private fun setExpandableAnimation(button: View) {
         val rotate = ObjectAnimator
             .ofFloat(button, View.ROTATION, expandableButtonAnimationRotation)
             .setDuration(expandableButtonAnimationDuration)
@@ -96,12 +98,10 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
         rotate.interpolator = AccelerateDecelerateInterpolator()
         rotate.repeatMode = ObjectAnimator.REVERSE
 
-        val animation = AnimatorSet()
-        animation.playSequentially(
+        expandableButtonAnimation = AnimatorSet()
+        expandableButtonAnimation.playSequentially(
             rotate
         )
-
-        animation.start()
     }
 
     private fun expandCollapse(tripsList: FragmentContainerView) {
@@ -109,7 +109,15 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
 
         isListExpanded = !isListExpanded
 
-        tripsList.visibility = if (isListExpanded) View.VISIBLE else View.GONE
+        if (isListExpanded) {
+            tripsList.visibility = View.VISIBLE
+            if (android.os.Build.VERSION.SDK_INT >= 26)
+                expandableButtonAnimation.reverse()
+        }
+        else {
+            tripsList.visibility = View.GONE
+            expandableButtonAnimation.start()
+        }
     }
 
     private fun setListFragment(listFragment: Fragment) {
