@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
@@ -11,14 +12,10 @@ import com.example.cityguide.data.models.LocationPOIScreen
 import kotlinx.android.synthetic.main.item_poi.view.*
 
 class RecyclerViewAdapter(
+    val locations: MutableList<LocationPOIScreen>,
     private val context: Context
 ) : RecyclerView.Adapter<RecyclerViewAdapter.POIViewHolder>() {
 
-    lateinit var locations: MutableList<LocationPOIScreen>
-
-    fun setLocationMutableList(list: MutableList<LocationPOIScreen>){
-        locations = list
-    }
 
 
     class POIViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -51,6 +48,10 @@ class RecyclerViewAdapter(
             }
             currentCity.isChecked = !(currentCity.isChecked)
             holder.itemView.checkBox.playAnimation()
+        }
+
+        holder.itemView.cardView.setOnClickListener {
+            Toast.makeText(context, currentCity.xid.toString(), Toast.LENGTH_LONG).show()
         }
 
 

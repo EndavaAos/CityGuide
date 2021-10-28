@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CityGuide">
         <activity
+            android:name=".presentation.POIsScreen.POIScreenActivity"
+            android:exported="true" />
+        <activity
             android:name=".StartScreenActivity"
             android:exported="false" />
         <activity

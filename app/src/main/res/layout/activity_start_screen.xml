@@ -6,8 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".StartScreenActivity">
 
+    <FrameLayout
+        android:id="@+id/main_fragment_holder"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
+        app:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -15,16 +23,8 @@
         app:itemBackground="@drawable/gradient_background"
         app:itemIconTint="@drawable/navigation_selector"
         app:itemTextColor="@drawable/navigation_selector"
-        app:menu="@menu/navigation_bar"
-        app:labelVisibilityMode="selected"/>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/guide_nav" />
+        app:labelVisibilityMode="selected"
+        app:menu="@menu/navigation_bar" />
 
 
 </RelativeLayout>
