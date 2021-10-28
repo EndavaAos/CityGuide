@@ -1,11 +1,11 @@
 package com.example.cityguide.data.repository
 
 import com.example.cityguide.data.db.entity.Trip
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.core.Observable
 
 interface TripRepository {
 
-    fun getActiveTrips() : Flow<List<Trip>>
-    fun getUpcomingTrips() : Flow<List<Trip>>
-    fun getCompletedTrips() : Flow<List<Trip>>
+    fun getActiveTrips() : Observable<List<Trip>>
+    fun getUpcomingTrips() : Observable<List<Trip>>
+    fun getCompletedTrips() : Observable<List<Trip>>
 }
