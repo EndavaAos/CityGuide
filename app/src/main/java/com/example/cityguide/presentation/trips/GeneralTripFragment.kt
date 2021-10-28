@@ -22,21 +22,24 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
     private val expandableButtonAnimationDuration = 500L
     private val expandableButtonAnimationRotation = 180f
 
+    private var isListExpanded = true
+
     private var _binding: FragmentGeneralTripBinding? = null
     private val binding get() = _binding!!
 
     abstract val title: String
     abstract val observableData: LiveData<List<Trip>>
     abstract val errorScreen: Fragment
+
     private val listScreen = TripsPreviewList()
 
-    private var isListExpanded = true
-
     private fun initializeListFragment() {
-        parentFragmentManager.commit {
-            add(R.id.trips_active, errorScreen)
+        childFragmentManager.commit {
+            add(R.id.trips_list, errorScreen)
             setReorderingAllowed(true)
         }
+
+        listScreen.setObservable(observableData)
     }
 
     override fun onAttach(context: Context) {
@@ -110,8 +113,8 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
     }
 
     private fun setListFragment(listFragment: Fragment) {
-        parentFragmentManager.commit {
-            replace(R.id.trips_active, listFragment)
+        childFragmentManager.commit {
+            replace(R.id.trips_list, listFragment)
             setReorderingAllowed(true)
         }
     }

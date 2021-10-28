@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trip
 import com.example.cityguide.databinding.TripsPreviewListItemBinding
+import com.example.cityguide.util.Converters
 
 class TripPreviewAdapter
     : ListAdapter<Trip, TripPreviewAdapter.TripPreviewViewHolder>(TripPreviewComparator()) {
@@ -39,8 +40,8 @@ class TripPreviewAdapter
                     trip.dateStart?.also {
                         tripPeriod.text = itemView.context.getString(
                             R.string.trip_item_period_format,
-                            it,
-                            trip.dateEnd
+                            Converters.dateToString(it),
+                            Converters.dateToString(trip.dateEnd)
                         )
                     } ?: run {
                         tripPeriod.text = ""

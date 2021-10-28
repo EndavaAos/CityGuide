@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 
 object Converters {
 
-    private val dateFormatter = DateTimeFormatter.ofPattern("u-M-d")
+    private val dateFormatter = DateTimeFormatter.ofPattern("d.M.u")
 
     @TypeConverter
     fun dateFromTimestamp(value: Long?) : LocalDate? = value?.let { LocalDate.ofEpochDay(it) }
@@ -14,8 +14,9 @@ object Converters {
     @TypeConverter
     fun dateToTimestamp(date: LocalDate?) : Long? = date?.toEpochDay()
 
-    @TypeConverter
     fun dateFromString(value: String?) : LocalDate? = value?.let { LocalDate.parse(it, dateFormatter) }
+
+    fun dateToString(value: LocalDate?) : String? = value?.format(dateFormatter)
 
     fun monthConverter(month: Int) = month + 1
 }
