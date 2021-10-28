@@ -8,9 +8,11 @@ import javax.inject.Singleton
 
 @Component(
     modules = [
-        LocationSearchActivityModule::class,
         AndroidInjectionModule::class,
+        LocationSearchActivityModule::class,
         LocationSearchFragmentModule::class,
+        MainActivityModule::class,
+        MyTripsFragmentModule::class,
         AppModule::class,
         DatabaseModule::class,
         POIScreenFragmentModule::class,

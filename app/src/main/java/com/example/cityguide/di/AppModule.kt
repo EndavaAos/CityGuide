@@ -1,10 +1,13 @@
 package com.example.cityguide.di
 
 import android.content.Context
+import com.example.cityguide.data.db.TripDatabase
 import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.network.RemoteDataSource
 import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
+import com.example.cityguide.data.repository.TripRepository
+import com.example.cityguide.data.repository.TripRepositoryImpl
 import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.google.gson.Gson
 import dagger.Module
@@ -19,7 +22,7 @@ class AppModule(
     @Provides
     @Singleton
     fun provideContext(): Context {
-        return context;
+        return context
     }
 
     @Singleton
@@ -34,6 +37,11 @@ class AppModule(
     fun providesLocationRepository(locationApi: LocationApi): LocationRepository {
         return LocationRepositoryImpl(locationApi)
     }
+
+    @Singleton
+    @Provides
+    fun providesTripRepository(tripDatabase: TripDatabase): TripRepository
+        = TripRepositoryImpl(tripDatabase)
 
     @Singleton
     @Provides
