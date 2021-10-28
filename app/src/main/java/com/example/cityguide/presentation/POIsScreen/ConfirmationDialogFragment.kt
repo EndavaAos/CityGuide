@@ -11,9 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.cityguide.R
+import kotlinx.android.synthetic.main.fragment_make_trip.*
 
-class ConfirmationDialogFragment : DialogFragment() {
+class ConfirmationDialogFragment( val place: String ) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +27,6 @@ class ConfirmationDialogFragment : DialogFragment() {
         dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -38,13 +40,16 @@ class ConfirmationDialogFragment : DialogFragment() {
         val dismissButon: Button = view.findViewById(R.id.dismissButton)
 
         yesButton.setOnClickListener {
+            val totalPoints = 0
+            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(totalPoints, place)
+            findNavController().navigate(action)
+
             dismiss()
         }
 
         dismissButon.setOnClickListener {
             dismiss()
         }
-
 
         return builder.create()
     }

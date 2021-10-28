@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     lateinit var locationRepositoryImpl: LocationRepositoryImpl
 
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
+
 
 
     override fun onCreateView(
@@ -67,10 +69,14 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                 }
             }
             if(allUnChecked == false){
-                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment()
-                confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
+                if(placeToSearch != null) {
+                    val confirmationDialog: ConfirmationDialogFragment =
+                        ConfirmationDialogFragment(placeToSearch)
+                    confirmationDialog.show(childFragmentManager, "Confirmation Dialog")
+                }
             } else {
-
+                val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(totalPoints, placeToSearch.toString())
+                findNavController().navigate(action)
             }
         }
 
