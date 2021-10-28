@@ -26,20 +26,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:tag="trips_active"
-        tools:layout="@layout/trips_preview_list" />
+        tools:layout="@layout/fragment_general_trip" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trips_upcoming"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:tag="trips_upcoming"
-        tools:layout="@layout/trips_preview_list" />
+        tools:layout="@layout/fragment_general_trip" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/trips_completed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:tag="trips_completed"
-        tools:layout="@layout/trips_preview_list" />
+        tools:layout="@layout/fragment_general_trip" />
 
 </LinearLayout>

@@ -40,9 +40,26 @@ class MyTripsFragment : Fragment(R.layout.fragment_my_trips) {
             val upcomingTripsErrorFragment = Fragment(R.layout.no_upcoming_trips)
             val completedTripsErrorFragment = Fragment(R.layout.no_completed_trips)
 
-            val activeTripsFragment = TripsPreviewList(viewModel.activeTrips, activeTripsErrorFragment)
-            val upcomingTripsFragment = TripsPreviewList(viewModel.upcomingTrips, upcomingTripsErrorFragment)
-            val completedTripsFragment = TripsPreviewList(viewModel.completedTrips, completedTripsErrorFragment)
+            val activeTripsFragment = GeneralTripFragment()
+            activeTripsFragment.setupFragment(
+                "Active trips",
+                viewModel.activeTrips,
+                activeTripsErrorFragment
+            )
+
+            val upcomingTripsFragment = GeneralTripFragment()
+            activeTripsFragment.setupFragment(
+                "Upcoming trips",
+                viewModel.upcomingTrips,
+                upcomingTripsErrorFragment
+            )
+
+            val completedTripsFragment = GeneralTripFragment()
+            activeTripsFragment.setupFragment(
+                "Completed trips",
+                viewModel.completedTrips,
+                completedTripsErrorFragment
+            )
 
             add(R.id.trips_active, activeTripsFragment)
             add(R.id.trips_upcoming, upcomingTripsFragment)
