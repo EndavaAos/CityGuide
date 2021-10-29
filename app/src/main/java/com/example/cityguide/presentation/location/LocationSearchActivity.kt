@@ -7,6 +7,7 @@ import com.example.cityguide.R
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
 import dagger.android.AndroidInjection
+import java.security.AccessController.getContext
 import javax.inject.Inject
 
 class LocationSearchActivity : AppCompatActivity() {
@@ -22,5 +23,19 @@ class LocationSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.location_search_activity)
 
+        vm.tradesLiveData.observe(this, {
+            when (it) {
+                is Resource.Success -> {
+                    Toast.makeText(this, "success: ${it.data}", Toast.LENGTH_LONG).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this, "error: ${it.message}", Toast.LENGTH_LONG).show()
+                }
+                is Resource.Loading -> {
+                    Toast.makeText(this, "loading", Toast.LENGTH_LONG).show()
+
+                }
+            }
+        })
     }
 }

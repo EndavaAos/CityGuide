@@ -11,7 +11,7 @@ import javax.inject.Inject
 class RemoteDataSource @Inject constructor(val gson: Gson) {
 
     companion object {
-        private const val BASE_URL = "https://api.opentripmap.com/0.1/en/places/"
+        private const val BASE_URL = "https://exchange.bitcoin/api/" // TODO change
     }
 
     fun <Api> buildApi(

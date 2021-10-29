@@ -1,4 +1,4 @@
-package com.example.cityguide.di.fragmentActivityModules
+package com.example.cityguide.di
 
 import com.example.cityguide.presentation.location.LocationSearchActivity
 import dagger.Module
