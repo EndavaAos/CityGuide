@@ -103,7 +103,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/destNotFoundText"
                         android:textColor="@color/primary_text_color"
-                        android:lines="3"
                         android:textSize="@dimen/text_error_size2"
                         android:layout_marginBottom="@dimen/text_error_margin_bottom2"
                         android:gravity="center"
