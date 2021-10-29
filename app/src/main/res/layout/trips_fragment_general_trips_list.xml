@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/background_start_color_20_darker_midnight"
     tools:context=".presentation.trips.TripsPreviewList">
 
     <androidx.recyclerview.widget.RecyclerView
