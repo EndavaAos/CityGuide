@@ -59,7 +59,7 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         searchButton.startAnimation(buttonClick)
 
         val intent = Intent(context, POIScreenActivity::class.java)
-        val inputText = searchEditText.text // Text from EditText
+        val inputText = searchEditText.text
         intent.putExtra("place", inputText.toString())
         startActivity(intent)
 
