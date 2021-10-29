@@ -6,7 +6,6 @@ import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.network.RemoteDataSource
 import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
-import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.example.cityguide.data.repository.TripRepository
 import com.example.cityguide.data.repository.TripRepositoryImpl
 import com.example.cityguide.presentation.trips.ActiveTripsViewModel
