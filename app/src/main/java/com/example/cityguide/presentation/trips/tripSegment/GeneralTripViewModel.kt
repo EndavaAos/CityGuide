@@ -1,4 +1,4 @@
-package com.example.cityguide.presentation.trips
+package com.example.cityguide.presentation.trips.tripSegment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-abstract class TripViewModel : ViewModel() {
+abstract class GeneralTripViewModel : ViewModel() {
 
     abstract val data: Observable<List<Trip>>
 

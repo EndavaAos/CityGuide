@@ -1,4 +1,4 @@
-package com.example.cityguide.presentation.trips
+package com.example.cityguide.presentation.trips.tripSegment
 
 import com.example.cityguide.data.db.entity.Trip
 import com.example.cityguide.data.repository.TripRepository
@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CompletedTripsViewModel @Inject constructor(
     private val repository: TripRepository
-) : TripViewModel() {
+) : GeneralTripViewModel() {
 
     override val data: Observable<List<Trip>>
         get() = repository.getCompletedTrips()

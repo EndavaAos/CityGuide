@@ -1,4 +1,4 @@
-package com.example.cityguide.presentation.trips
+package com.example.cityguide.presentation.trips.tripSegment
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -14,10 +14,13 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.LiveData
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trip
-import com.example.cityguide.databinding.FragmentGeneralTripBinding
+import com.example.cityguide.databinding.TripsFragmentGeneralTripBinding
+import com.example.cityguide.databinding.TripsFragmentGeneralTripsListBinding
+import com.example.cityguide.presentation.trips.TripsPreviewList
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.trips_fragment_general_trip.*
 
-abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
+abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_trip) {
 
     private val expandableButtonAnimationDuration = 500L
     private val expandableButtonAnimationRotation = 180f
@@ -25,7 +28,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
     private var isListExpanded = true
     private lateinit var expandableButtonAnimation: AnimatorSet
 
-    private var _binding: FragmentGeneralTripBinding? = null
+    private var _binding: TripsFragmentGeneralTripBinding? = null
     private val binding get() = _binding!!
 
     abstract val title: String
@@ -65,7 +68,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.fragment_general_trip) {
     }
 
     private fun initializeBinding(view: View) {
-        _binding = FragmentGeneralTripBinding.bind(view)
+        _binding = TripsFragmentGeneralTripBinding.bind(view)
 
         binding.apply {
             tripsCategory.text = title

@@ -1,6 +1,7 @@
 package com.example.cityguide.di
 
 import com.example.cityguide.CityGuideApp
+import com.example.cityguide.di.fragmentActivityModules.*
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
