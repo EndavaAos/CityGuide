@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cityguide.R
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -15,11 +17,15 @@ import kotlinx.android.synthetic.main.alert_dialog_view.view.*
 import kotlinx.android.synthetic.main.fragment_make_trip.*
 import kotlinx.android.synthetic.main.fragment_make_trip.view.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
     lateinit var button: Button
+    lateinit var startDate: LocalDate
+    lateinit var endDate: LocalDate
+
 
     val args: MakeTripFragmentArgs by navArgs()
 
@@ -32,12 +38,19 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
         button = view.findViewById(R.id.setTripButton)
 
+        val backButton = view.findViewById<ImageView>(R.id.backArrowButton)
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.navigateFromMakeTripFragmentToPOIScreenFragment)
+        }
 
         val expPoints = args.points
         view.expected_points.text = expPoints.toString()
 
         val titleExpect = args.title
         view.titleTrip.text = titleExpect + " trip"
+
+        val totalTrip = args.trip
+
 
 
         view.setTripButton.setOnClickListener {
@@ -68,7 +81,12 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 view.dismiss.setOnClickListener {
                     dialog.dismiss()
                 }
-            } /*else {
+            }  else {
+                totalTrip?.dateStart = startDate
+                totalTrip?.dateEnd = endDate
+            }
+
+        /*else {
                     val date = expect.text.toString()
                     val action = MakeTripFragmentDirections.navigateToAdrianFragment(date)
                     Navigation.findNavController(view).navigate(action)

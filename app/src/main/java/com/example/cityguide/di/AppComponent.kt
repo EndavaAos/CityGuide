@@ -12,8 +12,10 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         LocationSearchFragmentModule::class,
         POIScreenFragmentModule::class,
+        MakeTripFragmentModule::class,
         AppModule::class,
         PoiDetailsFragmentModule::class]
+
 )
 @Singleton
 interface AppComponent {
