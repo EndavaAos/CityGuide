@@ -36,12 +36,6 @@ class AppModule(
 
     @Singleton
     @Provides
-    fun providesRecyclerViewAdapter(context: Context): RecyclerViewAdapter {
-        return RecyclerViewAdapter(context)
-    }
-
-    @Singleton
-    @Provides
     fun providesLocationRepository(locationApi: LocationApi): LocationRepository {
         return LocationRepositoryImpl(locationApi)
     }
