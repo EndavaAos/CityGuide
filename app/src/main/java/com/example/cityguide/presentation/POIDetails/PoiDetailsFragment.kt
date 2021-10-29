@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
@@ -22,6 +23,7 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isInvisible
 import com.google.android.material.appbar.AppBarLayout
 
 
@@ -48,6 +50,8 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         val image = view?.findViewById<ImageView>(R.id.poi_image)
         val chipGrp = view?.findViewById<ChipGroup>(R.id.chipGroup)
         val nested = view?.findViewById<NestedScrollView>(R.id.nestedScrollView)
+        val descrLayout = view?.findViewById<LinearLayout>(R.id.descriptionLinearLayout)
+        val descriptionTxt = view?.findViewById<TextView>(R.id.descriptionTxt)
 
 
         val params = nested?.layoutParams as CoordinatorLayout.LayoutParams
@@ -95,7 +99,12 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
 
                     address?.text = finalAddress
 
-                    description?.text = it.data?.wikipedia_extracts?.text
+                    if (it.data?.wikipedia_extracts?.text == null) {
+                        descriptionTxt?.visibility = View.INVISIBLE
+                        descrLayout?.visibility = View.INVISIBLE
+                    } else {
+                        description?.text = it.data.wikipedia_extracts.text
+                    }
 
 
                     val kindsString = it.data?.kinds

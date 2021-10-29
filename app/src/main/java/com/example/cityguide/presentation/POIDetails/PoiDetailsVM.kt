@@ -27,5 +27,4 @@ class PoiDetailsVM @Inject constructor(private val repository: LocationRepositor
         )
     }
 
-
 }
