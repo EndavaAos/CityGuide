@@ -35,7 +35,7 @@ class StartScreenActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         fragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_holder, searchFragment)
+            .replace(R.id.main_fragment_container, searchFragment)
             .commit()
     }
 
@@ -43,7 +43,7 @@ class StartScreenActivity : AppCompatActivity() {
         when(menu.itemId) {
             R.id.nav_home -> {
                 fragmentManager.beginTransaction()
-                    .replace(R.id.main_fragment_holder, searchFragment)
+                    .replace(R.id.main_fragment_container, searchFragment)
                     .commit()
                 return true
             }
