@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,24 +7,28 @@
     android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
+
+
     <TextView
+        android:id="@+id/titleTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/grade_cursive"
         android:text="new york city trip"
         android:textAlignment="center"
         android:textColor="@color/secondary_text_color"
-        android:textSize="28sp"
+        android:textSize="@dimen/title_text_size"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.33"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/backArrowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -47,11 +51,11 @@
         android:fontFamily="@font/proxima_nova_bold"
         android:text="We're almost there.."
         android:textColor="@color/secondary_text_color"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_maketrip_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/backArrowButton" />
 
     <TextView
         android:id="@+id/description"
@@ -61,7 +65,7 @@
         android:fontFamily="@font/proxima_nova_regular"
         android:text="Please review your trip information."
         android:textColor="@color/primary_text_color"
-        android:textSize="16sp"
+        android:textSize="@dimen/description_maketrip_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -72,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/background_border"
-        android:backgroundTint="@color/background_end_color_midnight"
+        android:backgroundTint="@color/black_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.312"
@@ -97,10 +101,10 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Time Period"
+            android:text="Time period"
             android:textAlignment="center"
             android:textColor="@color/primary_text_color"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_maketrip_title_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image1"
             app:layout_constraintVertical_bias="0.0"
@@ -113,6 +117,7 @@
             android:text="-"
             android:textAlignment="center"
             android:textColor="@color/secondary_text_color"
+            android:fontFamily="@font/proxima_nova_alt_bold"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -120,17 +125,18 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/calendarButton"
+            android:id="@+id/setTripButton"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="right|center"
+            android:paddingEnd="67dp"
             android:background="@drawable/rectangle_for_trip_button"
             android:fontFamily="@font/proxima_nova_regular"
             android:text="SET TRIP PERIOD"
-            android:textAlignment="center"
             android:textColor="@color/secondary_text_color"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_maketrip_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -140,18 +146,17 @@
 
         </androidx.appcompat.widget.AppCompatButton>
 
-        <ImageView
-            android:id="@+id/imageCalendar"
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/ic_calendar"
             android:backgroundTint="@color/secondary_text_color"
             android:translationZ="90dp"
-            app:layout_constraintBottom_toBottomOf="@+id/calendarButton"
-            app:layout_constraintEnd_toEndOf="@+id/calendarButton"
-            app:layout_constraintHorizontal_bias="0.196"
-            app:layout_constraintStart_toStartOf="@+id/calendarButton"
+            app:layout_constraintBottom_toBottomOf="@+id/setTripButton"
+            app:layout_constraintEnd_toEndOf="@+id/setTripButton"
+            app:layout_constraintHorizontal_bias="0.261"
+            app:layout_constraintStart_toStartOf="@+id/setTripButton"
             app:layout_constraintTop_toBottomOf="@+id/expect"
             app:layout_constraintVertical_bias="0.461" />
 
@@ -164,7 +169,7 @@
         android:layout_margin="8dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/background_border"
-        android:backgroundTint="@color/background_end_color_midnight"
+        android:backgroundTint="@color/black_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,26 +178,29 @@
 
         <TextView
             android:id="@+id/expected_points"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
             android:background="@drawable/circle_border"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
             android:text="8"
             android:textAlignment="center"
             android:textColor="@color/secondary_text_color"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_noPoints_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintHorizontal_bias="0.086"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.741" />
+            app:layout_constraintVertical_bias="0.753" />
 
         <ImageView
             android:id="@+id/image2"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_margin="10dp"
+            android:layout_height="100dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="13dp"
             android:src="@drawable/ic_points_of_interest"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -206,11 +214,11 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="18dp"
             android:text="Points of interest"
             android:textAlignment="center"
             android:textColor="@color/primary_text_color"
-            android:textSize="24sp"
+            android:textSize="@dimen/text_maketrip_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.422"
@@ -228,27 +236,30 @@
         android:text="We wish you a very happy and safe vacation!"
         android:textAlignment="center"
         android:textColor="@color/primary_text_color"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarButton2"
+        android:textSize="@dimen/text_maketrip_wish_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/calendarButton2"
+        android:id="@+id/finishScheduleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/gradient_button"
         android:fontFamily="@font/proxima_nova_alt_light"
         android:text="Finish trip scheduling"
         android:textColor="@color/secondary_text_color"
-        android:textSize="15sp"
+        android:textSize="@dimen/text_maketrip_button"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message1"
+        app:layout_constraintVertical_bias="0.777" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

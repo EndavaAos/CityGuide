@@ -9,7 +9,7 @@ import java.time.LocalDate
 data class Trip (
 
     var listOfPoints: MutableList<Feature>,
-    val dateStart: LocalDate?,
-    val dateEnd: LocalDate?
+    var dateStart: LocalDate?,
+    var dateEnd: LocalDate?
 
 ): Parcelable

@@ -5,6 +5,7 @@ import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.responses.BitCoinRespone
 import com.example.cityguide.data.responses.LocationResponseItem
 import com.example.cityguide.data.responses.SuggestionResponse
+import com.example.cityguide.presentation.POIDetails.models.Poi
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -25,4 +26,10 @@ class LocationRepositoryImpl @Inject constructor(
     ): Observable<SuggestionResponse> {
         return locationApi.getSuggestion(name, radius, longitude, latitude, apiKey)
     }
+
+    override fun getPoiDetails(xid: String, apiKey: String): Observable<Poi> {
+        return locationApi.getPoiDetails(xid, apiKey)
+    }
+
+
 }

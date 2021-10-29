@@ -3,6 +3,7 @@ package com.example.cityguide
 import android.app.Application
 import com.example.cityguide.di.AppModule
 import com.example.cityguide.di.DaggerAppComponent
+import com.example.cityguide.di.DatabaseModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -17,6 +18,7 @@ class CityGuideApp : Application(), HasAndroidInjector {
         super.onCreate()
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
+            .databaseModule(DatabaseModule())
             .build()
             .inject(this)
     }

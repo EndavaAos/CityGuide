@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/guide_nav"
     app:startDestination="@id/POIScreenFragment">
 
@@ -10,6 +11,42 @@
         android:label="POIScreenFragment" >
         <argument
             android:name="place"
+            app:argType="string" />
+        <action
+            android:id="@+id/navigateFromPOIScreenToMakeTripFragment"
+            app:destination="@id/makeTripFragment" />
+        <action
+            android:id="@+id/navigateFromPoiScreenFragmentToPoiDetailsFragment"
+            app:destination="@id/poiDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeTripFragment"
+        android:name="com.example.cityguide.presentation.makeATrip.MakeTripFragment"
+        android:label="MakeTripFragment" >
+        <argument
+            android:name="points"
+            app:argType="integer" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/navigateFromMakeTripFragmentToPOIScreenFragment"
+            app:destination="@id/POIScreenFragment" />
+        <argument
+            android:name="trip"
+            app:argType="com.example.cityguide.data.models.Trip"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/poiDetailsFragment"
+        android:name="com.example.cityguide.presentation.POIDetails.PoiDetailsFragment"
+        android:label="fragment_poi_details"
+        tools:layout="@layout/fragment_poi_details" >
+        <action
+            android:id="@+id/action_poiDetailsFragment_to_POIScreenFragment"
+            app:destination="@id/POIScreenFragment" />
+        <argument
+            android:name="xid"
             app:argType="string" />
     </fragment>
 </navigation>

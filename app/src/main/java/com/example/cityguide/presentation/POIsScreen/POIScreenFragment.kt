@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -78,11 +79,12 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                 allUnChecked = item.isChecked.or(allUnChecked)
             }
             if(allUnChecked == false){
-                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment()
+                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment(placeToSearch!!)
                 confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
             }
             else{
-                Toast.makeText(requireContext(), listOfTrips.listOfPoints.toString(), Toast.LENGTH_LONG).show()
+                val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(listOfTrips.listOfPoints.size, placeToSearch!!, trip = listOfTrips)
+                findNavController().navigate(action)
             }
         }
 

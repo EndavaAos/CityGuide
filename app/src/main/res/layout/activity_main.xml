@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    tools:context=".MainActivity">
 
     <soup.neumorphism.NeumorphCardView
-        android:layout_width="@dimen/card_view_size"
-        android:layout_height="@dimen/card_view_size"
+        android:layout_width="@dimen/start_logo_size"
+        android:layout_height="@dimen/start_logo_size"
         app:neumorph_shapeAppearance="@style/RoundShapeLogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,19 +17,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:circularflow_defaultAngle="15"
         app:neumorph_shadowColorLight="@color/background_start_color_midnight"
-        app:neumorph_shadowColorDark="@color/dark_shadow_midnight">
+        app:neumorph_shadowColorDark="@color/dark_shadow_midnight" >
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/splashScreenAnimation"
             android:layout_gravity="center"
             android:layout_width="400dp"
             android:layout_height="400dp"
+            app:lottie_speed="2"
             app:lottie_rawRes="@raw/splash_screen_animation"
-            app:lottie_autoPlay="true"
-            />
-
+            app:lottie_autoPlay="true" />
 
     </soup.neumorphism.NeumorphCardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

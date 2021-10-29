@@ -6,19 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.cityguide.R
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.alert_dialog_view.view.*
 import kotlinx.android.synthetic.main.fragment_make_trip.*
 import kotlinx.android.synthetic.main.fragment_make_trip.view.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
     lateinit var button: Button
+    lateinit var startDate: LocalDate
+    lateinit var endDate: LocalDate
+
+
+    val args: MakeTripFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,14 +36,29 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_make_trip, container, false)
 
-        button = view.findViewById(R.id.calendarButton)
+        button = view.findViewById(R.id.setTripButton)
 
-        view.calendarButton.setOnClickListener {
-            onButtonCick()
+        val backButton = view.findViewById<ImageView>(R.id.backArrowButton)
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.navigateFromMakeTripFragmentToPOIScreenFragment)
+        }
+
+        val expPoints = args.points
+        view.expected_points.text = expPoints.toString()
+
+        val titleExpect = args.title
+        view.titleTrip.text = titleExpect + " trip"
+
+        val totalTrip = args.trip
+
+
+
+        view.setTripButton.setOnClickListener {
+            onButtonClick()
             showDataRangePicker()
         }
 
-        view.calendarButton2.setOnClickListener {
+        view.finishScheduleButton.setOnClickListener {
             if (expect.text.equals("-")) {
                 val view = View.inflate(context, R.layout.alert_dialog_view, null)
                 val builder = AlertDialog.Builder(requireContext())
@@ -57,7 +81,16 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 view.dismiss.setOnClickListener {
                     dialog.dismiss()
                 }
+            }  else {
+                totalTrip?.dateStart = startDate
+                totalTrip?.dateEnd = endDate
             }
+
+        /*else {
+                    val date = expect.text.toString()
+                    val action = MakeTripFragmentDirections.navigateToAdrianFragment(date)
+                    Navigation.findNavController(view).navigate(action)
+            }*/
 
         }
         return view
@@ -82,7 +115,8 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
             val endDate = dateSelected.second
 
             if (startDate != null && endDate != null) {
-                calendarButton.text = "Edit Trip Period"
+                setTripButton.text = "Edit Trip Period"
+
 
                 requireView().expect.text =
                     "${convertLongToTime(startDate)} - ${convertLongToTime(endDate)}"
@@ -100,7 +134,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         return format.format(date)
     }
 
-    private fun onButtonCick() {
+    private fun onButtonClick() {
         val buttonClick = AlphaAnimation(1F, 0.8F)
         button.startAnimation(buttonClick)
     }

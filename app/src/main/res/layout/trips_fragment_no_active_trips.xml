@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <com.example.cityguide.presentation.trips.TripsErrorView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:trips_error_view_image="@drawable/ic_active_trip"
+        app:trips_error_view_image_description="@string/no_active_trip_image_description"
+        app:trips_error_view_title="@string/no_active_trips_title"
+        app:trips_error_view_description="@string/no_active_trips_description"
+        />
+
+</FrameLayout>
