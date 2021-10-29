@@ -8,9 +8,9 @@ import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.repository.TripRepository
 import com.example.cityguide.data.repository.TripRepositoryImpl
-import com.example.cityguide.presentation.trips.ActiveTripsViewModel
-import com.example.cityguide.presentation.trips.CompletedTripsViewModel
-import com.example.cityguide.presentation.trips.UpcomingTripsViewModel
+import com.example.cityguide.presentation.trips.tripSegment.ActiveTripsViewModel
+import com.example.cityguide.presentation.trips.tripSegment.CompletedTripsViewModel
+import com.example.cityguide.presentation.trips.tripSegment.UpcomingTripsViewModel
 import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.google.gson.Gson
 import dagger.Module

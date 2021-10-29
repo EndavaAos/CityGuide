@@ -19,7 +19,6 @@
     <dimen name="item_margin_medium">12dp</dimen>
     <dimen name="image_size_large">150dp</dimen>
     <dimen name="card_padding_medium">16dp</dimen>
-    <dimen name="start_logo_size">250dp</dimen>
     <dimen name="title_margin_medium">20dp</dimen>
     <dimen name="error_image_width">100dp</dimen>
     <dimen name="error_image_height">80dp</dimen>
