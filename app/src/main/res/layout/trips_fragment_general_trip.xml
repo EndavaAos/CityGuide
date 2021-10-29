@@ -41,6 +41,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expandableButton"
-        tools:layout="@layout/trips_preview_list" />
+        tools:layout="@layout/trips_fragment_general_trips_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

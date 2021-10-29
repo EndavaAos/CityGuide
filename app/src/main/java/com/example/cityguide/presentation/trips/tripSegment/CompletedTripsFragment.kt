@@ -1,4 +1,4 @@
-package com.example.cityguide.presentation.trips
+package com.example.cityguide.presentation.trips.tripSegment
 
 import android.os.Bundle
 import android.view.View
@@ -20,7 +20,7 @@ class CompletedTripsFragment : GeneralTripFragment() {
         get() = viewModel.trips
 
     override val errorScreen: Fragment
-        get() = Fragment(R.layout.no_completed_trips)
+        get() = Fragment(R.layout.trips_fragment_no_completed_trips)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

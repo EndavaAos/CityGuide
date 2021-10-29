@@ -5,10 +5,12 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.cityguide.R
+import com.example.cityguide.presentation.trips.tripSegment.ActiveTripsFragment
+import com.example.cityguide.presentation.trips.tripSegment.CompletedTripsFragment
+import com.example.cityguide.presentation.trips.tripSegment.UpcomingTripsFragment
 import dagger.android.support.AndroidSupportInjection
-import javax.inject.Inject
 
-class MyTripsFragment : Fragment(R.layout.fragment_my_trips) {
+class MyTripsFragment : Fragment(R.layout.trips_fragment_screen) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

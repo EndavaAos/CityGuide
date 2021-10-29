@@ -11,6 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        tools:listitem="@layout/trips_preview_list_item" />
+        tools:listitem="@layout/trips_fragment_general_trips_list_item" />
 
 </FrameLayout>

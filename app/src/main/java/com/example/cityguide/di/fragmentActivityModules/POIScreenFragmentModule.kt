@@ -1,4 +1,4 @@
-package com.example.cityguide.di
+package com.example.cityguide.di.fragmentActivityModules
 
 import com.example.cityguide.presentation.POIsScreen.POIScreenFragment
 import dagger.Module

@@ -1,8 +1,8 @@
-package com.example.cityguide.di
+package com.example.cityguide.di.fragmentActivityModules
 
-import com.example.cityguide.presentation.trips.ActiveTripsFragment
-import com.example.cityguide.presentation.trips.CompletedTripsFragment
-import com.example.cityguide.presentation.trips.UpcomingTripsFragment
+import com.example.cityguide.presentation.trips.tripSegment.ActiveTripsFragment
+import com.example.cityguide.presentation.trips.tripSegment.CompletedTripsFragment
+import com.example.cityguide.presentation.trips.tripSegment.UpcomingTripsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trip
-import com.example.cityguide.databinding.TripsPreviewListItemBinding
+import com.example.cityguide.databinding.TripsFragmentGeneralTripsListItemBinding
 import com.example.cityguide.util.Converters
 
 class TripPreviewAdapter
@@ -15,7 +15,7 @@ class TripPreviewAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripPreviewViewHolder {
         val binding =
-            TripsPreviewListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            TripsFragmentGeneralTripsListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return TripPreviewViewHolder(binding)
     }
@@ -26,7 +26,7 @@ class TripPreviewAdapter
             holder.bind(currentItem)
     }
 
-    class TripPreviewViewHolder(private val binding: TripsPreviewListItemBinding)
+    class TripPreviewViewHolder(private val binding: TripsFragmentGeneralTripsListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
             fun bind(trip: Trip) {

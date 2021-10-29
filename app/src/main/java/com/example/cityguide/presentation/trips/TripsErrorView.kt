@@ -13,7 +13,7 @@ class TripsErrorView(
 ) : LinearLayout(context, attrs) {
 
     init {
-        inflate(context, R.layout.trips_error_view, this)
+        inflate(context, R.layout.trips_view_general_error, this)
 
         val image = findViewById<ImageView>(R.id.trips_error_view_image)
         val title = findViewById<TextView>(R.id.trips_error_view_title)
