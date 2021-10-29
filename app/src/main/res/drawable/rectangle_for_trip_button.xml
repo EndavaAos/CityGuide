@@ -13,7 +13,7 @@
     </item>
     <!-- create the stroke for top, left, bottom and right with the dp you want -->
 
-    <item android:state_enabled="true"
+    <item
         android:bottom="2dp"
         android:left="2dp"
         android:right="2dp"

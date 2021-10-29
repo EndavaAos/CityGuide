@@ -41,7 +41,7 @@ class ConfirmationDialogFragment( val place: String ) : DialogFragment() {
 
         yesButton.setOnClickListener {
             val totalPoints = 0
-            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(totalPoints, place)
+            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(totalPoints, place, trip = null)
             findNavController().navigate(action)
 
             dismiss()

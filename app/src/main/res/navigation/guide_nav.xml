@@ -28,5 +28,9 @@
         <action
             android:id="@+id/navigateFromMakeTripFragmentToPOIScreenFragment"
             app:destination="@id/POIScreenFragment" />
+        <argument
+            android:name="trip"
+            app:argType="com.example.cityguide.data.models.Trip"
+            app:nullable="true" />
     </fragment>
 </navigation>

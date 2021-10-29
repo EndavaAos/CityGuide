@@ -63,12 +63,12 @@
             </LinearLayout>
 
             <ImageView
-                android:src="@drawable/ic_baseline_navigate_next_24"
                 android:layout_width="@dimen/poi_navigate_dim"
                 android:layout_height="@dimen/poi_navigate_dim"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/poi_navigate_margin_right"/>
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/poi_navigate_margin_right"
+                android:src="@drawable/ic_baseline_navigate_next_24" />
 
 
 

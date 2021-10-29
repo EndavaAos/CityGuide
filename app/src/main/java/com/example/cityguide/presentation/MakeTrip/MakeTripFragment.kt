@@ -17,11 +17,15 @@ import kotlinx.android.synthetic.main.alert_dialog_view.view.*
 import kotlinx.android.synthetic.main.fragment_make_trip.*
 import kotlinx.android.synthetic.main.fragment_make_trip.view.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
     lateinit var button: Button
+    lateinit var startDate: LocalDate
+    lateinit var endDate: LocalDate
+
 
     val args: MakeTripFragmentArgs by navArgs()
 
@@ -44,6 +48,9 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
         val titleExpect = args.title
         view.titleTrip.text = titleExpect + " trip"
+
+        val totalTrip = args.trip
+
 
 
         view.setTripButton.setOnClickListener {
@@ -74,7 +81,12 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 view.dismiss.setOnClickListener {
                     dialog.dismiss()
                 }
-            } /*else {
+            }  else {
+                totalTrip?.dateStart = startDate
+                totalTrip?.dateEnd = endDate
+            }
+
+        /*else {
                     val date = expect.text.toString()
                     val action = MakeTripFragmentDirections.navigateToAdrianFragment(date)
                     Navigation.findNavController(view).navigate(action)

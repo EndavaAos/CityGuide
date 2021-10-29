@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,23 +7,25 @@
     android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
+
+
     <TextView
         android:id="@+id/titleTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="76dp"
         android:fontFamily="@font/grade_cursive"
         android:text="new york city trip"
         android:textAlignment="center"
         android:textColor="@color/secondary_text_color"
-        android:textSize="28sp"
+        android:textSize="@dimen/title_text_size"
         app:layout_constraintBottom_toTopOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/backArrowButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/backArrowButton"
@@ -49,7 +51,7 @@
         android:fontFamily="@font/proxima_nova_bold"
         android:text="We're almost there.."
         android:textColor="@color/secondary_text_color"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_maketrip_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +65,7 @@
         android:fontFamily="@font/proxima_nova_regular"
         android:text="Please review your trip information."
         android:textColor="@color/primary_text_color"
-        android:textSize="16sp"
+        android:textSize="@dimen/description_maketrip_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -102,7 +104,7 @@
             android:text="Time period"
             android:textAlignment="center"
             android:textColor="@color/primary_text_color"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_maketrip_title_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image1"
             app:layout_constraintVertical_bias="0.0"
@@ -134,7 +136,7 @@
             android:fontFamily="@font/proxima_nova_regular"
             android:text="SET TRIP PERIOD"
             android:textColor="@color/secondary_text_color"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_maketrip_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -185,7 +187,7 @@
             android:text="8"
             android:textAlignment="center"
             android:textColor="@color/secondary_text_color"
-            android:textSize="23sp"
+            android:textSize="@dimen/text_noPoints_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.086"
@@ -216,7 +218,7 @@
             android:text="Points of interest"
             android:textAlignment="center"
             android:textColor="@color/primary_text_color"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_maketrip_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.422"
@@ -234,27 +236,30 @@
         android:text="We wish you a very happy and safe vacation!"
         android:textAlignment="center"
         android:textColor="@color/primary_text_color"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/finishScheduleButton"
+        android:textSize="@dimen/text_maketrip_wish_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/finishScheduleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/gradient_button"
         android:fontFamily="@font/proxima_nova_alt_light"
         android:text="Finish trip scheduling"
         android:textColor="@color/secondary_text_color"
-        android:textSize="15sp"
+        android:textSize="@dimen/text_maketrip_button"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message1"
+        app:layout_constraintVertical_bias="0.777" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
