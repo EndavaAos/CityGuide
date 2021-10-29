@@ -1,10 +1,16 @@
 package com.example.cityguide.di
 
 import android.content.Context
+import com.example.cityguide.data.db.TripDatabase
 import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.network.RemoteDataSource
 import com.example.cityguide.data.repository.LocationRepository
 import com.example.cityguide.data.repository.LocationRepositoryImpl
+import com.example.cityguide.data.repository.TripRepository
+import com.example.cityguide.data.repository.TripRepositoryImpl
+import com.example.cityguide.presentation.trips.tripSegment.ActiveTripsViewModel
+import com.example.cityguide.presentation.trips.tripSegment.CompletedTripsViewModel
+import com.example.cityguide.presentation.trips.tripSegment.UpcomingTripsViewModel
 import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import com.google.gson.Gson
 import dagger.Module
@@ -19,7 +25,7 @@ class AppModule(
     @Provides
     @Singleton
     fun provideContext(): Context {
-        return context;
+        return context
     }
 
     @Singleton
@@ -37,5 +43,25 @@ class AppModule(
 
     @Singleton
     @Provides
+    fun providesTripRepository(tripDatabase: TripDatabase): TripRepository
+        = TripRepositoryImpl(tripDatabase)
+
+    @Singleton
+    @Provides
     fun providesGson(): Gson = Gson()
+
+    @Singleton
+    @Provides
+    fun providesActiveTripsViewModel(repo: TripRepository): ActiveTripsViewModel
+        = ActiveTripsViewModel(repo)
+
+    @Singleton
+    @Provides
+    fun providesUpcomingTripsViewModel(repo: TripRepository): UpcomingTripsViewModel
+        = UpcomingTripsViewModel(repo)
+
+    @Singleton
+    @Provides
+    fun providesCompletedTripsViewModel(repo: TripRepository): CompletedTripsViewModel
+        = CompletedTripsViewModel(repo)
 }

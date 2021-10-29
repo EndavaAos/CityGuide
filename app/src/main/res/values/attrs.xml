@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TripsErrorView">
+        <attr name="trips_error_view_image" format="reference" />>
+        <attr name="trips_error_view_image_description" format="string" />
+        <attr name="trips_error_view_title" format="string" />
+        <attr name="trips_error_view_description" format="string" />
+    </declare-styleable>
+
+</resources>

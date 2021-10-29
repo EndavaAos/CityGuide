@@ -1,6 +1,7 @@
 package com.example.cityguide.di
 
 import com.example.cityguide.CityGuideApp
+import com.example.cityguide.di.fragmentActivityModules.*
 import com.example.cityguide.presentation.POIDetails.PoiDetailsFragmentModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -8,13 +9,18 @@ import javax.inject.Singleton
 
 @Component(
     modules = [
-        LocationSearchActivityModule::class,
         AndroidInjectionModule::class,
+        LocationSearchActivityModule::class,
         LocationSearchFragmentModule::class,
+        GeneralTripFragmentModule::class,
+        MainActivityModule::class,
+        MyTripsFragmentModule::class,
+        AppModule::class,
+        DatabaseModule::class,
         POIScreenFragmentModule::class,
         MakeTripFragmentModule::class,
-        AppModule::class,
-        PoiDetailsFragmentModule::class]
+        PoiDetailsFragmentModule::class
+    ]
 
 )
 @Singleton
