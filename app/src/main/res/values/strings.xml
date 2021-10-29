@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">CityGuide</string>
+    <string name="trip_item_title_hint">City - CC</string>
+    <string name="trip_item_title_format">%1$s – %2$s</string>
+    <string name="trip_item_period_hint">14.12.2021 – 13.12.2021</string>
+    <string name="trip_item_period_format">%1$s – %2$s</string>
+    <string name="trips_preview_list">my trips</string>
+    <string name="trips_preview_list_category_hint">Active trips</string>
+    <string name="no_active_trip_image_description">A hotel</string>
+    <string name="no_active_trips_title">No active trips</string>
+    <string name="no_active_trips_description">You could have been in Rome or Paris right now…</string>
+    <string name="no_upcoming_trip_image_description">A loaded car.</string>
+    <string name="no_upcoming_trips_title">No upcoming trips</string>
+    <string name="no_upcoming_trips_description">Why not plan a trip from the main screen?</string>
+    <string name="no_completed_trip_image_description">A passport and some credit cards.</string>
+    <string name="no_completed_trips_title">No completed trips</string>
+    <string name="no_completed_trips_description">You really do not feel the need for a holiday?</string>
+    <string name="expandable_button">Expand or collapse the list.</string>
+    <string name="preview_item_icon_description">Preview item</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_mytrips">My Trips</string>
+    <string name="nav_settngs">Settings</string>
+    <string name="home_screen_title">city guide</string>
+    <string name="welcome_message_start_screen">Good Morning!</string>
+    <string name="search_text_question">Would you like to go somewhere in the near future?</string>
+    <string name="search_edittext_text">Where to?</string>
+    <string name="search_button_text">plan trip</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_schedule_trip_text">SCHEDULE TRIP</string>
+    <string name="destination_not_found_text">Destination not found</string>
+    <string name="error_text_sugestion">Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again.</string>
+    <string name="description_poi_text">Please check the attractions that you wish to visit on this journey</string>
 </resources>

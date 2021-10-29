@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient">
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:visibility="invisible"
+        android:id="@+id/scheduleTripButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/ic_button_state"
+        android:layout_marginBottom="20dp"
+        android:alpha="0.95"
+        android:text="SCHEDULE TRIP"
+        android:textColor="@color/primary_text_color"/>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/backArrowButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/locationNameText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/grade_cursive"
+            android:gravity="center"
+            android:text="new york city trip"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:visibility="invisible"
+        app:cardElevation="0dp"
+        android:id="@+id/tripNotFoundCard"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/constraintlayout"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/black_20">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageTripNotFound"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_trip_not_found"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                app:tint="@color/primary_text_color" />
+
+            <TextView
+                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Destination not found"
+                android:textSize="18dp"
+                android:layout_below="@+id/imageTripNotFound"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/secondary_text_color"
+                android:id="@+id/destNotFoundText"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/destNotFoundText"
+                android:textColor="@color/primary_text_color"
+                android:fontFamily="@font/proxima_nova_alt_light"
+                android:lines="3"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again."/>
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/poiText"
+        android:layout_below="@+id/constraintlayout"
+        android:textSize="20dp"
+        android:fontFamily="@font/proxima_nova_alt_bold"
+        android:text="Points of Interest"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/secondary_text_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/descriptionText"
+        android:layout_below="@+id/poiText"
+        android:fontFamily="@font/proxima_nova_alt_light"
+        android:textSize="13dp"
+        android:text="Please check the attractions that you wish to visit on this journey"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/primary_text_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_below="@+id/descriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
