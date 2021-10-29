@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cityguide.R
@@ -23,8 +24,7 @@ import java.util.*
 class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
     lateinit var button: Button
-    lateinit var startDate: LocalDate
-    lateinit var endDate: LocalDate
+
 
 
     val args: MakeTripFragmentArgs by navArgs()
@@ -52,7 +52,6 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         val totalTrip = args.trip
 
 
-
         view.setTripButton.setOnClickListener {
             onButtonClick()
             showDataRangePicker()
@@ -70,6 +69,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 dialog.setCancelable(false)
 
                 view.yes.setOnClickListener {
+                    activity?.finish()
                     dialog.dismiss()
                 }
 
@@ -82,15 +82,9 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                     dialog.dismiss()
                 }
             }  else {
-                totalTrip?.dateStart = startDate
-                totalTrip?.dateEnd = endDate
-            }
+                activity?.finish()
 
-        /*else {
-                    val date = expect.text.toString()
-                    val action = MakeTripFragmentDirections.navigateToAdrianFragment(date)
-                    Navigation.findNavController(view).navigate(action)
-            }*/
+            }
 
         }
         return view
