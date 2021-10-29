@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.models.LocationPOIScreen
@@ -15,7 +18,6 @@ class RecyclerViewAdapter(
     val locations: MutableList<LocationPOIScreen>,
     private val context: Context
 ) : RecyclerView.Adapter<RecyclerViewAdapter.POIViewHolder>() {
-
 
 
     class POIViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -38,12 +40,9 @@ class RecyclerViewAdapter(
         holder.itemView.categoryText.text = value
 
         holder.itemView.checkBox.setOnClickListener {
-            if(!currentCity.isChecked)
-            {
+            if (!currentCity.isChecked) {
                 holder.itemView.checkBox.speed = 1f
-            }
-            else
-            {
+            } else {
                 holder.itemView.checkBox.speed = -1f;
             }
             currentCity.isChecked = !(currentCity.isChecked)
@@ -51,9 +50,15 @@ class RecyclerViewAdapter(
         }
 
         holder.itemView.cardView.setOnClickListener {
-            Toast.makeText(context, currentCity.xid.toString(), Toast.LENGTH_LONG).show()
-        }
+            //Toast.makeText(context, currentCity.xid.toString(), Toast.LENGTH_LONG).show()
 
+            val action =
+                POIScreenFragmentDirections.navigateFromPoiScreenFragmentToPoiDetailsFragment(
+                    currentCity.xid
+                )
+            holder.itemView.findNavController().navigate(action)
+
+        }
 
     }
 

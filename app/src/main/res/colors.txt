@@ -1,0 +1,63 @@
+black_20 = #33000000
+black_30 = #4D000000
+
+bottom_navigation_default_color = #99f0f1f3
+
+primary_text_color = #ced4d8
+secondary_text_color = #f0f1f3
+
+<!--Midnight-->
+dark_shadow_midnight = #0b1a33
+light_shadow_midnight = #193f57
+
+background_start_color_midnight = #1d4964
+background_start_color_20_darker_midnight = #173a50
+background_start_color_30_darker_midnight = #143346
+background_end_color_midnight = #0e2141
+
+button_start_color_midnight = #95ecee
+button_pressed_start_color_midnight = #86d4d6
+button_disabled_start_color_midnight = #80cce2e2
+button_end_color_midnight = #767ae8
+button_pressed_end_color_midnight = #6a6ed0
+button_disabled_end_color_midnight = #80c4c5e1
+
+image_light_color_midnight = #e8eef9
+
+
+<!--Woodburn-->
+dark_shadow_woodburn = #120801
+light_shadow_woodburn = #59330e
+
+background_start_color_woodburn = #663a10
+background_start_color_20_darker_woodburn = #522e0d
+background_start_color_30_darker_woodburn = #47280b
+background_end_color_woodburn = #1f0e02
+
+button_start_color_woodburn = #ddce6c
+button_pressed_start_color_woodburn = #c6b961
+button_disabled_start_color_woodburn = #80dedac1
+button_end_color_woodburn = #ebae5e
+button_pressed_end_color_woodburn = #d39c54
+button_disabled_end_color_woodburn = #e1d2be
+
+image_light_color_woodburn = #f9f6e8
+
+
+<!--Nature-->
+dark_shadow_nature = #0b1c0f
+light_shadow_nature = #265238
+
+background_start_color_nature = #2b5e40
+background_start_color_20_darker_nature = #224b33
+background_start_color_30_darker_nature = #1e422d
+background_end_color_nature = #102916
+
+button_start_color_nature = #99dd6c
+button_pressed_start_color_nature = #89c661
+button_disabled_start_color_nature = #80c9d8bf
+button_end_color_nature = #49bea1
+button_pressed_end_color_nature = #42ab91
+button_disabled_end_color_nature = #80b7d1cb
+
+image_light_color_nature = #e8f9ea
