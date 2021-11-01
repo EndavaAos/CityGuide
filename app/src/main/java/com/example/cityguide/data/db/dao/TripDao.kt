@@ -1,38 +1,38 @@
 package com.example.cityguide.data.db.dao
 
 import androidx.room.*
-import com.example.cityguide.data.db.entity.Trip
+import com.example.cityguide.data.db.entity.Trips
 import io.reactivex.rxjava3.core.Observable
 
 @Dao
 interface TripDao {
 
     @Transaction
-    @Query("SELECT * FROM trip")
-    fun getAllTrips(): Observable<List<Trip>>
+    @Query("SELECT * FROM trips")
+    fun getAllTrips(): Observable<List<Trips>>
 
     @Transaction
-    @Query("SELECT * FROM trip WHERE trip.dateStart <= (SELECT strftime('%s', 'now')) AND (SELECT strftime('%s', 'now')) <= trip.dateEnd")
-    fun getActiveTrips(): Observable<List<Trip>>
+    @Query("SELECT * FROM trips WHERE trips.dateStart <= :currentDate AND :currentDate <= trips.dateEnd")
+    fun getActiveTrips(currentDate: Long): Observable<List<Trips>>
 
     @Transaction
-    @Query("SELECT * FROM trip WHERE trip.dateStart IS NULL OR trip.dateEnd IS NULL OR trip.dateStart >= (SELECT strftime('%s', 'now'))")
-    fun getUpcomingTrips(): Observable<List<Trip>>
+    @Query("SELECT * FROM trips WHERE trips.dateStart IS NULL OR trips.dateEnd IS NULL OR trips.dateStart >= :currentDate")
+    fun getUpcomingTrips(currentDate: Long): Observable<List<Trips>>
 
     @Transaction
-    @Query("SELECT * FROM trip WHERE (SELECT strftime('%s', 'now')) >= trip.dateEnd")
-    fun getCompletedTrips(): Observable<List<Trip>>
+    @Query("SELECT * FROM trips WHERE :currentDate >= trips.dateEnd")
+    fun getCompletedTrips(currentDate: Long): Observable<List<Trips>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTrips(trips: List<Trip>)
+    suspend fun insertTrips(trips: Trips)
 
     @Update
-    suspend fun updateTrip(trip: Trip)
+    suspend fun updateTrip(trips: Trips)
 
     @Delete
-    suspend fun deleteTrip(trip: Trip)
+    suspend fun deleteTrip(trips: Trips)
 
     @Transaction
-    @Query("DELETE FROM trip")
+    @Query("DELETE FROM trips")
     suspend fun deleteAllTrips()
 }

@@ -4,12 +4,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.cityguide.data.db.dao.TripDao
-import com.example.cityguide.data.db.entity.Trip
 import com.example.cityguide.util.Converters
+import com.example.cityguide.data.db.entity.Trips
 
 @Database(
     entities = [
-        Trip::class
+        Trips::class
     ],
     version = 1
 )

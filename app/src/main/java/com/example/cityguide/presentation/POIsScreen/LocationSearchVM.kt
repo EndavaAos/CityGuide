@@ -3,14 +3,15 @@ package com.example.cityguide.presentation.POIsScreen
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.repository.LocationRepository
-import com.example.cityguide.data.responses.BitCoinRespone
-import com.example.cityguide.data.responses.LocationResponseItem
-import com.example.cityguide.data.responses.Resource
-import com.example.cityguide.data.responses.SuggestionResponse
+import com.example.cityguide.data.responses.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class LocationSearchVM @Inject constructor(private val repository: LocationRepository) : ViewModel() {
 
@@ -19,7 +20,8 @@ class LocationSearchVM @Inject constructor(private val repository: LocationRepos
 
     val locationLivedata = MutableLiveData<Resource<LocationResponseItem>>()
     val suggestionLiveData = MutableLiveData<Resource<SuggestionResponse>>()
-
+    var poiDetailsLiveData = MutableLiveData<Resource<Trips.Trip>>()
+    var poiDetalisLiveDataList = MutableLiveData<Resource<PoiList>>()
 
 
     fun getLocation(name: String, apiKey: String){
@@ -42,6 +44,30 @@ class LocationSearchVM @Inject constructor(private val repository: LocationRepos
                     {Log.d("Test", "Complete")})
         )
     }
+
+
+    fun getPoiDetailsForList(xid: MutableList<String>, apiKey: String) {
+        poiDetailsLiveData.value = Resource.Loading()
+
+        val requests = ArrayList<Observable<Trips.Trip>>()
+        xid.forEach {
+            requests.add(repository.getPoiDetailsForList(it, apiKey))
+        }
+
+        val listOf = PoiList(arrayListOf<Trips.Trip>())
+
+        compositeDisposable.add(
+            Observable.merge(requests)
+                .take(requests.size.toLong())
+                .doFinally {
+                    val listOfTrips2 = Resource.Success(listOf)
+                    poiDetalisLiveDataList.postValue(listOfTrips2)
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe { result -> listOf.listOfTrip.add(result) }
+        )
+    }
+
 
     override fun onCleared() {
         super.onCleared()
