@@ -6,20 +6,18 @@
     android:background="@drawable/background_gradient">
 
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:visibility="invisible"
         android:id="@+id/scheduleTripButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="10dp"
-        android:background="@drawable/ic_button_state"
         android:layout_marginBottom="20dp"
         android:alpha="0.95"
+        android:background="@drawable/ic_button_state"
         android:text="SCHEDULE TRIP"
-        android:textColor="@color/primary_text_color"/>
-
+        android:textColor="@color/primary_text_color"
+        android:visibility="invisible" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,12 +26,12 @@
         android:layout_height="100dp">
 
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/backArrowButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_back_arrow"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,16 +53,16 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
-        android:visibility="invisible"
-        app:cardElevation="0dp"
         android:id="@+id/tripNotFoundCard"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/constraintlayout"
-        android:layout_marginHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/constraintlayout"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/black_20"
         app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="@color/black_20">
+        app:cardElevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -74,35 +72,33 @@
                 android:id="@+id/imageTripNotFound"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_trip_not_found"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp"
+                android:src="@drawable/ic_trip_not_found"
                 app:tint="@color/primary_text_color" />
 
             <TextView
-                 android:layout_width="match_parent"
+                android:id="@+id/destNotFoundText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Destination not found"
-                android:textSize="18dp"
                 android:layout_below="@+id/imageTripNotFound"
-                android:gravity="center"
                 android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Destination not found"
                 android:textColor="@color/secondary_text_color"
-                android:id="@+id/destNotFoundText"/>
+                android:textSize="18dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/destNotFoundText"
-                android:textColor="@color/primary_text_color"
-                android:fontFamily="@font/proxima_nova_alt_light"
-                android:lines="3"
-                android:textSize="16dp"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/proxima_nova_alt_light"
                 android:gravity="center"
-                android:text="Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again."/>
-
-
+                android:lines="3"
+                android:text="Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again."
+                android:textColor="@color/primary_text_color"
+                android:textSize="16dp" />
 
 
         </RelativeLayout>
@@ -111,36 +107,35 @@
     </androidx.cardview.widget.CardView>
 
 
-
     <TextView
-        android:visibility="invisible"
         android:id="@+id/poiText"
-        android:layout_below="@+id/constraintlayout"
-        android:textSize="20dp"
-        android:fontFamily="@font/proxima_nova_alt_bold"
-        android:text="Points of Interest"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/secondary_text_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:visibility="invisible"
-        android:id="@+id/descriptionText"
-        android:layout_below="@+id/poiText"
-        android:fontFamily="@font/proxima_nova_alt_light"
-        android:textSize="13dp"
-        android:text="Please check the attractions that you wish to visit on this journey"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/primary_text_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_below="@+id/constraintlayout"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/proxima_nova_alt_bold"
+        android:text="Points of Interest"
+        android:textColor="@color/secondary_text_color"
+        android:textSize="20dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/poiText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/proxima_nova_alt_light"
+        android:text="Please check the attractions that you wish to visit on this journey"
+        android:textColor="@color/primary_text_color"
+        android:textSize="13dp"
+        android:visibility="invisible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
-        android:layout_below="@+id/descriptionText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/descriptionText" />
 
 </RelativeLayout>

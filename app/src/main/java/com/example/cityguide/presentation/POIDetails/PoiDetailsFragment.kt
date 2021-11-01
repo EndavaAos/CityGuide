@@ -1,16 +1,16 @@
 package com.example.cityguide.presentation.POIDetails
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.cityguide.R
@@ -23,9 +23,9 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.isInvisible
 import com.google.android.material.appbar.AppBarLayout
-
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import kotlin.math.abs
 
 class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
 
@@ -41,7 +41,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         val name = view?.findViewById<TextView>(R.id.poi_name)
@@ -53,10 +53,39 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         val descrLayout = view?.findViewById<LinearLayout>(R.id.descriptionLinearLayout)
         val descriptionTxt = view?.findViewById<TextView>(R.id.descriptionTxt)
 
+        val appBar = view?.findViewById<AppBarLayout>(R.id.appBarLayout)
+
 
         val params = nested?.layoutParams as CoordinatorLayout.LayoutParams
         val behaviour = params.behavior as AppBarLayout.ScrollingViewBehavior
-        behaviour.overlayTop = 100
+        behaviour.overlayTop = 60
+
+        val drawable1: Drawable = resources.getDrawable(R.drawable.gradient_background)
+        val drawable2: Drawable = resources.getDrawable(R.drawable.gradient_bg)
+
+        //White CORNERS Bug
+        appBar?.addOnOffsetChangedListener(object : OnOffsetChangedListener {
+            private var state: State? = null
+            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+                state = if (verticalOffset == 0) {
+                    if (state !== State.EXPANDED) {
+                        nested.background = drawable2
+                    }
+                    State.EXPANDED
+                } else if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
+                    if (state !== State.COLLAPSED) {
+                        nested.background = drawable1
+                    }
+                    State.COLLAPSED
+                } else {
+                    if (state !== State.IDLE) {
+                        nested.background = drawable2
+                    }
+                    State.IDLE
+                }
+            }
+        })
+
 
         val xidFromFragment = args.xid
 
@@ -136,9 +165,8 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                         chipGrp?.addView(chip)
                     }
 
-
                     if (image != null) {
-                        Glide.with(requireContext()).load(it?.data?.preview?.source)
+                        Glide.with(requireContext()).load(it.data.preview.source)
                             .placeholder(R.drawable.poi_placeholder).into(image)
                     }
                 }
