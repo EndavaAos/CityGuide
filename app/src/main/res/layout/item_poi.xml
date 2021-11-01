@@ -1,81 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="@dimen/poi_card_margin"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/cardview_background_state"
+    app:cardCornerRadius="@dimen/poi_card_corner_radius"
+    app:cardElevation="@dimen/poi_card_elevation">
 
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_margin="@dimen/poi_card_margin"
-        app:cardCornerRadius="@dimen/poi_card_corner_radius"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/poi_card_height"
-        android:clickable="true"
-        app:cardBackgroundColor="@color/cardview_background_state"
-        app:cardElevation="@dimen/poi_card_elevation">
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/item_poi_padding_horizontal"
+        android:paddingTop="@dimen/item_poi_padding_vertical"
+        android:paddingEnd="@dimen/item_poi_padding_horizontal"
+        android:paddingBottom="@dimen/item_poi_padding_vertical">
 
-        <RelativeLayout
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/checkBox"
+            android:layout_width="@dimen/poi_lottie_dim"
+            android:layout_height="@dimen/poi_lottie_dim"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="false"
+            app:lottie_rawRes="@raw/check_animation_midnight" />
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/poi_linear_layout_margin"
+            android:layout_marginEnd="@dimen/poi_linear_layout_margin"
+            android:layout_toStartOf="@id/preview_item"
+            android:layout_toEndOf="@+id/checkBox"
+            android:orientation="vertical">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:scaleType="centerCrop"
-                app:lottie_autoPlay="false"
-                app:lottie_rawRes="@raw/check_animation_midnight"
-                android:layout_marginLeft="@dimen/poi_lottie_margin_left"
-                android:layout_centerVertical="true"
-                android:id="@+id/checkBox"
-                android:layout_width="@dimen/poi_lottie_dim"
-                android:layout_height="@dimen/poi_lottie_dim"/>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/nameText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/poi_linear_layout_margin"
-                android:layout_toRightOf="@+id/checkBox"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/poi_name_text_margin"
+                android:textColor="@color/primary_text_color"
+                android:textSize="@dimen/poi_name_text_size"
+                android:textStyle="bold"
+                tools:hint="@string/item_poi_name_hint" />
 
-                <TextView
-                    android:id="@+id/nameText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/poi_name_text_margin"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/poi_name_text_size"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/categoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/tag_shape"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/poi_category_text_padding_horizontal"
+                android:paddingVertical="@dimen/poi_category_text_padding_vertical"
+                android:textColor="@color/primary_text_color"
+                android:textSize="@dimen/poi_category_text_size"
+                tools:hint="@string/item_poi_name_hint" />
 
-                <TextView
-                    android:id="@+id/categoryText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/tag_shape"
-                    android:paddingHorizontal="@dimen/poi_category_text_padding_horizontal"
-                    android:gravity="center"
-                    android:paddingVertical="@dimen/poi_category_text_padding_vertical"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/poi_category_text_size" />
+        </LinearLayout>
 
+        <ImageView
+            android:id="@+id/preview_item"
+            android:layout_width="@dimen/ic_caret_size"
+            android:layout_height="@dimen/ic_caret_size"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_caret_right" />
 
-            </LinearLayout>
+    </RelativeLayout>
 
-            <ImageView
-                android:src="@drawable/ic_baseline_navigate_next_24"
-                android:layout_width="@dimen/poi_navigate_dim"
-                android:layout_height="@dimen/poi_navigate_dim"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/poi_navigate_margin_right"/>
-
-
-
-        </RelativeLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

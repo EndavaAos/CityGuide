@@ -10,7 +10,8 @@
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="drawable_padding_small">4dp</dimen>
     <dimen name="title_size_large">36sp</dimen>
-    <dimen name="ic_caret_size">54dp</dimen>
+    <dimen name="ic_caret_size">25dp</dimen>
+    <dimen name="expandable_button_size">40dp</dimen>
     <dimen name="list_items_padding_small">6dp</dimen>
     <dimen name="list_item_margin_small">4dp</dimen>
     <dimen name="list_title_margin_medium">12dp</dimen>
@@ -22,4 +23,6 @@
     <dimen name="title_margin_medium">20dp</dimen>
     <dimen name="error_image_width">100dp</dimen>
     <dimen name="error_image_height">80dp</dimen>
+    <dimen name="item_poi_padding_horizontal">15dp</dimen>
+    <dimen name="item_poi_padding_vertical">20dp</dimen>
 </resources>
