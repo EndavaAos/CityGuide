@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 import java.time.LocalDate
 
 @Parcelize
-data class Trip (
+data class ListOfPOI (
 
     var listOfPoints: MutableList<Feature>,
     var dateStart: LocalDate?,
