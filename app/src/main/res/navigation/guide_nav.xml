@@ -23,19 +23,12 @@
         android:id="@+id/makeTripFragment"
         android:name="com.example.cityguide.presentation.makeATrip.MakeTripFragment"
         android:label="MakeTripFragment" >
-        <argument
-            android:name="points"
-            app:argType="integer" />
-        <argument
-            android:name="title"
-            app:argType="string" />
         <action
             android:id="@+id/navigateFromMakeTripFragmentToPOIScreenFragment"
             app:destination="@id/POIScreenFragment" />
         <argument
-            android:name="trip"
-            app:argType="com.example.cityguide.data.models.Trip"
-            app:nullable="true" />
+            android:name="trips"
+            app:argType="com.example.cityguide.data.db.entity.Trips" />
     </fragment>
     <fragment
         android:id="@+id/poiDetailsFragment"

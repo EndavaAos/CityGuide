@@ -9,25 +9,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
+import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.models.LocationPOIScreen
-import com.example.cityguide.data.models.Trip
+import com.example.cityguide.data.models.ListOfPOI
 import com.example.cityguide.data.repository.LocationRepositoryImpl
-import com.example.cityguide.data.responses.Feature
 import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.data.responses.SuggestionResponse
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_location_search.view.*
-import kotlinx.android.synthetic.main.fragment_poi_screen.*
 import kotlinx.android.synthetic.main.fragment_poi_screen.view.*
-import kotlinx.android.synthetic.main.item_poi.view.*
-import java.util.*
 import javax.inject.Inject
 
 class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
@@ -43,12 +36,18 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     lateinit var data: SuggestionResponse
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        //Trips Atributes
+        var name: String = ""
+        var country: String = ""
+
 
         activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
 
@@ -59,7 +58,6 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
         val recycleView : RecyclerView? = view?.rootView?.rv
 
-        val listOfTrips: Trip = Trip(mutableListOf(),null,null)
 
         view?.rootView?.backArrowButton?.setOnClickListener {
             activity?.finish()
@@ -67,6 +65,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
         view?.rootView?.scheduleTripButton?.setOnClickListener {
             var allUnChecked: Boolean = false
+            val listOfTrips: ListOfPOI = ListOfPOI(mutableListOf(),null,null)
 
            recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
 
@@ -79,12 +78,35 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                 allUnChecked = item.isChecked.or(allUnChecked)
             }
             if(allUnChecked == false){
-                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment(placeToSearch!!)
+                val trips = Trips(0, name, country, arrayListOf(), null, null)
+                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment(trips)
                 confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
             }
             else{
-                val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(listOfTrips.listOfPoints.size, placeToSearch!!, trip = listOfTrips)
-                findNavController().navigate(action)
+                var listOfPOI: MutableList<String> = mutableListOf()
+                listOfTrips.listOfPoints.forEach { poi_item ->
+                    listOfPOI.add(poi_item.properties.xid)
+                }
+                vm.getPoiDetailsForList(listOfPOI, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+                vm.poiDetalisLiveDataList.observe(viewLifecycleOwner,{
+                    when (it) {
+                        is Resource.Success -> {
+                            //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
+                            it.data?.let { it1 -> val poi_List: List<Trips.Trip> = it.data.listOfTrip
+                                setDateForTrip(poi_List, name, country) }
+                        }
+                        is Resource.Error -> {
+                            Toast.makeText(context, "error: ${it.message}", Toast.LENGTH_LONG).show()
+                        }
+                        is Resource.Loading -> {
+                        }
+                    }
+                })
+                //Toast.makeText(context, listOfPOI.toString(), Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, trips.toString(), Toast.LENGTH_LONG).show()
+                //vm.getPoiDetailsForList(listOfIds, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+                /*val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(listOfTrips.listOfPoints.size, placeToSearch!!)
+                findNavController().navigate(action)*/
             }
         }
 
@@ -96,6 +118,9 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
             when (it) {
                 is Resource.Success -> {
                     //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
+                    country = it.data?.country.toString()
+                    name = it.data?.name.toString()
+                    //Toast.makeText(context, trips.toString(), Toast.LENGTH_LONG).show()
                 }
                 is Resource.Error -> {
                     errorDisplay()
@@ -148,6 +173,12 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         view?.scheduleTripButton?.visibility = View.VISIBLE
         view?.backArrowButton?.visibility = View.INVISIBLE
         view?.tripNotFoundCard?.visibility = View.INVISIBLE
+    }
+
+    fun setDateForTrip(listPoi: List<Trips.Trip>, name: String, country: String){
+        val trips = Trips(0, name, country, listPoi, null, null)
+        val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips)
+        view?.let { Navigation.findNavController(it).navigate(action) }
     }
 
     override fun onAttach(context: Context) {

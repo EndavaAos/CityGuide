@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
-import com.example.cityguide.data.db.entity.Trip
+import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.databinding.TripsFragmentGeneralTripsListItemBinding
 import com.example.cityguide.util.Converters
 
 class TripPreviewAdapter
-    : ListAdapter<Trip, TripPreviewAdapter.TripPreviewViewHolder>(TripPreviewComparator()) {
+    : ListAdapter<Trips, TripPreviewAdapter.TripPreviewViewHolder>(TripPreviewComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripPreviewViewHolder {
         val binding =
@@ -29,19 +29,19 @@ class TripPreviewAdapter
     class TripPreviewViewHolder(private val binding: TripsFragmentGeneralTripsListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(trip: Trip) {
+            fun bind(trips: Trips) {
                 binding.apply {
                     tripItemTitle.text = itemView.context.getString(
                         R.string.trip_item_title_format,
-                        trip.address.city,
-                        trip.address.country_code
+                        trips.name,
+                        trips.country
                     )
 
-                    trip.dateStart?.also {
+                    trips.dateStart?.also {
                         tripPeriod.text = itemView.context.getString(
                             R.string.trip_item_period_format,
                             Converters.dateToString(it),
-                            Converters.dateToString(trip.dateEnd)
+                            Converters.dateToString(trips.dateEnd)
                         )
                     } ?: run {
                         tripPeriod.text = ""
@@ -50,11 +50,11 @@ class TripPreviewAdapter
             }
         }
 
-    class TripPreviewComparator : DiffUtil.ItemCallback<Trip>() {
-        override fun areItemsTheSame(oldItem: Trip, newItem: Trip): Boolean
-            = oldItem.xid == newItem.xid
+    class TripPreviewComparator : DiffUtil.ItemCallback<Trips>() {
+        override fun areItemsTheSame(oldItem: Trips, newItem: Trips): Boolean
+            = oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Trip, newItem: Trip): Boolean
+        override fun areContentsTheSame(oldItem: Trips, newItem: Trips): Boolean
             = oldItem == newItem
     }
 }

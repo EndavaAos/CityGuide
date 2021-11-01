@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.example.cityguide.R
-import com.example.cityguide.data.db.entity.Trip
+import com.example.cityguide.data.db.entity.Trips
 import javax.inject.Inject
 
 class CompletedTripsFragment : GeneralTripFragment() {
@@ -16,7 +16,7 @@ class CompletedTripsFragment : GeneralTripFragment() {
     override val title: String
         get() = "Completed trips"
 
-    override val observableData: LiveData<List<Trip>>
+    override val observableData: LiveData<List<Trips>>
         get() = viewModel.trips
 
     override val errorScreen: Fragment
