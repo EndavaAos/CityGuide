@@ -11,9 +11,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import androidx.lifecycle.LiveData
 import com.example.cityguide.R
-import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.databinding.TripsFragmentGeneralTripBinding
 import com.example.cityguide.presentation.trips.TripsPreviewList
 import dagger.android.support.AndroidSupportInjection
@@ -30,7 +28,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
     private val binding get() = _binding!!
 
     abstract val title: String
-    abstract val observableData: LiveData<List<Trips>>
+    abstract val viewModel: GeneralTripViewModel
     abstract val errorScreen: Fragment
 
     private val listScreen = TripsPreviewList()
@@ -41,7 +39,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
             setReorderingAllowed(true)
         }
 
-        listScreen.setObservable(observableData)
+        listScreen.setViewModel(viewModel)
     }
 
     override fun onAttach(context: Context) {
@@ -71,7 +69,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
         binding.apply {
             tripsCategory.text = title
 
-            observableData.observe(viewLifecycleOwner) {
+            viewModel.trips.observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     setListFragment(errorScreen)
                 } else {
