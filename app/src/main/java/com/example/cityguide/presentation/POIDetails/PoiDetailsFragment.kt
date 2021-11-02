@@ -1,12 +1,9 @@
 package com.example.cityguide.presentation.POIDetails
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +21,6 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.airbnb.lottie.animation.content.EllipseContent
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kotlin.math.abs
@@ -45,6 +41,10 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        // removed status bar
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_FULLSCREEN
 
         val name = view?.findViewById<TextView>(R.id.poi_name)
         val address = view?.findViewById<TextView>(R.id.poi_address)
