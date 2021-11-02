@@ -23,6 +23,6 @@
     <dimen name="title_margin_medium">20dp</dimen>
     <dimen name="error_image_width">100dp</dimen>
     <dimen name="error_image_height">80dp</dimen>
-    <dimen name="item_poi_padding_horizontal">15dp</dimen>
+    <dimen name="item_poi_padding_horizontal">10dp</dimen>
     <dimen name="item_poi_padding_vertical">20dp</dimen>
 </resources>
