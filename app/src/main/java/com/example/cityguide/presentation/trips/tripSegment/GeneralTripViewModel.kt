@@ -40,7 +40,7 @@ abstract class GeneralTripViewModel(
 
     fun onTripSwiped(trip: Trips) = viewModelScope.launch {
         repository.deleteTrip(trip)
-//        tripEventChannel.send(TripEvent.ShowUndoDeleteTripMessage(trip))
+        tripEventChannel.send(TripEvent.ShowUndoDeleteTripMessage(trip))
     }
 
     override fun onCleared() {
