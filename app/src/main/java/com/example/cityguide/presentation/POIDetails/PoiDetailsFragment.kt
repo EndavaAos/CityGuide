@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.airbnb.lottie.animation.content.EllipseContent
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kotlin.math.abs
@@ -63,7 +65,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         val drawable1: Drawable = resources.getDrawable(R.drawable.gradient_background)
         val drawable2: Drawable = resources.getDrawable(R.drawable.gradient_bg)
 
-        //White CORNERS Bug
+        // White CORNERS Bug
         appBar?.addOnOffsetChangedListener(object : OnOffsetChangedListener {
             private var state: State? = null
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
@@ -139,14 +141,14 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     val kindsString = it.data?.kinds
                     val kindsArray = kindsString?.split(",")
 
-                    for (kind: String in kindsArray!!) {
 
+                    for (kind: String in kindsArray!!) {
                         val chip = Chip(context)
 
                         chip.chipBackgroundColor = ColorStateList.valueOf(
                             ContextCompat.getColor(
                                 requireContext(),
-                                R.color.dark_shadow_midnight
+                                R.color.background_start_color_30_darker_midnight
                             )
                         )
                         chip.chipStrokeColor = ColorStateList.valueOf(
@@ -155,7 +157,6 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                                 R.color.primary_text_color
                             )
                         )
-
 
                         chip.chipStrokeWidth = 2F
                         chip.setTextColor(resources.getColor(R.color.primary_text_color))
