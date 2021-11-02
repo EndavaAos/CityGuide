@@ -18,9 +18,9 @@
     <dimen name="card_corner_radius_error">20dp</dimen>
     <dimen name="image_dimensions_error">100dp</dimen>
     <dimen name="image_margin_top_error">15dp</dimen>
-    <dimen name="text_error_size">19sp</dimen>
+    <dimen name="title_error_size">19sp</dimen>
     <dimen name="text_error_margin_bottom">5dp</dimen>
-    <dimen name="text_error_size2">17sp</dimen>
+    <dimen name="undertitle_error_size">17sp</dimen>
     <dimen name="text_error_margin_bottom2">10dp</dimen>
     <dimen name="text_maketrip_size">20sp</dimen>
     <dimen name="description_maketrip_size">16sp</dimen>
