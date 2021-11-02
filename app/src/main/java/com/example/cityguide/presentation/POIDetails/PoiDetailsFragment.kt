@@ -75,17 +75,19 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     name?.text = it.data?.name
 
                     if (it.data?.address?.house_number != null) {
-                        finalAddress += it.data.address.house_number
+                        finalAddress += it.data.address.house_number + " "
                     }
                     if (it.data?.address?.road != null) {
-                        finalAddress += " " + it.data.address.road
+                        finalAddress += it.data.address.road
                     }
                     if (it.data?.address?.suburb != null) {
                         finalAddress += ", " + it.data.address.suburb
                     }
-                    finalAddress += "\n"
+                    if (finalAddress.length > 1){
+                        finalAddress += "\n"
+                    }
                     if (it.data?.address?.city != null) {
-                        finalAddress += " " + it.data.address.city
+                        finalAddress += it.data.address.city
                     }
                     if (it.data?.address?.country != null) {
                         finalAddress += ", " + it.data.address.county
@@ -117,7 +119,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                         chip.chipBackgroundColor = ColorStateList.valueOf(
                             ContextCompat.getColor(
                                 requireContext(),
-                                R.color.dark_shadow_midnight
+                                R.color.background_start_color_30_darker_midnight
                             )
                         )
                         chip.chipStrokeColor = ColorStateList.valueOf(
