@@ -3,12 +3,15 @@ package com.example.cityguide.presentation.trips
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
+import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.databinding.TripsFragmentGeneralTripsListBinding
 import com.example.cityguide.presentation.trips.tripSegment.GeneralTripViewModel
 
-class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list) {
+class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list), TripPreviewAdapter.OnItemClickListener {
 
     private var _binding: TripsFragmentGeneralTripsListBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +31,7 @@ class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list) {
     private fun initializeBinding(view: View) {
         _binding = TripsFragmentGeneralTripsListBinding.bind(view)
 
-        val tripAdapter = TripPreviewAdapter()
+        val tripAdapter = TripPreviewAdapter(this)
 
         binding.apply {
             recyclerView.apply {
@@ -40,11 +43,33 @@ class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list) {
             viewModel.trips.observe(viewLifecycleOwner) {
                 tripAdapter.submitList(it)
             }
+
+            ItemTouchHelper(
+                object : ItemTouchHelper.SimpleCallback(
+                    0,
+                    ItemTouchHelper.LEFT
+                ) {
+                    override fun onMove(
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                    ): Boolean = false
+
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        val student = tripAdapter.currentList[viewHolder.adapterPosition]
+                        viewModel.onTripSwiped(student)
+                    }
+
+                }).attachToRecyclerView(recyclerView)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(trip: Trips) {
+        viewModel.onTripSelected(trip)
     }
 }
