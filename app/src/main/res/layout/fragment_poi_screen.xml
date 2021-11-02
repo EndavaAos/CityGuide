@@ -11,13 +11,14 @@
         android:visibility="invisible"
         android:id="@+id/scheduleTripButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/button_schedule_trip_height"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="@dimen/button_schedule_trip_margin_horizontal"
         android:background="@drawable/ic_button_state"
         android:layout_marginBottom="@dimen/button_schedule_trip_margin_bottom"
         android:alpha="0.95"
         android:text="@string/button_schedule_trip_text"
+        android:textSize="@dimen/home_screen_search_qustion"
         android:textColor="@color/primary_text_color"/>
 
     <ScrollView
