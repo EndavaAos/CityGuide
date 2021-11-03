@@ -1,6 +1,7 @@
 package com.example.cityguide.presentation.POIsScreen
 
 import android.app.PendingIntent.getActivity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
@@ -9,6 +10,7 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cityguide.R
+import com.example.cityguide.StartScreenActivity
 
 class POIScreenActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
@@ -25,4 +27,5 @@ class POIScreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_poiscreen)
 
     }
+
 }
