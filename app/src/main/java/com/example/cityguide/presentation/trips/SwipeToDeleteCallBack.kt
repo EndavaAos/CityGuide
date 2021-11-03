@@ -15,8 +15,10 @@ class SwipeToDeleteCallBack(
     private val tripAdapter: TripPreviewAdapter,
     private val viewModel: GeneralTripViewModel
 ) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs) {
+
     private val icon = ContextCompat.getDrawable(context, R.drawable.ic_trash)!!
     private val background = ContextCompat.getDrawable(context, R.drawable.gradient_delete)!!
+    private val backgroundOffset = context.resources.getDimension(R.dimen.corner_radius)
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -58,11 +60,11 @@ class SwipeToDeleteCallBack(
 
         when {
             dX < 0 -> { // swiping to the left
-                background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                background.setBounds(itemView.right + dX.toInt() - backgroundOffset.toInt(), itemView.top, itemView.right, itemView.bottom)
                 icon.setBounds(left, top, right, bottom)
             }
             dX > 0 -> { // swiping to the right
-                background.setBounds(itemView.left + dX.toInt(), itemView.top, itemView.left, itemView.bottom)
+                background.setBounds(itemView.left + dX.toInt() - backgroundOffset.toInt(), itemView.top, itemView.left, itemView.bottom)
                 icon.setBounds(top, top, top, bottom)
             }
             else -> { // view is unSwiped
