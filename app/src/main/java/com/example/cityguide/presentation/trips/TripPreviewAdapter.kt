@@ -3,6 +3,7 @@ package com.example.cityguide.presentation.trips
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
@@ -15,9 +16,7 @@ import com.example.cityguide.presentation.SavedTrip.SeeTripActivity
 import com.example.cityguide.util.Converters
 import javax.inject.Inject
 
-class TripPreviewAdapter (
-    val context: Context
-)
+class TripPreviewAdapter(private val listener: OnItemClickListener, val context: Context)
     : ListAdapter<Trips, TripPreviewAdapter.TripPreviewViewHolder>(TripPreviewComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripPreviewViewHolder {
@@ -40,8 +39,18 @@ class TripPreviewAdapter (
         }
     }
 
-    class TripPreviewViewHolder(private val binding: TripsFragmentGeneralTripsListItemBinding)
+    inner class TripPreviewViewHolder(private val binding: TripsFragmentGeneralTripsListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
+
+            init {
+                binding.apply {
+                    root.setOnClickListener {
+                        val position = adapterPosition
+                        if (position != RecyclerView.NO_POSITION)
+                            listener.onItemClick(getItem(position))
+                    }
+                }
+            }
 
             fun bind(trips: Trips) {
                 binding.apply {
@@ -63,6 +72,10 @@ class TripPreviewAdapter (
                 }
             }
         }
+
+    interface OnItemClickListener {
+        fun onItemClick(trip: Trips)
+    }
 
     class TripPreviewComparator : DiffUtil.ItemCallback<Trips>() {
         override fun areItemsTheSame(oldItem: Trips, newItem: Trips): Boolean

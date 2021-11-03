@@ -24,10 +24,14 @@ class MyTripsFragment : Fragment(R.layout.trips_fragment_screen) {
     }
 
     private fun initializeTripListsPreviews() {
+        val parent = this
         parentFragmentManager.commit {
             val activeTripsFragment = ActiveTripsFragment()
+            activeTripsFragment.parent = parent
             val upcomingTripsFragment = UpcomingTripsFragment()
+            upcomingTripsFragment.parent = parent
             val completedTripsFragment = CompletedTripsFragment()
+            completedTripsFragment.parent = parent
 
             add(R.id.trips_active, activeTripsFragment)
             add(R.id.trips_upcoming, upcomingTripsFragment)
