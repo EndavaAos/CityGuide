@@ -44,11 +44,6 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
-        // removed status bar
-//        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-//                View.SYSTEM_UI_FLAG_FULLSCREEN
-
-
         val name = view?.findViewById<TextView>(R.id.poi_name)
         val address = view?.findViewById<TextView>(R.id.poi_address)
         val description = view?.findViewById<TextView>(R.id.poi_description)
