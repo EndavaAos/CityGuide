@@ -57,7 +57,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_make_trip, container, false)
 
-        button = view.findViewById(R.id.setTripButton)
+        button = view.findViewById(R.id.finishScheduleButton)
 
         val backButton = view.findViewById<ImageView>(R.id.backArrowButton)
         backButton.setOnClickListener {
@@ -107,6 +107,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
 
         view.finishScheduleButton.setOnClickListener {
+            onButtonClick()
             if (expect.text.equals("-")) {
                 val view = View.inflate(context, R.layout.alert_dialog_view, null)
                 val builder = AlertDialog.Builder(requireContext())
