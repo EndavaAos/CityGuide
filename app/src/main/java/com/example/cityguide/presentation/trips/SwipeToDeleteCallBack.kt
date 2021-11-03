@@ -60,11 +60,11 @@ class SwipeToDeleteCallBack(
 
         when {
             dX < 0 -> { // swiping to the left
-                background.setBounds(itemView.right + dX.toInt() - backgroundOffset.toInt(), itemView.top, itemView.right, itemView.bottom)
+                background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
                 icon.setBounds(left, top, right, bottom)
             }
             dX > 0 -> { // swiping to the right
-                background.setBounds(itemView.left + dX.toInt() - backgroundOffset.toInt(), itemView.top, itemView.left, itemView.bottom)
+                background.setBounds(itemView.left + dX.toInt(), itemView.top, itemView.left, itemView.bottom)
                 icon.setBounds(top, top, top, bottom)
             }
             else -> { // view is unSwiped
