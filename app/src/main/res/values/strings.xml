@@ -2,7 +2,7 @@
     <string name="app_name">CityGuide</string>
     <string name="trip_item_title_hint">City - CC</string>
     <string name="trip_item_title_format">%1$s – %2$s</string>
-    <string name="trip_item_period_hint">14.12.2021 – 13.12.2021</string>
+    <string name="trip_item_period_hint">No Date</string>
     <string name="trip_item_period_format">%1$s – %2$s</string>
     <string name="trips_preview_list">my trips</string>
     <string name="trips_preview_list_category_hint">Active trips</string>
