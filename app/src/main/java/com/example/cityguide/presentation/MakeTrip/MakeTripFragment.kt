@@ -118,6 +118,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 dialog.setCancelable(false)
 
                 view.yes.setOnClickListener {
+                    vm.insertTrips(trips)
                     activity?.finish()
                     dialog.dismiss()
                 }
