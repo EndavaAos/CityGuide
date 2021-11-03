@@ -40,12 +40,12 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
     private val listScreen = TripsPreviewList()
 
     private fun initializeListFragment() {
+        listScreen.setViewModel(viewModel)
+
         childFragmentManager.commit {
             add(R.id.trips_list, errorScreen)
             setReorderingAllowed(true)
         }
-
-        listScreen.setViewModel(viewModel)
     }
 
     override fun onAttach(context: Context) {

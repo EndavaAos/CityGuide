@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.databinding.TripsFragmentGeneralTripsListBinding
@@ -36,31 +35,24 @@ class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list), T
         binding.apply {
             recyclerView.apply {
                 adapter = tripAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(context)
             }
 
             viewModel.trips.observe(viewLifecycleOwner) {
                 tripAdapter.submitList(it)
             }
 
-            ItemTouchHelper(
-                object : ItemTouchHelper.SimpleCallback(
+            context?.let {
+                SwipeToDeleteCallBack(
                     0,
-                    ItemTouchHelper.LEFT
-                ) {
-                    override fun onMove(
-                        recyclerView: RecyclerView,
-                        viewHolder: RecyclerView.ViewHolder,
-                        target: RecyclerView.ViewHolder
-                    ): Boolean = false
-
-                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        val student = tripAdapter.currentList[viewHolder.adapterPosition]
-                        viewModel.onTripSwiped(student)
-                    }
-
-                }).attachToRecyclerView(recyclerView)
+                    ItemTouchHelper.LEFT,
+                    it,
+                    tripAdapter,
+                    viewModel
+                )
+            }?.let {
+                ItemTouchHelper(it).attachToRecyclerView(recyclerView)
+            }
         }
     }
 
