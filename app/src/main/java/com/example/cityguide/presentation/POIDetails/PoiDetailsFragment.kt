@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +22,9 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.marginTop
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import kotlinx.android.synthetic.main.fragment_poi_details.*
-import kotlinx.android.synthetic.main.fragment_poi_details.view.*
 import kotlin.math.abs
-
 
 
 class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
@@ -84,6 +79,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                 } else if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
                     if (state !== State.COLLAPSED) {
                         nested.background = drawable1
+
                     }
                     State.COLLAPSED
                 } else {
@@ -115,17 +111,21 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     name?.text = it.data?.name
 
                     if (it.data?.address?.house_number != null) {
-                        finalAddress += it.data.address.house_number
+                        finalAddress += it.data.address.house_number + " "
                     }
                     if (it.data?.address?.road != null) {
-                        finalAddress += " " + it.data.address.road
+                        finalAddress += it.data.address.road
                     }
                     if (it.data?.address?.suburb != null) {
                         finalAddress += ", " + it.data.address.suburb
                     }
-                    finalAddress += "\n"
+
+                    if (finalAddress.length > 1) {
+                        finalAddress += "\n"
+                    }
+
                     if (it.data?.address?.city != null) {
-                        finalAddress += " " + it.data.address.city
+                        finalAddress += it.data.address.city
                     }
                     if (it.data?.address?.country != null) {
                         finalAddress += ", " + it.data.address.county
