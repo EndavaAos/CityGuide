@@ -9,14 +9,15 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/scheduleTripButton"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="20dp"
-        android:alpha="0.95"
         android:background="@drawable/ic_button_state"
+        android:fontFamily="@font/proxima_nova_alt_light"
         android:text="SCHEDULE TRIP"
-        android:textColor="@color/primary_text_color"
+        android:textColor="@color/secondary_text_color"
+        android:textSize="@dimen/home_screen_search_qustion"
         android:visibility="invisible" />
 
     <ScrollView
