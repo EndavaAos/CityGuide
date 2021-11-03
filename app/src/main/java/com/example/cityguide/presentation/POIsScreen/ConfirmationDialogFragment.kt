@@ -14,9 +14,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.cityguide.R
+import com.example.cityguide.data.db.entity.Trips
 import kotlinx.android.synthetic.main.fragment_make_trip.*
 
-class ConfirmationDialogFragment( val place: String ) : DialogFragment() {
+class ConfirmationDialogFragment( val trips: Trips ) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +42,7 @@ class ConfirmationDialogFragment( val place: String ) : DialogFragment() {
 
         yesButton.setOnClickListener {
             val totalPoints = 0
-            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(totalPoints, place)
+            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips)
             findNavController().navigate(action)
 
             dismiss()

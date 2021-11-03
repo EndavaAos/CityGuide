@@ -9,21 +9,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
+import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.ListOfPOI
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.example.cityguide.data.responses.SuggestionResponse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_location_search.view.*
-import kotlinx.android.synthetic.main.fragment_poi_screen.*
 import kotlinx.android.synthetic.main.fragment_poi_screen.view.*
-import kotlinx.android.synthetic.main.item_poi.view.*
 import javax.inject.Inject
 
 class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
@@ -36,6 +33,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
 
+    lateinit var data: SuggestionResponse
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,41 +43,68 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
+        //Trips Atributes
+        var name: String = ""
+        var country: String = ""
+
+
         activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
 
         val intent: Intent? = activity?.intent
-
         val placeToSearch = intent?.getStringExtra("place")
 
         view?.rootView?.locationNameText?.text = placeToSearch + " trip"
 
+
         val recycleView: RecyclerView? = view?.rootView?.rv
+      
         view?.rootView?.backArrowButton?.setOnClickListener {
             activity?.finish()
         }
 
         view?.rootView?.scheduleTripButton?.setOnClickListener {
-            var totalPoints: Int = 0
             var allUnChecked: Boolean = false
+            val listOfTrips: ListOfPOI = ListOfPOI(mutableListOf(),null,null)
 
-            for (item in recyclerViewAdapter.locations) {
-                allUnChecked = item.isChecked.or(allUnChecked)
-                if (item.isChecked) {
-                    totalPoints += 1
+           recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
+
+                if(recyclerViewAdapter.locations[index].isChecked && recyclerViewAdapter.locations[index].name == data.features[index].properties.name){
+                    listOfTrips.listOfPoints.add(data.features[index])
                 }
             }
-            if (allUnChecked == false) {
-                if (placeToSearch != null) {
-                    val confirmationDialog: ConfirmationDialogFragment =
-                        ConfirmationDialogFragment(placeToSearch)
-                    confirmationDialog.show(childFragmentManager, "Confirmation Dialog")
+            for(item in recyclerViewAdapter.locations){
+                allUnChecked = item.isChecked.or(allUnChecked)
+            }
+            if(allUnChecked == false){
+                val trips = Trips(0, name, country, arrayListOf(), null, null)
+                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment(trips)
+                confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
+            }
+            else{
+                var listOfPOI: MutableList<String> = mutableListOf()
+                listOfTrips.listOfPoints.forEach { poi_item ->
+                    listOfPOI.add(poi_item.properties.xid)
                 }
-            } else {
-                val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(
-                    totalPoints,
-                    placeToSearch.toString()
-                )
-                findNavController().navigate(action)
+                vm.getPoiDetailsForList(listOfPOI, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+                vm.poiDetalisLiveDataList.observe(viewLifecycleOwner,{
+                    when (it) {
+                        is Resource.Success -> {
+                            //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
+                            it.data?.let { it1 -> val poi_List: List<Trips.Trip> = it.data.listOfTrip
+                                setDateForTrip(poi_List, name, country) }
+                        }
+                        is Resource.Error -> {
+                            Toast.makeText(context, "error: ${it.message}", Toast.LENGTH_LONG).show()
+                        }
+                        is Resource.Loading -> {
+                        }
+                    }
+                })
+                //Toast.makeText(context, listOfPOI.toString(), Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, trips.toString(), Toast.LENGTH_LONG).show()
+                //vm.getPoiDetailsForList(listOfIds, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+                /*val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(listOfTrips.listOfPoints.size, placeToSearch!!)
+                findNavController().navigate(action)*/
             }
         }
 
@@ -93,6 +119,9 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
             when (it) {
                 is Resource.Success -> {
                     //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
+                    country = it.data?.country.toString()
+                    name = it.data?.name.toString()
+                    //Toast.makeText(context, trips.toString(), Toast.LENGTH_LONG).show()
                 }
                 is Resource.Error -> {
                     errorDisplay()
@@ -123,7 +152,10 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                     recycleView?.layoutManager = LinearLayoutManager(context)
                     if (locations.size == 0) {
                         errorDisplay()
-                    } else {
+                    }
+                    else
+                    {
+                        data = it.data!!
                         okayDisplay()
                     }
                 }
@@ -153,6 +185,12 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         view?.scheduleTripButton?.visibility = View.VISIBLE
         view?.backArrowButton?.visibility = View.INVISIBLE
         view?.tripNotFoundCard?.visibility = View.INVISIBLE
+    }
+
+    fun setDateForTrip(listPoi: List<Trips.Trip>, name: String, country: String){
+        val trips = Trips(0, name, country, listPoi, null, null)
+        val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips)
+        view?.let { Navigation.findNavController(it).navigate(action) }
     }
 
     override fun onAttach(context: Context) {

@@ -3,25 +3,19 @@ package com.example.cityguide
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.cityguide.presentation.search.SearchFragment
+import com.example.cityguide.presentation.trips.MyTripsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class StartScreenActivity : AppCompatActivity() {
 
-
     lateinit var navigationBar: BottomNavigationView
 
-    var fragmentManager = supportFragmentManager
-    var searchFragment: Fragment = SearchFragment()
+    private val fragmentManager = supportFragmentManager
+    private val searchFragment: Fragment = SearchFragment()
+    private val tripsFragment: Fragment = MyTripsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +23,9 @@ class StartScreenActivity : AppCompatActivity() {
 
         navigationBar = findViewById(R.id.bottom_nav)
 
-        navigationBar.setOnItemSelectedListener{it -> navigationSelectionHandler(it)}
+        navigationBar.setOnItemSelectedListener{
+            navigationSelectionHandler(it)
+        }
     }
 
     override fun onStart() {
@@ -48,10 +44,9 @@ class StartScreenActivity : AppCompatActivity() {
                 return true
             }
             R.id.nav_mytrip -> {
-                //TODO ("Implement My Trips page")
-
-                // Delete after implementation
-                Toast.makeText(this, "My Trip", Toast.LENGTH_SHORT).show()
+                fragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, tripsFragment)
+                    .commit()
                 return true
             }
             R.id.nav_settings -> {
@@ -64,6 +59,4 @@ class StartScreenActivity : AppCompatActivity() {
             else -> return false
         }
     }
-
-
 }
