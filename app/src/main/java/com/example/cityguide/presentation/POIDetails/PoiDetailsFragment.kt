@@ -123,9 +123,6 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     if (it.data?.address?.suburb != null) {
                         finalAddress += ", " + it.data.address.suburb
                     }
-                    if (finalAddress.length > 1){
-                        finalAddress += "\n"
-                    }
                     if (it.data?.address?.city != null) {
                         finalAddress += it.data.address.city
                     }
@@ -148,8 +145,8 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                         descrLayout?.visibility = View.INVISIBLE
                     } else {
                         description?.text = it.data.wikipedia_extracts.text
+                        descrLayout?.visibility = View.VISIBLE
                     }
-                    descrLayout?.visibility = View.VISIBLE
 
                     val kindsString = it.data?.kinds
                     val kindsArray = kindsString?.split(",")

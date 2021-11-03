@@ -1,14 +1,16 @@
 package com.example.cityguide.presentation.POIsScreen
 
-import android.graphics.Color
+import android.app.PendingIntent.getActivity
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
+import android.view.View
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cityguide.R
 
 class POIScreenActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -18,6 +20,7 @@ class POIScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
         window.statusBarColor = resources.getColor(android.R.color.transparent)
+
         setContentView(R.layout.activity_poiscreen)
     }
 }
