@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.cityguide.R
@@ -21,8 +23,11 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.marginTop
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import kotlinx.android.synthetic.main.fragment_poi_details.*
+import kotlinx.android.synthetic.main.fragment_poi_details.view.*
 import kotlin.math.abs
 
 
@@ -52,9 +57,9 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         val nested = view?.findViewById<NestedScrollView>(R.id.nestedScrollView)
         val descrLayout = view?.findViewById<LinearLayout>(R.id.descriptionLinearLayout)
         val descriptionTxt = view?.findViewById<TextView>(R.id.descriptionTxt)
-
         val appBar = view?.findViewById<AppBarLayout>(R.id.appBarLayout)
-
+        val constraint = view?.findViewById<ConstraintLayout>(R.id.constraint)
+        val addrLayout = view?.findViewById<LinearLayout>(R.id.addressLinearLayout)
 
         val params = nested?.layoutParams as CoordinatorLayout.LayoutParams
         val behaviour = params.behavior as AppBarLayout.ScrollingViewBehavior
@@ -63,10 +68,14 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         val drawable1: Drawable = resources.getDrawable(R.drawable.gradient_background)
         val drawable2: Drawable = resources.getDrawable(R.drawable.gradient_bg)
 
+
         // White CORNERS Bug
         appBar?.addOnOffsetChangedListener(object : OnOffsetChangedListener {
+
+
             private var state: State? = null
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+
                 state = if (verticalOffset == 0) {
                     if (state !== State.EXPANDED) {
                         nested.background = drawable2
@@ -86,12 +95,14 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
             }
         })
 
-
         val xidFromFragment = args.xid
 
         var finalAddress = ""
 
         fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
+
+        addrLayout?.visibility = View.INVISIBLE
+        descrLayout?.visibility = View.INVISIBLE
 
         vm.getPoiDetails(
             xidFromFragment,
@@ -127,6 +138,8 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     }
 
                     address?.text = finalAddress
+                    addrLayout?.visibility = View.VISIBLE
+
 
                     if (it.data?.wikipedia_extracts?.text == null) {
                         descriptionTxt?.visibility = View.INVISIBLE
@@ -134,7 +147,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     } else {
                         description?.text = it.data.wikipedia_extracts.text
                     }
-
+                    descrLayout?.visibility = View.VISIBLE
 
                     val kindsString = it.data?.kinds
                     val kindsArray = kindsString?.split(",")
