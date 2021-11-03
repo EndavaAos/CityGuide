@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.cityguide.R
@@ -54,7 +55,9 @@ class PoiDetailsFragment2 : Fragment(R.layout.fragment_poi_details) {
         val nested = view?.findViewById<NestedScrollView>(R.id.nestedScrollView)
         val descrLayout = view?.findViewById<LinearLayout>(R.id.descriptionLinearLayout)
         val descriptionTxt = view?.findViewById<TextView>(R.id.descriptionTxt)
-
+        val appBar = view?.findViewById<AppBarLayout>(R.id.appBarLayout)
+        val constraint = view?.findViewById<ConstraintLayout>(R.id.constraint)
+        val addrLayout = view?.findViewById<LinearLayout>(R.id.addressLinearLayout)
 
         val params = nested?.layoutParams as CoordinatorLayout.LayoutParams
         val behaviour = params.behavior as AppBarLayout.ScrollingViewBehavior
@@ -68,21 +71,23 @@ class PoiDetailsFragment2 : Fragment(R.layout.fragment_poi_details) {
 
         name?.text = trip.name
 
+        addrLayout?.visibility = View.INVISIBLE
+        descrLayout?.visibility = View.INVISIBLE
+
         if (trip.address?.house_number != null) {
-            finalAddress += trip.address.house_number
+            finalAddress += trip.address.house_number + " "
         }
         if (trip.address?.road != null) {
-            finalAddress += " " + trip.address.road
+            finalAddress += trip.address.road
         }
         if (trip.address?.suburb != null) {
             finalAddress += ", " + trip.address.suburb
         }
-        finalAddress += "\n"
         if (trip.address?.city != null) {
-            finalAddress += " " + trip.address.city
+            finalAddress += trip.address.city
         }
         if (trip.address?.country != null) {
-            finalAddress += ", " + trip.address.country
+            finalAddress += ", " + trip.address.county
         }
         if (trip.address?.postcode != null) {
             finalAddress += ", " + trip.address.postcode
@@ -92,12 +97,14 @@ class PoiDetailsFragment2 : Fragment(R.layout.fragment_poi_details) {
         }
 
         address?.text = finalAddress
+        addrLayout?.visibility = View.VISIBLE
 
         if (trip.wikipedia_extracts?.text == null) {
             descriptionTxt?.visibility = View.INVISIBLE
             descrLayout?.visibility = View.INVISIBLE
         } else {
             description?.text = trip.wikipedia_extracts.text
+            descrLayout?.visibility = View.VISIBLE
         }
 
 
@@ -111,7 +118,7 @@ class PoiDetailsFragment2 : Fragment(R.layout.fragment_poi_details) {
             chip.chipBackgroundColor = ColorStateList.valueOf(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.dark_shadow_midnight
+                    R.color.background_start_color_30_darker_midnight
                 )
             )
             chip.chipStrokeColor = ColorStateList.valueOf(

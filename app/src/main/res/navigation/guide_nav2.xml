@@ -14,7 +14,7 @@
             android:id="@+id/navigationFromSavedTripToPOIDetails"
             app:destination="@id/poiDetailsFragment22" />
         <action
-            android:id="@+id/navigationFromSavedTripToTripMap"
+            android:id="@+id/navigationFromSavedTripToMaps"
             app:destination="@id/mapsFragment" />
     </fragment>
     <fragment

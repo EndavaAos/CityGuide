@@ -94,7 +94,7 @@ class SeeTripFragment : Fragment() {
         }
 
         view.rootView.seeOnMapButton.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigationFromSavedTripToTripMap)
+            Navigation.findNavController(view).navigate(R.id.navigationFromSavedTripToMaps)
         }
 
         if(trips.listOfPOI.isEmpty()){
