@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
-import com.example.cityguide.data.models.LocationPOIScreenCheck
 import com.example.cityguide.data.models.ListOfPOI
 import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.LocationPOIScreenCheck
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.data.responses.SuggestionResponse

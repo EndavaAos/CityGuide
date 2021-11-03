@@ -44,6 +44,7 @@ data class Trips (
             val road: String,
             val postcode: String,
             val suburb: String,
+            val county: String,
             val country: String,
             val country_code: String
         ): Serializable
