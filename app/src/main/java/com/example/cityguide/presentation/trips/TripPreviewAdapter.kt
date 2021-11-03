@@ -1,6 +1,7 @@
 package com.example.cityguide.presentation.trips
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,7 @@ import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.databinding.TripsFragmentGeneralTripsListItemBinding
 import com.example.cityguide.util.Converters
 
-class TripPreviewAdapter
+class TripPreviewAdapter(private val listener: OnItemClickListener)
     : ListAdapter<Trips, TripPreviewAdapter.TripPreviewViewHolder>(TripPreviewComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripPreviewViewHolder {
@@ -26,8 +27,18 @@ class TripPreviewAdapter
             holder.bind(currentItem)
     }
 
-    class TripPreviewViewHolder(private val binding: TripsFragmentGeneralTripsListItemBinding)
+    inner class TripPreviewViewHolder(private val binding: TripsFragmentGeneralTripsListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
+
+            init {
+                binding.apply {
+                    root.setOnClickListener {
+                        val position = adapterPosition
+                        if (position != RecyclerView.NO_POSITION)
+                            listener.onItemClick(getItem(position))
+                    }
+                }
+            }
 
             fun bind(trips: Trips) {
                 binding.apply {
@@ -49,6 +60,10 @@ class TripPreviewAdapter
                 }
             }
         }
+
+    interface OnItemClickListener {
+        fun onItemClick(trip: Trips)
+    }
 
     class TripPreviewComparator : DiffUtil.ItemCallback<Trips>() {
         override fun areItemsTheSame(oldItem: Trips, newItem: Trips): Boolean
