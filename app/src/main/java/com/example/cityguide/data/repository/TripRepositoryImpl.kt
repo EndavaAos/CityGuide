@@ -29,4 +29,8 @@ class TripRepositoryImpl @Inject constructor(
     override suspend fun insertTrips(trips: Trips){
         dao.insertTrips(trips)
     }
+
+    override suspend fun deleteTrip(trip: Trips) {
+        dao.deleteTrip(trip)
+    }
 }

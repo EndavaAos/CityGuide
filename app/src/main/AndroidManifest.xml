@@ -43,6 +43,7 @@
             android:exported="true" />
         <activity
             android:name=".StartScreenActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".presentation.location.LocationSearchActivity"

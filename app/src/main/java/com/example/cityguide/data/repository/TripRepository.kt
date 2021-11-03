@@ -9,4 +9,5 @@ interface TripRepository {
     fun getUpcomingTrips() : Observable<List<Trips>>
     fun getCompletedTrips() : Observable<List<Trips>>
     suspend fun insertTrips(trips: Trips)
+    suspend fun deleteTrip(trip: Trips)
 }

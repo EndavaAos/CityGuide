@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animator?) {
                 startActivity(intent)
+                finish()
             }
 
             override fun onAnimationCancel(animation: Animator?) {

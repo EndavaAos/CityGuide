@@ -1,14 +1,19 @@
 package com.example.cityguide.presentation.search
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.ColorFilter
 import android.graphics.LightingColorFilter
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
@@ -31,6 +36,7 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
     lateinit var searchEditText: EditText
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -39,6 +45,20 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
 
         searchEditText.addTextChangedListener { buttonStatusOnTextChanged() }
         searchButton.setOnClickListener { onSearchButtonClick() }
+        searchButton.setOnTouchListener(object: View.OnTouchListener {
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        searchButton.background.setColorFilter(Color.rgb(223, 223, 223), PorterDuff.Mode.MULTIPLY)
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        v.performClick()
+                        searchButton.background.clearColorFilter()
+                    }
+                }
+                return true
+            }
+        })
     }
 
 
@@ -67,5 +87,9 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         searchEditText.text.clear()
         searchButton.isEnabled = false
         searchButton.setBackgroundResource(R.drawable.rectangle_for_button_screen_search)
+    }
+
+    private fun onSearchButtonTouch() {
+
     }
 }
