@@ -22,8 +22,8 @@
 
     <ImageButton
         android:id="@+id/expandableButton"
-        android:layout_width="@dimen/ic_caret_size"
-        android:layout_height="@dimen/ic_caret_size"
+        android:layout_width="@dimen/expandable_button_size"
+        android:layout_height="@dimen/expandable_button_size"
         android:layout_marginEnd="@dimen/list_expandable_icon_margin_medium"
         android:background="@drawable/ic_caret_up"
         android:contentDescription="@string/expandable_button"

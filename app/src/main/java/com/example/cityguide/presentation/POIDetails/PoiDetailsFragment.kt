@@ -2,15 +2,15 @@ package com.example.cityguide.presentation.POIDetails
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.cityguide.R
@@ -23,8 +23,13 @@ import javax.inject.Inject
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.isInvisible
+import androidx.core.view.marginTop
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import kotlinx.android.synthetic.main.fragment_poi_details.*
+import kotlinx.android.synthetic.main.fragment_poi_details.view.*
+import kotlin.math.abs
+
 
 
 class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
@@ -41,7 +46,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         val name = view?.findViewById<TextView>(R.id.poi_name)
@@ -52,17 +57,52 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         val nested = view?.findViewById<NestedScrollView>(R.id.nestedScrollView)
         val descrLayout = view?.findViewById<LinearLayout>(R.id.descriptionLinearLayout)
         val descriptionTxt = view?.findViewById<TextView>(R.id.descriptionTxt)
-
+        val appBar = view?.findViewById<AppBarLayout>(R.id.appBarLayout)
+        val constraint = view?.findViewById<ConstraintLayout>(R.id.constraint)
+        val addrLayout = view?.findViewById<LinearLayout>(R.id.addressLinearLayout)
 
         val params = nested?.layoutParams as CoordinatorLayout.LayoutParams
         val behaviour = params.behavior as AppBarLayout.ScrollingViewBehavior
-        behaviour.overlayTop = 100
+        behaviour.overlayTop = 60
+
+        val drawable1: Drawable = resources.getDrawable(R.drawable.gradient_background)
+        val drawable2: Drawable = resources.getDrawable(R.drawable.gradient_bg)
+
+
+        // White CORNERS Bug
+        appBar?.addOnOffsetChangedListener(object : OnOffsetChangedListener {
+
+
+            private var state: State? = null
+            override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+
+                state = if (verticalOffset == 0) {
+                    if (state !== State.EXPANDED) {
+                        nested.background = drawable2
+                    }
+                    State.EXPANDED
+                } else if (abs(verticalOffset) >= appBarLayout.totalScrollRange) {
+                    if (state !== State.COLLAPSED) {
+                        nested.background = drawable1
+                    }
+                    State.COLLAPSED
+                } else {
+                    if (state !== State.IDLE) {
+                        nested.background = drawable2
+                    }
+                    State.IDLE
+                }
+            }
+        })
 
         val xidFromFragment = args.xid
 
         var finalAddress = ""
 
         fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
+
+        addrLayout?.visibility = View.INVISIBLE
+        descrLayout?.visibility = View.INVISIBLE
 
         vm.getPoiDetails(
             xidFromFragment,
@@ -83,9 +123,6 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     if (it.data?.address?.suburb != null) {
                         finalAddress += ", " + it.data.address.suburb
                     }
-                    if (finalAddress.length > 1){
-                        finalAddress += "\n"
-                    }
                     if (it.data?.address?.city != null) {
                         finalAddress += it.data.address.city
                     }
@@ -100,20 +137,22 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                     }
 
                     address?.text = finalAddress
+                    addrLayout?.visibility = View.VISIBLE
+
 
                     if (it.data?.wikipedia_extracts?.text == null) {
                         descriptionTxt?.visibility = View.INVISIBLE
                         descrLayout?.visibility = View.INVISIBLE
                     } else {
                         description?.text = it.data.wikipedia_extracts.text
+                        descrLayout?.visibility = View.VISIBLE
                     }
-
 
                     val kindsString = it.data?.kinds
                     val kindsArray = kindsString?.split(",")
 
-                    for (kind: String in kindsArray!!) {
 
+                    for (kind: String in kindsArray!!) {
                         val chip = Chip(context)
 
                         chip.chipBackgroundColor = ColorStateList.valueOf(
@@ -129,7 +168,6 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                             )
                         )
 
-
                         chip.chipStrokeWidth = 2F
                         chip.setTextColor(resources.getColor(R.color.primary_text_color))
                         chip.text = kind.replace("_", " ").capitalizeWords()
@@ -138,9 +176,8 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                         chipGrp?.addView(chip)
                     }
 
-
                     if (image != null) {
-                        Glide.with(requireContext()).load(it?.data?.preview?.source)
+                        Glide.with(requireContext()).load(it.data.preview.source)
                             .placeholder(R.drawable.poi_placeholder).into(image)
                     }
                 }
