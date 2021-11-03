@@ -1,13 +1,11 @@
 package com.example.cityguide.data.repository
 
-import android.util.Log
+import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.network.LocationApi
-import com.example.cityguide.data.responses.BitCoinRespone
 import com.example.cityguide.data.responses.LocationResponseItem
 import com.example.cityguide.data.responses.SuggestionResponse
 import com.example.cityguide.presentation.POIDetails.models.Poi
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class LocationRepositoryImpl @Inject constructor(
@@ -29,6 +27,10 @@ class LocationRepositoryImpl @Inject constructor(
 
     override fun getPoiDetails(xid: String, apiKey: String): Observable<Poi> {
         return locationApi.getPoiDetails(xid, apiKey)
+    }
+
+    override fun getPoiDetailsForList(xid: String, apiKey: String): Observable<Trips.Trip> {
+        return locationApi.getPoiDetailsForList(xid, apiKey)
     }
 
 
