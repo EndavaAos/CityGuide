@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".presentation.SavedTrip.SeeTripFragment">
+
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/updateTripButton">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintlayoutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/backArrowButton2"
+                    android:layout_width="@dimen/back_arrow_width"
+                    android:layout_height="@dimen/back_arrow_height"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_back_button"
+                    app:layout_constraintBottom_toTopOf="@+id/trip_details_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/locationNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/grade_cursive"
+                    android:gravity="center"
+                    android:text="New York city"
+                    android:textColor="@color/secondary_text_color"
+                    android:textSize="@dimen/title_text_size"
+                    app:layout_constraintBottom_toTopOf="@+id/trip_details_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/trip_details_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/locationNameText"
+                    android:fontFamily="@font/grade_cursive"
+                    android:gravity="center"
+                    android:text="- trip details -"
+                    android:textColor="@color/secondary_text_color"
+                    android:textSize="@dimen/title_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/locationNameText" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/constraintlayoutTitle"
+                android:background="@drawable/background_border"
+                android:backgroundTint="@color/black_20">
+
+                <TextView
+                    android:id="@+id/displayDateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"
+                    android:text="20.10.2021 - 21.11.2021"
+                    android:textColor="@color/secondary_text_color"
+                    android:fontFamily="@font/proxima_nova_alt_bold"
+                    android:textSize="17sp" />
+
+
+
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/constraintLayout2"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/background_border"
+                android:backgroundTint="@color/black_20">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:text="Points of interest"
+                        android:textAlignment="center"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="@dimen/text_maketrip_size" />
+
+                    <TextView
+                        android:id="@+id/expected_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/circle_border"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:fontFamily="@font/proxima_nova_alt_bold"
+                        android:text="8"
+                        android:textAlignment="center"
+                        android:textColor="@color/secondary_text_color"
+                        android:textSize="@dimen/text_noPoints_size" />
+
+                </LinearLayout>
+
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/seeOnMapButton"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/see_on_map_selector"
+                    android:drawableLeft="@drawable/ic_baseline_map_24"
+                    android:drawableTint="@color/map_drawable_color"
+                    android:fontFamily="@font/proxima_nova_regular"
+                    android:gravity="center"
+                    android:paddingLeft="70dp"
+                    android:paddingRight="70dp"
+                    android:text="SEE ON MAP"
+                    android:textColor="@color/map_drawable_color"
+                    android:textSize="@dimen/text_maketrip_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutNumbers"
+                    app:layout_constraintVertical_bias="0.0">
+
+                </androidx.appcompat.widget.AppCompatButton>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/constraintLayout3"
+                android:layout_margin="@dimen/list_title_margin_medium"
+                android:text="Points of interest"
+                android:textAlignment="center"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="@dimen/text_maketrip_size" />
+
+            <ImageButton
+                android:id="@+id/expandableButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/constraintLayout3"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/list_expandable_icon_margin_medium"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_caret_up"
+                android:contentDescription="@string/expandable_button" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_below="@id/rv2"/>
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/transparency_layer2"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_gradient_transparency" />
+
+    <RelativeLayout
+        android:id="@+id/transparency_layer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/button_background_transparency"
+        android:layout_above="@id/updateTripButton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/updateTripButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/button_schedule_trip_margin_horizontal"
+        android:layout_marginBottom="@dimen/button_schedule_trip_margin_bottom"
+        android:background="@drawable/ic_button_state"
+        android:fontFamily="@font/proxima_nova_alt_light"
+        android:textColor="@color/secondary_text_color"
+        android:textSize="@dimen/home_screen_search_qustion"
+        android:text="UPDATE TRIP"
+        tools:layout_editor_absoluteX="16dp"/>
+
+
+
+
+</RelativeLayout>

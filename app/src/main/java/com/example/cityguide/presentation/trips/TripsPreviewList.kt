@@ -1,5 +1,6 @@
 package com.example.cityguide.presentation.trips
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list), T
         this.viewModel = viewModel
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,7 +32,7 @@ class TripsPreviewList : Fragment(R.layout.trips_fragment_general_trips_list), T
     private fun initializeBinding(view: View) {
         _binding = TripsFragmentGeneralTripsListBinding.bind(view)
 
-        val tripAdapter = TripPreviewAdapter(this)
+        val tripAdapter = TripPreviewAdapter(this, requireContext())
 
         binding.apply {
             recyclerView.apply {

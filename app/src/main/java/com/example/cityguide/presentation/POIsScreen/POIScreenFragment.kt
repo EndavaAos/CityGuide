@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
-import com.example.cityguide.data.models.LocationPOIScreen
 import com.example.cityguide.data.models.ListOfPOI
+import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.LocationPOIScreenCheck
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.data.responses.SuggestionResponse
@@ -48,8 +49,6 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         var country: String = ""
 
 
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
-
         val intent: Intent? = activity?.intent
         val placeToSearch = intent?.getStringExtra("place")
 
@@ -66,7 +65,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
             var allUnChecked: Boolean = false
             val listOfTrips: ListOfPOI = ListOfPOI(mutableListOf(),null,null)
 
-           recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
+           recyclerViewAdapter.locations.forEachIndexed { index, LocationPOIScreen ->
 
                 if(recyclerViewAdapter.locations[index].isChecked && recyclerViewAdapter.locations[index].name == data.features[index].properties.name){
                     listOfTrips.listOfPoints.add(data.features[index])
@@ -136,10 +135,11 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         vm.suggestionLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    val locations = mutableListOf<LocationPOIScreen>()
+
+                    val locations = mutableListOf<LocationPOIScreenCheck>()
                     it.data?.features?.forEach { it2 ->
                         locations.add(
-                            LocationPOIScreen(
+                            LocationPOIScreenCheck(
                                 it2.properties.name,
                                 it2.properties.kinds.replace("_", " ").capitalizeWords(),
                                 false,

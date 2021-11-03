@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+            <item>
+                <shape android:shape="rectangle" >
+                    <corners android:radius="50dp"></corners>
+                    <gradient
+                        android:angle="0"
+                        android:endColor="@color/button_pressed_end_color_midnight"
+                        android:startColor="@color/button_pressed_start_color_midnight" />
+
+                </shape>
+            </item>
+            <!-- create the stroke for top, left, bottom and right with the dp you want -->
+
+            <item
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp">
+                <shape android:shape="rectangle" >
+                    <corners android:radius="50dp"></corners>
+                    <shape android:shape="rectangle" >
+                        <corners android:radius="50dp"></corners>
+                    </shape>
+                    <!-- fill the inside in the color you want (could also be a gradient again if you want to, just change solid to gradient and enter angle, start, maybe center, and end color) -->
+                    <solid android:color="@color/background_start_color_30_darker_midnight" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+    <item android:state_enabled="true">
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+            <item>
+                <shape android:shape="rectangle" >
+                    <corners android:radius="50dp"></corners>
+                    <gradient
+                        android:angle="0"
+                        android:endColor="@color/button_end_color_midnight"
+                        android:startColor="@color/button_start_color_midnight" />
+
+                </shape>
+            </item>
+            <!-- create the stroke for top, left, bottom and right with the dp you want -->
+
+            <item
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp">
+                <shape android:shape="rectangle" >
+                    <corners android:radius="50dp"></corners>
+                    <shape android:shape="rectangle" >
+                        <corners android:radius="50dp"></corners>
+                    </shape>
+                    <!-- fill the inside in the color you want (could also be a gradient again if you want to, just change solid to gradient and enter angle, start, maybe center, and end color) -->
+                    <solid android:color="@color/background_start_color_20_darker_midnight" />
+                </shape>
+            </item>
+
+        </layer-list>
+    </item>
+        <item android:state_enabled="false">
+            <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+                <item>
+                    <shape android:shape="rectangle" >
+                        <corners android:radius="50dp"></corners>
+                        <gradient
+                            android:angle="0"
+                            android:endColor="@color/button_disabled_end_color_midnight"
+                            android:startColor="@color/button_disabled_start_color_midnight" />
+
+                    </shape>
+                </item>
+                <!-- create the stroke for top, left, bottom and right with the dp you want -->
+
+                <item
+                    android:bottom="2dp"
+                    android:left="2dp"
+                    android:right="2dp"
+                    android:top="2dp">
+                    <shape android:shape="rectangle" >
+                        <corners android:radius="50dp"></corners>
+                        <shape android:shape="rectangle" >
+                            <corners android:radius="50dp"></corners>
+                        </shape>
+                        <!-- fill the inside in the color you want (could also be a gradient again if you want to, just change solid to gradient and enter angle, start, maybe center, and end color) -->
+                        <solid android:color="@color/black_30" />
+                    </shape>
+                </item>
+
+            </layer-list>
+        </item>
+
+</selector>

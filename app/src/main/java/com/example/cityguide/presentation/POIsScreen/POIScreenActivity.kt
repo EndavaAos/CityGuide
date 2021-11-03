@@ -3,6 +3,7 @@ package com.example.cityguide.presentation.POIsScreen
 import android.app.PendingIntent.getActivity
 import android.os.Build
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
@@ -22,5 +23,6 @@ class POIScreenActivity : AppCompatActivity() {
         window.statusBarColor = resources.getColor(android.R.color.transparent)
 
         setContentView(R.layout.activity_poiscreen)
+
     }
 }

@@ -30,9 +30,31 @@ class StartScreenActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        fragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, searchFragment)
-            .commit()
+            fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container, searchFragment)
+                .commit()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        val intent = intent;
+        val s1 = intent.getStringExtra("Check")
+
+
+        if(s1.equals("1"))
+        {
+            fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container, tripsFragment)
+                .commit()
+            navigationBar.selectedItemId = R.id.nav_mytrip
+        }
+        else {
+            fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container, searchFragment)
+                .commit()
+        }
+
     }
 
     private fun navigationSelectionHandler(menu: MenuItem): Boolean{
