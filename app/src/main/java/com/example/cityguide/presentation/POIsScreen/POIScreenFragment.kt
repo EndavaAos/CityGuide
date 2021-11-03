@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
-import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.LocationPOIScreenCheck
 import com.example.cityguide.data.models.ListOfPOI
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
@@ -48,8 +48,6 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         var name: String = ""
         var country: String = ""
 
-
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
 
         val intent: Intent? = activity?.intent
         val placeToSearch = intent?.getStringExtra("place")
@@ -133,8 +131,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         vm.suggestionLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    val locations = mutableListOf<LocationPOIScreen>()
-                    it.data?.features?.forEach { it2 -> locations.add(LocationPOIScreen(it2.properties.name, it2.properties.kinds, false, it2.properties.xid)) }
+                    val locations = mutableListOf<LocationPOIScreenCheck>()
+                    it.data?.features?.forEach { it2 -> locations.add(LocationPOIScreenCheck(it2.properties.name, it2.properties.kinds, false, it2.properties.xid)) }
                     recyclerViewAdapter = RecyclerViewAdapter(locations, requireContext())
                     recycleView?.adapter = recyclerViewAdapter
                     recycleView?.layoutManager = LinearLayoutManager(context)

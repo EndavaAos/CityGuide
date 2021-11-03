@@ -41,7 +41,7 @@
     <dimen name="poi_navigate_margin_right">10dp</dimen>
     <dimen name="poi_linear_layout_margin">20dp</dimen>
     <dimen name="poi_name_text_margin">5dp</dimen>
-    <dimen name="poi_name_text_size">20sp</dimen>
+    <dimen name="poi_name_text_size">18sp</dimen>
     <dimen name="poi_category_text_padding_vertical">2dp</dimen>
     <dimen name="poi_category_text_padding_horizontal">12dp</dimen>
     <dimen name="poi_category_text_size">12sp</dimen>

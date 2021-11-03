@@ -28,6 +28,7 @@ class AppModule(
         return context
     }
 
+
     @Singleton
     @Provides
     fun providesLocationApi(remoteDataSource: RemoteDataSource, context: Context): LocationApi {

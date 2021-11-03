@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -16,19 +17,9 @@
         app:cardElevation="@dimen/poi_card_elevation">
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:scaleType="centerCrop"
-                app:lottie_autoPlay="false"
-                app:lottie_rawRes="@raw/check_animation_midnight"
-                android:layout_marginLeft="@dimen/poi_lottie_margin_left"
-                android:layout_centerVertical="true"
-                android:id="@+id/checkBox"
-                android:layout_width="@dimen/poi_lottie_dim"
-                android:layout_height="@dimen/poi_lottie_dim"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -36,7 +27,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="45dp"
                 android:layout_marginStart="@dimen/poi_linear_layout_margin"
-                android:layout_toEndOf="@+id/checkBox"
+                android:layout_alignParentLeft="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -63,14 +54,17 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/nextArrow"
-                android:layout_width="@dimen/poi_navigate_dim"
-                android:layout_height="@dimen/poi_navigate_dim"
+                android:id="@+id/imageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/poi_navigate_margin_right"
-                android:src="@drawable/ic_baseline_navigate_next_24" />
-
+                android:layout_marginLeft="20dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_caret"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </RelativeLayout>
