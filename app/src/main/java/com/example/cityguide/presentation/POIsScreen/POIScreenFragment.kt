@@ -15,6 +15,7 @@ import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.models.LocationPOIScreenCheck
 import com.example.cityguide.data.models.ListOfPOI
+import com.example.cityguide.data.models.LocationPOIScreen
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.data.responses.SuggestionResponse
@@ -135,10 +136,10 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
             when (it) {
                 is Resource.Success -> {
 
-                    val locations = mutableListOf<LocationPOIScreen>()
+                    val locations = mutableListOf<LocationPOIScreenCheck>()
                     it.data?.features?.forEach { it2 ->
                         locations.add(
-                            LocationPOIScreen(
+                            LocationPOIScreenCheck(
                                 it2.properties.name,
                                 it2.properties.kinds.replace("_", " ").capitalizeWords(),
                                 false,

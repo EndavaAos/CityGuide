@@ -39,17 +39,18 @@ class StartScreenActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val intent = intent;
-        val s1 = intent.getStringExtra("Check")
+        var s1 = intent.getStringExtra("Check")
 
 
         if(s1.equals("1"))
         {
+            s1=""
             fragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, tripsFragment)
                 .commit()
             navigationBar.selectedItemId = R.id.nav_mytrip
         }
-        else {
+        if(s1.equals("0")) {
             fragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, searchFragment)
                 .commit()
