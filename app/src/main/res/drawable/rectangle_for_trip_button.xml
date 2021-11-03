@@ -38,7 +38,7 @@
                 <corners android:radius="50dp"></corners>
             </shape>
             <!-- fill the inside in the color you want (could also be a gradient again if you want to, just change solid to gradient and enter angle, start, maybe center, and end color) -->
-            <solid android:color="@color/background_start_color_30_darker_midnight" />
+            <solid android:color="@color/background_start_color_20_darker_midnight" />
         </shape>
     </item>
 
