@@ -35,6 +35,8 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
     abstract val viewModel: GeneralTripViewModel
     abstract val errorScreen: Fragment
 
+    lateinit var parent: Fragment
+
     private val listScreen = TripsPreviewList()
 
     private fun initializeListFragment() {
@@ -70,13 +72,15 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
             viewModel.tripEvent.collect { event ->
                 when (event) {
                     is GeneralTripViewModel.TripEvent.NavigateToEditTripScreen -> {
-                        Toast.makeText(requireContext(), "ni ma", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(parent.context, "ni ma", Toast.LENGTH_SHORT).show()
                     }
                     is GeneralTripViewModel.TripEvent.ShowUndoDeleteTripMessage -> {
-                        Snackbar.make(requireView(), "Trip successfully removed.", Snackbar.LENGTH_LONG)
-                            .setAction("UNDO") {
-                                viewModel.onUndoDeleteClick(event.trip)
-                            }.show()
+                        parent.view?.let {
+                            Snackbar.make(it, "Trip successfully removed.", Snackbar.LENGTH_LONG)
+                                .setAction("UNDO") {
+                                    viewModel.onUndoDeleteClick(event.trip)
+                                }.show()
+                        }
                     }
                 }
             }
