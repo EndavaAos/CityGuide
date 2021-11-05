@@ -12,12 +12,14 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.StartScreenActivity
 import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.presentation.POIsScreen.POIScreenFragmentDirections
 import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_poi_screen.view.*
 import kotlinx.android.synthetic.main.fragment_see_trip.*
@@ -94,7 +96,8 @@ class SeeTripFragment : Fragment() {
         }
 
         view.rootView.seeOnMapButton.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigationFromSavedTripToMaps)
+            val action = SeeTripFragmentDirections.navigationFromSavedTripToMaps(trips)
+            Navigation.findNavController(view).navigate(action)
         }
 
         if(trips.listOfPOI.isEmpty()){
