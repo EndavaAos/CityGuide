@@ -12,15 +12,15 @@ interface TripDao {
     fun getAllTrips(): Observable<List<Trips>>
 
     @Transaction
-    @Query("SELECT * FROM trips WHERE trips.dateStart <= :currentDate AND :currentDate <= trips.dateEnd ORDER BY trips.dateStart")
+    @Query("SELECT * FROM trips WHERE dateStart <= :currentDate AND :currentDate <= dateEnd ORDER BY dateStart, dateEnd, country")
     fun getActiveTrips(currentDate: Long): Observable<List<Trips>>
 
     @Transaction
-    @Query("SELECT * FROM trips WHERE trips.dateStart IS NULL OR trips.dateEnd IS NULL OR trips.dateStart > :currentDate ORDER BY trips.dateStart")
+    @Query("SELECT * FROM trips WHERE dateStart IS NULL OR dateEnd IS NULL OR dateStart > :currentDate ORDER BY dateStart ISNULL, dateStart, dateEnd, country")
     fun getUpcomingTrips(currentDate: Long): Observable<List<Trips>>
 
     @Transaction
-    @Query("SELECT * FROM trips WHERE :currentDate > trips.dateEnd ORDER BY trips.dateStart")
+    @Query("SELECT * FROM trips WHERE :currentDate > dateEnd ORDER BY dateStart, dateEnd, country")
     fun getCompletedTrips(currentDate: Long): Observable<List<Trips>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
