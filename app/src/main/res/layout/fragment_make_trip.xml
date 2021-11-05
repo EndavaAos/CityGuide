@@ -133,7 +133,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/setTripButton"
-                android:layout_width="280dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
