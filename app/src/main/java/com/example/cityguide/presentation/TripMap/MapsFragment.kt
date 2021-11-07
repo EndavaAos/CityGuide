@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
@@ -27,15 +29,28 @@ class MapsFragment : Fragment() {
     val arguments: MapsFragmentArgs by navArgs()
 
     lateinit var mapTitle: TextView
-    lateinit var tripObject: Trips
+    var cameraLat = 0.0
+    var cameraLon = 0.0
+
+    var tripBoxes: MutableMap<String, Trips.Trip.TripBBox> = mutableMapOf()
 
     private val callback = OnMapReadyCallback { googleMap ->
 
+        for (location in tripBoxes.keys) {
+            val averageLon =
+                tripBoxes[location]!!.lon_min!!.plus(tripBoxes[location]!!.lon_max!!) / 2
+            val averageLat =
+                tripBoxes[location]!!.lat_min!!.plus(tripBoxes[location]!!.lat_max!!) / 2
 
+            val marker = LatLng(averageLat, averageLon)
+            googleMap.addMarker(MarkerOptions().position(marker).title(location))
 
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+            cameraLat += averageLat
+            cameraLon += averageLon
+        }
+
+        val cameraPosition = LatLng(cameraLat / tripBoxes.size, cameraLon / tripBoxes.size)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cameraPosition, 14.5f))
 
     }
 
@@ -43,7 +58,7 @@ class MapsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -52,12 +67,22 @@ class MapsFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
-        tripObject = arguments.trip
+        for (tripPOI in arguments.trip.listOfPOI) {
+            if (tripPOI.bbox != null) {
+                tripBoxes[tripPOI.name] = tripPOI.bbox
+            }
+        }
 
-        mapTitle = view.findViewById(R.id.map_title)
+        if (tripBoxes.isEmpty()) {
+            findNavController().navigate(R.id.seeTripFragment)
+            Toast.makeText(context, "There are no locations to show on map", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            mapTitle = view.findViewById(R.id.map_title)
 
-        mapTitle.setBackgroundColor(Color.argb(80, 0, 0, 0))
-        val tripTitle = "${tripObject.name} trip"
-        mapTitle.text = tripTitle
+            mapTitle.setBackgroundColor(Color.argb(80, 0, 0, 0))
+            val tripTitle = "${arguments.trip.name} trip"
+            mapTitle.text = tripTitle
+        }
     }
 }
