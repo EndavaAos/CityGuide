@@ -29,8 +29,12 @@
     <string name="destination_not_found_text">Destination not found</string>
     <string name="error_text_sugestion">Unfortunately, we could not find the location \n that you are looking for. Please check if it was \n spelled right and try again.</string>
     <string name="description_poi_text">Please check the attractions that you wish to visit on this journey</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="item_poi_name_hint">280 Broadway</string>
+    <string name="notification_title">Please work</string>
+    <string name="notification_subtitle">please work</string>
+    <string name="notification_schedule_title">wow</string>
+    <string name="notification_schedule_pattern">wow2</string>
+    <string name="notification_schedule_error">error</string>
 </resources>
