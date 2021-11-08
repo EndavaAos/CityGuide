@@ -31,6 +31,14 @@
     <string name="description_poi_text">Please check the attractions that you wish to visit on this journey</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">settings</string>
+    <string name="notifications">Notifications</string>
+    <string name="upcoming_trips">Upcoming trips</string>
+    <string-array name="themes">
+        <item>Midnight</item>
+        <item>Nature</item>
+        <item>Woodburn</item>
+    </string-array>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="item_poi_name_hint">280 Broadway</string>
 </resources>
