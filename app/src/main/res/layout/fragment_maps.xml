@@ -15,7 +15,7 @@
         android:id="@+id/map_title"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:background="#b5b5b5"
         android:gravity="center"
         android:paddingTop="15dp"
