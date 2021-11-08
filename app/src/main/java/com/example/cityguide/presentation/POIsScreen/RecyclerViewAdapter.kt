@@ -4,18 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
-import com.example.cityguide.data.models.LocationPOIScreen
+import com.example.cityguide.data.models.LocationPOIScreenCheck
 import kotlinx.android.synthetic.main.item_poi.view.*
 
 class RecyclerViewAdapter(
-    val locations: MutableList<LocationPOIScreen>,
+    val locations: MutableList<LocationPOIScreenCheck>,
     private val context: Context
 ) : RecyclerView.Adapter<RecyclerViewAdapter.POIViewHolder>() {
 

@@ -1,14 +1,22 @@
 package com.example.cityguide.presentation.makeATrip
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -33,6 +41,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
     lateinit var button: Button
 
+    var MAX_CLICK_DURATION = 300
     @Inject
     lateinit var vm: MakeTripVM
 
@@ -48,7 +57,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_make_trip, container, false)
 
-        button = view.findViewById(R.id.setTripButton)
+        button = view.findViewById(R.id.finishScheduleButton)
 
         val backButton = view.findViewById<ImageView>(R.id.backArrowButton)
         backButton.setOnClickListener {
@@ -57,20 +66,48 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
         val trips = args.trips
 
+
+
         val expPoints = trips.listOfPOI?.size
         view.expected_points.text = expPoints.toString()
 
-        val titleExpect = trips.name
-        view.titleTrip.text = titleExpect + " trip"
+        val intent: Intent? = activity?.intent
+        val placeToSearch = intent?.getStringExtra("place")
+        view.titleTrip.text = placeToSearch + " trip"
 
 
 
-        view.setTripButton.setOnClickListener {
-            onButtonClick()
-            showDataRangePicker()
-        }
+        view.setTripButton.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        setTripButton.background.setColorFilter(
+                            Color.rgb(223, 223, 223),
+                            PorterDuff.Mode.MULTIPLY
+                        )
+                        setTripButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar2, 0, 0, 0)
+                        setTripButton.setTextColor(Color.parseColor("#ced4d8"))
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        setTripButton.background.clearColorFilter()
+                        setTripButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0)
+                        setTripButton.setTextColor(Color.parseColor("#f0f1f3"))
+
+                        val startClickTime = Calendar.getInstance().timeInMillis
+                        val clickDuration: Long =
+                            Calendar.getInstance().timeInMillis - startClickTime
+                        if (clickDuration < MAX_CLICK_DURATION) {
+                            showDataRangePicker()
+                        }
+                    }
+                }
+                return true
+            }
+        })
+
 
         view.finishScheduleButton.setOnClickListener {
+            onButtonClick()
             if (expect.text.equals("-")) {
                 val view = View.inflate(context, R.layout.alert_dialog_view, null)
                 val builder = AlertDialog.Builder(requireContext())

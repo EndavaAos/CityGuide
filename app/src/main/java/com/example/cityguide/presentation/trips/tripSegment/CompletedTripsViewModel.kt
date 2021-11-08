@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class CompletedTripsViewModel @Inject constructor(
     private val repository: TripRepository
-) : GeneralTripViewModel() {
+) : GeneralTripViewModel(repository) {
 
     override val data: Observable<List<Trips>>
         get() = repository.getCompletedTrips()

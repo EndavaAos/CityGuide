@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
-import com.example.cityguide.data.models.LocationPOIScreen
 import com.example.cityguide.data.models.ListOfPOI
+import com.example.cityguide.data.models.LocationPOIScreenCheck
 import com.example.cityguide.data.repository.LocationRepositoryImpl
 import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.data.responses.SuggestionResponse
@@ -36,7 +36,6 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
     lateinit var data: SuggestionResponse
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,16 +48,14 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         var country: String = ""
 
 
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)?.visibility = View.INVISIBLE
-
         val intent: Intent? = activity?.intent
         val placeToSearch = intent?.getStringExtra("place")
 
         view?.rootView?.locationNameText?.text = placeToSearch + " trip"
 
-        val recycleView : RecyclerView? = view?.rootView?.rv
 
-
+        val recycleView: RecyclerView? = view?.rootView?.rv
+      
         view?.rootView?.backArrowButton?.setOnClickListener {
             activity?.finish()
         }
@@ -70,7 +67,6 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
            recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
 
                 if(recyclerViewAdapter.locations[index].isChecked && recyclerViewAdapter.locations[index].name == data.features[index].properties.name){
-
                     listOfTrips.listOfPoints.add(data.features[index])
                 }
             }
@@ -111,10 +107,13 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         }
 
         if (placeToSearch != null) {
-            vm.getLocation(placeToSearch, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
+            vm.getLocation(
+                placeToSearch,
+                "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d"
+            )
         }
 
-        vm.locationLivedata.observe(viewLifecycleOwner,{
+        vm.locationLivedata.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
                     //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
@@ -130,15 +129,27 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
             }
         })
 
+        fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
+
         vm.suggestionLiveData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    val locations = mutableListOf<LocationPOIScreen>()
-                    it.data?.features?.forEach { it2 -> locations.add(LocationPOIScreen(it2.properties.name, it2.properties.kinds, false, it2.properties.xid)) }
+
+                    val locations = mutableListOf<LocationPOIScreenCheck>()
+                    it.data?.features?.forEach { it2 ->
+                        locations.add(
+                            LocationPOIScreenCheck(
+                                it2.properties.name,
+                                it2.properties.kinds.replace("_", " ").capitalizeWords(),
+                                false,
+                                it2.properties.xid
+                            )
+                        )
+                    }
                     recyclerViewAdapter = RecyclerViewAdapter(locations, requireContext())
                     recycleView?.adapter = recyclerViewAdapter
                     recycleView?.layoutManager = LinearLayoutManager(context)
-                    if(locations.size == 0){
+                    if (locations.size == 0) {
                         errorDisplay()
                     }
                     else
@@ -159,7 +170,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         return view
     }
 
-    fun errorDisplay(){
+    fun errorDisplay() {
         view?.poiText?.visibility = View.INVISIBLE
         view?.descriptionText?.visibility = View.INVISIBLE
         view?.scheduleTripButton?.visibility = View.INVISIBLE
@@ -167,7 +178,7 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         view?.tripNotFoundCard?.visibility = View.VISIBLE
     }
 
-    fun okayDisplay(){
+    fun okayDisplay() {
         view?.poiText?.visibility = View.VISIBLE
         view?.descriptionText?.visibility = View.VISIBLE
         view?.scheduleTripButton?.visibility = View.VISIBLE

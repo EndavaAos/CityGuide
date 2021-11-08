@@ -8,15 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.cityguide.R
-import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.databinding.TripsFragmentGeneralTripBinding
 import com.example.cityguide.presentation.trips.TripsPreviewList
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_trip) {
 
@@ -30,23 +35,49 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
     private val binding get() = _binding!!
 
     abstract val title: String
-    abstract val observableData: LiveData<List<Trips>>
+    abstract val viewModel: GeneralTripViewModel
     abstract val errorScreen: Fragment
+
+    lateinit var parent: View
 
     private val listScreen = TripsPreviewList()
 
     private fun initializeListFragment() {
+        listScreen.setViewModel(viewModel)
+
         childFragmentManager.commit {
             add(R.id.trips_list, errorScreen)
             setReorderingAllowed(true)
         }
-
-        listScreen.setObservable(observableData)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.tripEvent.collect { event ->
+                    when (event) {
+                        is GeneralTripViewModel.TripEvent.NavigateToEditTripScreen -> {
+                            Toast.makeText(parent.context, "ni ma", Toast.LENGTH_SHORT).show()
+                        }
+                        is GeneralTripViewModel.TripEvent.ShowUndoDeleteTripMessage -> {
+
+                            Snackbar.make(parent, "Trip successfully removed.", Snackbar.LENGTH_LONG)
+                                .setAction("UNDO") {
+                                    viewModel.onUndoDeleteClick(event.trip)
+                                }.show()
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -71,7 +102,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
         binding.apply {
             tripsCategory.text = title
 
-            observableData.observe(viewLifecycleOwner) {
+            viewModel.trips.observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     setListFragment(errorScreen)
                 } else {

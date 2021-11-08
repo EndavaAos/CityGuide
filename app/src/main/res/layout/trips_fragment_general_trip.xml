@@ -11,19 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/list_title_margin_medium"
-        android:hint="@string/trips_preview_list_category_hint"
         android:fontFamily="@font/proxima_nova_alt_regular"
         android:textColor="@color/secondary_text_color"
         android:textColorHint="@color/primary_text_color"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintBottom_toTopOf="@+id/trips_list"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:hint="@string/trips_preview_list_category_hint" />
 
     <ImageButton
         android:id="@+id/expandableButton"
-        android:layout_width="@dimen/ic_caret_size"
-        android:layout_height="@dimen/ic_caret_size"
+        android:layout_width="@dimen/expandable_button_size"
+        android:layout_height="@dimen/expandable_button_size"
         android:layout_marginEnd="@dimen/list_expandable_icon_margin_medium"
         android:background="@drawable/ic_caret_up"
         android:contentDescription="@string/expandable_button"
@@ -34,8 +34,8 @@
         android:id="@+id/trips_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/list_items_padding_small"
         android:layout_marginStart="@dimen/list_items_padding_small"
+        android:layout_marginEnd="@dimen/list_items_padding_small"
         android:tag="trips_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

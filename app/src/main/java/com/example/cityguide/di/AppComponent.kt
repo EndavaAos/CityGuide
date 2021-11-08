@@ -2,6 +2,7 @@ package com.example.cityguide.di
 
 import com.example.cityguide.CityGuideApp
 import com.example.cityguide.di.fragmentActivityModules.*
+import com.example.cityguide.presentation.POIDetails.PoiDetailsFragment2Module
 import com.example.cityguide.presentation.POIDetails.PoiDetailsFragmentModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -19,7 +20,8 @@ import javax.inject.Singleton
         DatabaseModule::class,
         POIScreenFragmentModule::class,
         MakeTripFragmentModule::class,
-        PoiDetailsFragmentModule::class
+        PoiDetailsFragmentModule::class,
+        PoiDetailsFragment2Module::class
     ]
 
 )
