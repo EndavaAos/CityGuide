@@ -133,7 +133,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/setTripButton"
-                android:layout_width="310dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
@@ -142,7 +142,7 @@
                 android:enabled="true"
                 android:fontFamily="@font/proxima_nova_regular"
                 android:gravity="end|center"
-                android:paddingStart="60dp"
+                android:paddingStart="70dp"
                 android:paddingEnd="70dp"
                 android:text="SET TRIP PERIOD"
                 android:textColor="@color/button_pressed_text"

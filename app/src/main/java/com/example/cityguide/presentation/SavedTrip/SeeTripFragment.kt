@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityguide.R
@@ -23,6 +24,7 @@ import com.example.cityguide.data.models.LocationPOIScreen
 import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.presentation.POIsScreen.LocationSearchVM
 import com.example.cityguide.presentation.POIsScreen.POIScreenActivity
+import com.example.cityguide.presentation.POIsScreen.POIScreenFragmentDirections
 import com.example.cityguide.presentation.POIsScreen.RecyclerViewAdapter
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_poi_screen.view.*
@@ -100,7 +102,8 @@ class SeeTripFragment : Fragment() {
         }
 
         view.rootView.seeOnMapButton.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigationFromSavedTripToMaps)
+            val action = SeeTripFragmentDirections.navigationFromSavedTripToMaps(trips)
+            Navigation.findNavController(view).navigate(action)
         }
 
         if(trips.listOfPOI.isEmpty()){

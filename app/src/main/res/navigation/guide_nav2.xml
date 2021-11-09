@@ -34,5 +34,9 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.cityguide.presentation.TripMap.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <argument
+            android:name="trip"
+            app:argType="com.example.cityguide.data.db.entity.Trips" />
+    </fragment>
 </navigation>
