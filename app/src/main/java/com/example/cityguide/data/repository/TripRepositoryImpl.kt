@@ -2,7 +2,9 @@ package com.example.cityguide.data.repository
 
 import com.example.cityguide.data.db.TripDatabase
 import com.example.cityguide.data.db.entity.Trips
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.time.LocalDate
 import javax.inject.Inject
@@ -26,8 +28,16 @@ class TripRepositoryImpl @Inject constructor(
             Schedulers.io())
             .observeOn(Schedulers.io())
 
-    override suspend fun insertTrips(trips: Trips){
-        dao.insertTrips(trips)
+    override fun getTripById(id: Int) : Observable<Trips>{
+        return dao.getTripById(id)
+    }
+
+    override fun insertTrips(trips: Trips): Completable {
+        return dao.insertTrips(trips)
+    }
+
+    override fun updateTrips(trips: Trips) : Completable{
+        return dao.updateTrip(trips)
     }
 
     override suspend fun deleteTrip(trip: Trips) {

@@ -12,11 +12,15 @@ import kotlinx.android.synthetic.main.item_poi.view.*
 
 class RecyclerViewAdapter(
     val locations: MutableList<LocationPOIScreenCheck>,
-    private val context: Context
+    private val context: Context,
+    var index: Int
 ) : RecyclerView.Adapter<RecyclerViewAdapter.POIViewHolder>() {
 
 
     class POIViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    private var lastAction = false
+    private var firstOpen  = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): POIViewHolder {
         return POIViewHolder(
@@ -31,22 +35,53 @@ class RecyclerViewAdapter(
     override fun onBindViewHolder(holder: POIViewHolder, position: Int) {
         val currentCity = locations[position]
 
+        if(holder.itemView.checkBox.speed == 1f && position == index - 1){
+            if(!lastAction) {
+                holder.itemView.checkBox.speed = 100f
+            }
+            holder.itemView.checkBox.playAnimation()
+        }
+
+        if(position == index && !lastAction){
+            if(firstOpen) {
+                holder.itemView.checkBox.speed = -1f
+                holder.itemView.checkBox.playAnimation()
+            }
+            else
+            {
+                firstOpen = true
+            }
+        }
+
+
+        if(currentCity.isChecked && position != index - 1){
+            holder.itemView.checkBox.speed = 100f;
+            holder.itemView.checkBox.playAnimation()
+        }
+
         holder.itemView.nameText.text = currentCity.name
         val value = currentCity.kinds.split(",")[0]
         holder.itemView.categoryText.text = value
 
         holder.itemView.checkBox.setOnClickListener {
             if (!currentCity.isChecked) {
+                locations.remove(currentCity)
+                locations.add(index, currentCity)
                 holder.itemView.checkBox.speed = 1f
+                lastAction = true
+                index++
             } else {
+                locations.remove(currentCity)
+                locations.add(index-1, currentCity)
                 holder.itemView.checkBox.speed = -1f;
+                lastAction = false
+                index--
             }
             currentCity.isChecked = !(currentCity.isChecked)
-            holder.itemView.checkBox.playAnimation()
+            notifyDataSetChanged()
         }
 
         holder.itemView.cardView.setOnClickListener {
-            //Toast.makeText(context, currentCity.xid.toString(), Toast.LENGTH_LONG).show()
 
             val action =
                 POIScreenFragmentDirections.navigateFromPoiScreenFragmentToPoiDetailsFragment(

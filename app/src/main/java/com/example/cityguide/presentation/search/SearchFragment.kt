@@ -81,6 +81,7 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
         val intent = Intent(context, POIScreenActivity::class.java)
         val inputText = searchEditText.text
         intent.putExtra("place", inputText.toString())
+        intent.putExtra("database", "Insert")
         startActivity(intent)
 
         searchEditText.clearFocus()

@@ -2,7 +2,9 @@ package com.example.cityguide.data.db.dao
 
 import androidx.room.*
 import com.example.cityguide.data.db.entity.Trips
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface TripDao {
@@ -23,11 +25,15 @@ interface TripDao {
     @Query("SELECT * FROM trips WHERE :currentDate > trips.dateEnd")
     fun getCompletedTrips(currentDate: Long): Observable<List<Trips>>
 
+    @Transaction
+    @Query("SELECT * FROM trips WHERE trips.id =:id")
+    fun getTripById(id: Int): Observable<Trips>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTrips(trips: Trips)
+    fun insertTrips(trips: Trips) : Completable
 
     @Update
-    suspend fun updateTrip(trips: Trips)
+    fun updateTrip(trips: Trips) : Completable
 
     @Delete
     suspend fun deleteTrip(trips: Trips)
@@ -35,4 +41,5 @@ interface TripDao {
     @Transaction
     @Query("DELETE FROM trips")
     suspend fun deleteAllTrips()
+
 }

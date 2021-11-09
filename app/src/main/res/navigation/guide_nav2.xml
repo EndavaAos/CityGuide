@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/seeTripFragment"
         android:name="com.example.cityguide.presentation.SavedTrip.SeeTripFragment"
-        android:label="fragment_see_trip"
+        android:label="SeeTripFragment"
         android:tag="seeTrip"
         tools:layout="@layout/fragment_see_trip">
         <action
