@@ -35,7 +35,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun openTimePicker() {
         val isSystem24Hour = is24HourFormat(requireContext())
-        val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
+        val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_12H else TimeFormat.CLOCK_24H
 
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(clockFormat)
@@ -50,11 +50,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             val h = picker.hour
             val min = picker.minute
 
-            if (h >= 12) {
-                amPm = "PM"
-            } else {
-                amPm = "AM"
-            }
             if (min < 10) {
                 minString = "0$min"
             } else {
@@ -70,7 +65,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             if (h != null && min != null) {
                 setTimeButton.text = "change time"
             }
-            requireView().timeExpect.text = "$hString:$minString $amPm"
+            requireView().timeExpect.text = "$hString:$minString"
         }
 
         requireView()
