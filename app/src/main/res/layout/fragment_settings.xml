@@ -24,7 +24,6 @@
             android:textAlignment="center"
             android:textColor="@color/secondary_text_color"
             android:textSize="27sp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +126,74 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rectangle_for_search_screen_search"
+            android:paddingVertical="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutNotifications">
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notification time"
+                android:textAlignment="center"
+                android:textColor="@color/primary_text_color"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.026" />
+
+            <TextView
+                android:id="@+id/timeExpect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="undefined"
+                android:textAlignment="center"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView3"
+                app:layout_constraintVertical_bias="0.057" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/setTimeButton"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/see_on_map_selector"
+                android:drawableStart="@drawable/ic_time"
+                android:drawableTint="@color/map_drawable_color"
+                android:fontFamily="@font/proxima_nova_alt_regular"
+                android:gravity="center"
+                android:paddingStart="90dp"
+                android:paddingEnd="90dp"
+                android:text="@string/set_time"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeExpect">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
