@@ -14,6 +14,10 @@ class TripRepositoryImpl @Inject constructor(
 
     private val dao = db.tripDao()
 
+    override fun getAllTrips(): Observable<List<Trips>> {
+        return dao.getAllTrips()
+    }
+
     override fun getActiveTrips(): Observable<List<Trips>> =
         dao.getActiveTrips(LocalDate.now().toEpochDay()).subscribeOn(
         Schedulers.io())
