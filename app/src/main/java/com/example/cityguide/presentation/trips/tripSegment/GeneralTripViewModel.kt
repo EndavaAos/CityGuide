@@ -34,11 +34,11 @@ abstract class GeneralTripViewModel(
         )
     }
 
-    fun onTripSelected(trips: Trips) = viewModelScope.launch {
+    fun onTripSelected(trips: Trips) {
         tripEventProcessor.onNext(TripEvent.NavigateToEditTripScreen(trips))
     }
 
-    fun onTripSwiped(trips: Trips){
+    fun onTripSwiped(trips: Trips) {
         compositeDisposable.add(
             repository.deleteTrip(trips).subscribeOn(Schedulers.io())
                 .subscribe()
@@ -46,16 +46,16 @@ abstract class GeneralTripViewModel(
         tripEventProcessor.onNext(TripEvent.ShowUndoDeleteTripMessage(trips))
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
-
-    fun onUndoDeleteClick(trips: Trips){
+    fun onUndoDeleteClick(trips: Trips) {
         compositeDisposable.add(
             repository.insertTrips(trips).subscribeOn(Schedulers.io())
                 .subscribe()
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 
     sealed class TripEvent {
