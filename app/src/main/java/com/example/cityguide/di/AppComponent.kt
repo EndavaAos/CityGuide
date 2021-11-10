@@ -1,6 +1,7 @@
 package com.example.cityguide.di
 
 import com.example.cityguide.CityGuideApp
+import com.example.cityguide.data.services.UpcomingNotification
 import com.example.cityguide.di.fragmentActivityModules.*
 import com.example.cityguide.presentation.POIDetails.PoiDetailsFragment2Module
 import com.example.cityguide.presentation.POIDetails.PoiDetailsFragmentModule
@@ -23,7 +24,8 @@ import javax.inject.Singleton
         PoiDetailsFragmentModule::class,
         PoiDetailsFragment2Module::class,
         SavedTripFragmentModule::class,
-        SavedTripActivityModule::class
+        SavedTripActivityModule::class,
+        SettingFragmentModule::class
     ]
 
 )
@@ -31,4 +33,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(application: CityGuideApp)
+
+    fun inject2(worker: UpcomingNotification)
 }

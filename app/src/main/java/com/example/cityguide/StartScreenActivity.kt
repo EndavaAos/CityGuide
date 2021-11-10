@@ -48,6 +48,12 @@ class StartScreenActivity : AppCompatActivity() {
                 .commit()
         }
 
+        if(navigationBar.selectedItemId == R.id.nav_settings){
+            fragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container, settingsFragment)
+                .commit()
+        }
+
 
     }
 
