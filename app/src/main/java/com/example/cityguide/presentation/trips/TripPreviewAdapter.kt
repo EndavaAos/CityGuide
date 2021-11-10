@@ -30,12 +30,6 @@ class TripPreviewAdapter(private val listener: OnItemClickListener, val context:
         val currentItem = getItem(position)
         if (currentItem != null) {
             holder.bind(currentItem)
-
-            holder.itemView.setOnClickListener {
-                val intent = Intent(context, SeeTripActivity::class.java)
-                intent.putExtra("trip", currentItem)
-                context.startActivity(intent)
-            }
         }
     }
 

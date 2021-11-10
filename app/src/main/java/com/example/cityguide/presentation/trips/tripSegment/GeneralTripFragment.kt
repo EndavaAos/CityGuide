@@ -3,26 +3,23 @@ package com.example.cityguide.presentation.trips.tripSegment
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.example.cityguide.R
 import com.example.cityguide.databinding.TripsFragmentGeneralTripBinding
+import com.example.cityguide.presentation.SavedTrip.SeeTripActivity
 import com.example.cityguide.presentation.trips.TripsPreviewList
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_trip) {
 
@@ -43,6 +40,8 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
 
     private val listScreen = TripsPreviewList()
 
+    private var compositeDisposable = CompositeDisposable()
+
     private fun initializeListFragment() {
         listScreen.setViewModel(viewModel)
 
@@ -60,25 +59,7 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.tripEvent.collect { event ->
-                    when (event) {
-                        is GeneralTripViewModel.TripEvent.NavigateToEditTripScreen -> {
-                            Toast.makeText(parent.context, "ni ma", Toast.LENGTH_SHORT).show()
-                        }
-                        is GeneralTripViewModel.TripEvent.ShowUndoDeleteTripMessage -> {
-
-                            Snackbar.make(parent, "Trip successfully removed.", Snackbar.LENGTH_LONG)
-                                .setAction("UNDO") {
-                                    viewModel.onUndoDeleteClick(event.trip)
-                                }.show()
-
-                        }
-                    }
-                }
-            }
-        }
+        compositeDisposable.add(createTripEventsSubscription())
     }
 
     override fun onCreateView(
@@ -87,6 +68,8 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
         savedInstanceState: Bundle?
     ): View? {
         initializeListFragment()
+
+        viewModel.getTrips()
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -158,6 +141,32 @@ abstract class GeneralTripFragment : Fragment(R.layout.trips_fragment_general_tr
             replace(R.id.trips_list, listFragment)
             setReorderingAllowed(true)
         }
+    }
+
+    private fun createTripEventsSubscription() : Disposable =
+        viewModel.tripEvent.subscribe { event ->
+            when(event) {
+                is GeneralTripViewModel.TripEvent.NavigateToEditTripScreen -> {
+
+                    val intent = Intent(context, SeeTripActivity::class.java)
+                    intent.putExtra("trip", event.trip)
+                    context?.startActivity(intent)
+                }
+                is GeneralTripViewModel.TripEvent.ShowUndoDeleteTripMessage -> {
+
+                    Snackbar.make(parent, "Trip successfully removed.", Snackbar.LENGTH_LONG)
+                        .setAction("UNDO") {
+                            viewModel.onUndoDeleteClick(event.trip)
+                        }.show()
+                }
+            }
+        }
+
+    override fun onStop() {
+        super.onStop()
+
+        compositeDisposable.clear()
+        compositeDisposable = CompositeDisposable()
     }
 
     override fun onDestroyView() {
