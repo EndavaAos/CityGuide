@@ -12,14 +12,19 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesDatabase(context: Context) = Room.databaseBuilder(
+    fun providesDatabase(context: Context, callBack: TripDatabase.Callback) = Room.databaseBuilder(
         context,
         TripDatabase::class.java,
         "trip_database"
     ).fallbackToDestructiveMigration()
+        .addCallback(callBack)
         .build()
 
     @Provides
     @Singleton
     fun providesTripDao(db: TripDatabase) =  db.tripDao()
+
+    @Provides
+    @Singleton
+    fun providesUpcomingNotificationTimeDao(db: TripDatabase) =  db.upcomingNotificationTimeDao()
 }

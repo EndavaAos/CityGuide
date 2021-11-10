@@ -27,19 +27,16 @@ class TripRepositoryImpl @Inject constructor(
             Schedulers.io())
             .observeOn(Schedulers.io())
 
-    override fun getTripById(id: Int) : Observable<Trips>{
-        return dao.getTripById(id)
-    }
+    override fun getTripById(id: Int) : Observable<Trips>
+        = dao.getTripById(id)
 
-    override fun insertTrips(trips: Trips): Completable {
-        return dao.insertTrips(trips)
-    }
 
-    override fun updateTrips(trips: Trips) : Completable{
-        return dao.updateTrip(trips)
-    }
+    override fun insertTrips(trips: Trips): Completable
+        = dao.insertTrips(trips)
 
-    override fun deleteTrip(trips: Trips) : Completable{
-        return dao.deleteTrip(trips)
-    }
+    override fun updateTrips(trips: Trips) : Completable
+        = dao.updateTrip(trips)
+
+    override fun deleteTrip(trips: Trips) : Completable
+        = dao.deleteTrip(trips)
 }

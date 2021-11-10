@@ -1,9 +1,6 @@
 package com.example.cityguide.data.db.entity
 
-import android.os.Parcelable
 import androidx.room.*
-import com.example.cityguide.util.Converters
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 import java.time.LocalDate
 

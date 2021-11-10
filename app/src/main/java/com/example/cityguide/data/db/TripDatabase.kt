@@ -3,13 +3,20 @@ package com.example.cityguide.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.cityguide.data.db.dao.TripDao
+import com.example.cityguide.data.db.dao.UpcomingNotificationTimeDao
 import com.example.cityguide.util.Converters
 import com.example.cityguide.data.db.entity.Trips
+import com.example.cityguide.data.db.entity.UpcomingNotificationTime
+import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
+import javax.inject.Provider
 
 @Database(
     entities = [
-        Trips::class
+        Trips::class,
+        UpcomingNotificationTime::class
     ],
     version = 1
 )
@@ -17,4 +24,20 @@ import com.example.cityguide.data.db.entity.Trips
 abstract class TripDatabase : RoomDatabase() {
 
     abstract fun tripDao(): TripDao
+    abstract fun upcomingNotificationTimeDao(): UpcomingNotificationTimeDao
+
+    class Callback @Inject constructor(
+        private val database: Provider<TripDatabase>
+    ) : RoomDatabase.Callback() {
+
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+
+            val dao = database.get().upcomingNotificationTimeDao()
+
+            dao.insertUpcomingNotificationTime(UpcomingNotificationTime())
+                .subscribeOn(Schedulers.io())
+                .subscribe()
+        }
+    }
 }
