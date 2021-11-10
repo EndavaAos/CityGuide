@@ -6,19 +6,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.cityguide.data.db.entity.Trips
 import com.example.cityguide.data.repository.TripRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.processors.PublishProcessor
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 abstract class GeneralTripViewModel(
     private val repository: TripRepository
 ) : ViewModel() {
 
-    private val tripEventChannel = Channel<TripEvent>()
-    val tripEvent = tripEventChannel.receiveAsFlow()
+    private val tripEventProcessor : PublishProcessor<TripEvent> = PublishProcessor.create()
+    val tripEvent = tripEventProcessor as Flowable<TripEvent>
 
     abstract val data: Observable<List<Trips>>
 
@@ -34,22 +34,28 @@ abstract class GeneralTripViewModel(
         )
     }
 
-    fun onTripSelected(trip: Trips) = viewModelScope.launch {
-        tripEventChannel.send(TripEvent.NavigateToEditTripScreen(trip))
+    fun onTripSelected(trips: Trips) {
+        tripEventProcessor.onNext(TripEvent.NavigateToEditTripScreen(trips))
     }
 
-    fun onTripSwiped(trip: Trips) = viewModelScope.launch {
-        repository.deleteTrip(trip)
-        tripEventChannel.send(TripEvent.ShowUndoDeleteTripMessage(trip))
+    fun onTripSwiped(trips: Trips) {
+        compositeDisposable.add(
+            repository.deleteTrip(trips).subscribeOn(Schedulers.io())
+                .subscribe()
+        )
+        tripEventProcessor.onNext(TripEvent.ShowUndoDeleteTripMessage(trips))
+    }
+
+    fun onUndoDeleteClick(trips: Trips) {
+        compositeDisposable.add(
+            repository.insertTrips(trips).subscribeOn(Schedulers.io())
+                .subscribe()
+        )
     }
 
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
-    }
-
-    fun onUndoDeleteClick(trip: Trips) = viewModelScope.launch {
-        repository.insertTrips(trip)
     }
 
     sealed class TripEvent {

@@ -36,7 +36,7 @@ interface TripDao {
     fun updateTrip(trips: Trips) : Completable
 
     @Delete
-    suspend fun deleteTrip(trips: Trips)
+    fun deleteTrip(trips: Trips) : Completable
 
     @Transaction
     @Query("DELETE FROM trips")

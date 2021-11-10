@@ -13,5 +13,5 @@ interface TripRepository {
     fun getTripById(id: Int) : Observable<Trips>
     fun insertTrips(trips: Trips) : Completable
     fun updateTrips(trips: Trips) : Completable
-    suspend fun deleteTrip(trip: Trips)
+    fun deleteTrip(trips: Trips) : Completable
 }

@@ -4,7 +4,6 @@ import com.example.cityguide.data.db.TripDatabase
 import com.example.cityguide.data.db.entity.Trips
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.time.LocalDate
 import javax.inject.Inject
@@ -40,7 +39,7 @@ class TripRepositoryImpl @Inject constructor(
         return dao.updateTrip(trips)
     }
 
-    override suspend fun deleteTrip(trip: Trips) {
-        dao.deleteTrip(trip)
+    override fun deleteTrip(trips: Trips) : Completable{
+        return dao.deleteTrip(trips)
     }
 }
