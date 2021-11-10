@@ -11,7 +11,6 @@ import com.example.cityguide.data.repository.TripRepository
 import com.example.cityguide.data.repository.TripRepositoryImpl
 import com.example.cityguide.data.services.UpcomingNotificationFactory
 import com.example.cityguide.data.repository.*
-import com.example.cityguide.data.services.UpcomingNotificationFactory
 import com.example.cityguide.presentation.trips.tripSegment.ActiveTripsViewModel
 import com.example.cityguide.presentation.trips.tripSegment.CompletedTripsViewModel
 import com.example.cityguide.presentation.trips.tripSegment.UpcomingTripsViewModel

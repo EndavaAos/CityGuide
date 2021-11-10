@@ -8,7 +8,7 @@ import com.example.cityguide.data.db.dao.TripDao
 import com.example.cityguide.data.db.dao.UpcomingNotificationTimeDao
 import com.example.cityguide.util.Converters
 import com.example.cityguide.data.db.entity.Trips
-import com.example.cityguide.data.db.entity.UpcomingNotificationTime
+import com.example.cityguide.data.db.entity.NotificationConfig
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Provider
@@ -16,7 +16,7 @@ import javax.inject.Provider
 @Database(
     entities = [
         Trips::class,
-        UpcomingNotificationTime::class
+        NotificationConfig::class
     ],
     version = 1
 )
@@ -35,7 +35,7 @@ abstract class TripDatabase : RoomDatabase() {
 
             val dao = database.get().upcomingNotificationTimeDao()
 
-            dao.insertUpcomingNotificationTime(UpcomingNotificationTime())
+            dao.insertUpcomingNotificationTime(NotificationConfig())
                 .subscribeOn(Schedulers.io())
                 .subscribe()
         }

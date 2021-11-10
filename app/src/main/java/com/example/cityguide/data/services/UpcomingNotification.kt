@@ -53,6 +53,8 @@ class UpcomingNotification(val context: Context, workerParameters: WorkerParamet
 
         println("$year $month $day")
 
+        var oneTime = true
+
         compositeDisposable.add(
             tripRepository.getAllTrips().observeOn(AndroidSchedulers.mainThread())
                 .subscribe({result -> trips = result
@@ -62,9 +64,12 @@ class UpcomingNotification(val context: Context, workerParameters: WorkerParamet
                                 val tripMonth = it.dateStart?.monthValue
                                if(day + 2 == tripDay && month == tripMonth)
                                {
+                                   if(oneTime)
                                    createNotification(it.name, it)
                                }
-                           }},
+                           }
+                           oneTime = false
+                           },
                     { Log.d("Test", "Complete")})
         )
 
@@ -81,18 +86,28 @@ class UpcomingNotification(val context: Context, workerParameters: WorkerParamet
     @RequiresApi(Build.VERSION_CODES.O)
     fun createNotification(name: String, trip: Trips){
 
-        val CHANNEL_ID = "Heads_Up_Notification"
+        val CHANNEL_ID = "Upcoming_Notification"
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            "CityGuide",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+
+        applicationContext.getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
+
 
         val intent = Intent(context, SeeTripActivity::class.java)
         intent.putExtra("trip", trip)
         val pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         requestCode += 1
 
-        val builder = NotificationCompat.Builder(applicationContext, "1")
-            .setSmallIcon(R.drawable.ic_notification)
+
+
+        val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher_notification)
             .setContentTitle("Notification")
             .setContentIntent(pendingIntent)
-            .setContentText(name)
+            .setContentText("Your trip to " + name + " is coming soon. Check it out on the app")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(Notification.DEFAULT_ALL)
             .setAutoCancel(true)

@@ -6,7 +6,9 @@ import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Switch
+import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.work.Configuration
@@ -35,6 +37,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     @Inject
     lateinit var settingsVM: SettingsVM
 
+    var hour = 0
+    var minutes = 0
+    var isCheckedUpcomingNotification = false
+    companion object{
+        var isCheckedCommercialNotification = false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +60,52 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         settingsVM.timeData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    requireView().timeExpect.text = "${it.data?.hour}:${it.data?.minutes}"
+                    val h = it.data?.hour
+                    val min = it.data?.minutes
+                    if (h != null) {
+                        if (h > 12) {
+                            requireView().timeExpect.text =
+                                String.format("%02d", h - 12) + ":" + String.format(
+                                    "%02d",
+                                    min
+                                ) + " PM"
+                        } else {
+                            requireView().timeExpect.text =
+                                String.format("%02d", h) + ":" + String.format(
+                                    "%02d",
+                                    min
+                                ) + " AM"
+                        }
+                    }
+
+
+                    if (h != null && min != null) {
+                        setTimeButton.text = "change time"
+                        hour = h
+                        minutes = min
+                    }
+                    requireView().switch1.setOnCheckedChangeListener(null)
+                    requireView().switch2.setOnCheckedChangeListener(null)
+                    requireView().switch1.isChecked = it.data?.isUpcomingActive == true
+                    requireView().switch2.isChecked = it.data?.isCommercialActive == true
+                    isCheckedUpcomingNotification = it.data?.isUpcomingActive == true
+                    isCheckedCommercialNotification = it.data?.isCommercialActive == true
+                    view?.switch2?.setOnCheckedChangeListener { buttonView, isChecked ->
+                        isCheckedCommercialNotification = isChecked
+                        settingsVM.insertTime(
+                            hour,
+                            minutes,
+                            isCheckedUpcomingNotification,
+                            isCheckedCommercialNotification
+                        )
+                    }
+                    view?.switch1?.setOnCheckedChangeListener { buttonView, isChecked ->
+                        isCheckedUpcomingNotification = isChecked
+                        settingsVM.insertTime(hour, minutes, isCheckedUpcomingNotification, isCheckedCommercialNotification)
+                        if(isChecked){
+                            startNotification()
+                        }
+                    }
                 }
                 is Resource.Error -> {
 
@@ -61,6 +114,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 }
             }
         })
+
+
 
         return view
     }
@@ -77,36 +132,47 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             .build()
         picker.show(childFragmentManager, "TAG")
 
-        val switch = view?.findViewById<SwitchCompat>(R.id.switch1)
+
+
 
         picker.addOnPositiveButtonClickListener {
 
             val h = picker.hour
             val min = picker.minute
 
-            if (min < 10) {
-                minString = "0$min"
+            if (h > 12) {
+                requireView().timeExpect.text =
+                    String.format("%02d", picker.hour - 12) + ":" + String.format(
+                        "%02d",
+                        picker.minute
+                    ) + " PM"
             } else {
-                minString = "$min"
+                requireView().timeExpect.text =
+                    String.format("%02d", picker.hour) + ":" + String.format(
+                        "%02d",
+                        picker.minute
+                    ) + " AM"
             }
 
-            if (h < 10) {
-                hString = "0$h"
-            } else {
-                hString = "$h"
-            }
+            setTimeButton.text = "change time"
+            hour = h
+            minutes = min
 
-            if (h != null && min != null) {
-                setTimeButton.text = "change time"
-            }
-            requireView().timeExpect.text = "$hString:$minString"
-            settingsVM.insertTime(h, min)
+            settingsVM.insertTime(hour, minutes, isCheckedUpcomingNotification, isCheckedCommercialNotification)
+            startNotification()
+        }
+
+    }
+
+    fun startNotification(){
+
+        if(isCheckedUpcomingNotification == true && hour != null && minutes != null) {
 
             val currentDate = Calendar.getInstance()
             val dueDate = Calendar.getInstance()
 
-            dueDate.set(Calendar.HOUR_OF_DAY, h)
-            dueDate.set(Calendar.MINUTE, min)
+            dueDate.set(Calendar.HOUR_OF_DAY, hour)
+            dueDate.set(Calendar.MINUTE, minutes)
             dueDate.set(Calendar.SECOND, 0)
             if (dueDate.before(currentDate)) {
                 dueDate.add(Calendar.HOUR_OF_DAY, 24)
@@ -117,11 +183,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 .build()
             WorkManager.getInstance(requireContext()).cancelAllWork()
             WorkManager.getInstance(requireContext()).enqueue(dailyWorkRequest)
+
         }
 
-        requireView()
-
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

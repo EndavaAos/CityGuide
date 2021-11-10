@@ -1,6 +1,7 @@
 package com.example.cityguide.di
 
 import com.example.cityguide.CityGuideApp
+import com.example.cityguide.data.services.PushNotificationService
 import com.example.cityguide.data.services.UpcomingNotification
 import com.example.cityguide.di.fragmentActivityModules.*
 import com.example.cityguide.presentation.POIDetails.PoiDetailsFragment2Module
@@ -25,7 +26,8 @@ import javax.inject.Singleton
         PoiDetailsFragment2Module::class,
         SavedTripFragmentModule::class,
         SavedTripActivityModule::class,
-        SettingFragmentModule::class
+        SettingFragmentModule::class,
+        FireBaseServiceModule::class
     ]
 
 )
