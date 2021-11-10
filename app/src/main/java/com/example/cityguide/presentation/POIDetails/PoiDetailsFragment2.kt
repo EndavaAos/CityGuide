@@ -74,74 +74,156 @@ class PoiDetailsFragment2 : Fragment(R.layout.fragment_poi_details) {
         addrLayout?.visibility = View.INVISIBLE
         descrLayout?.visibility = View.INVISIBLE
 
-        if (trip.address?.house_number != null) {
-            finalAddress += trip.address.house_number + " "
-        }
-        if (trip.address?.road != null) {
-            finalAddress += trip.address.road
-        }
-        if (trip.address?.suburb != null) {
-            finalAddress += ", " + trip.address.suburb
-        }
-        if (trip.address?.city != null) {
-            finalAddress += trip.address.city
-        }
-        if (trip.address?.country != null) {
-            finalAddress += ", " + trip.address.county
-        }
-        if (trip.address?.postcode != null) {
-            finalAddress += ", " + trip.address.postcode
-        }
-        if (trip.address?.country != null) {
-            finalAddress += " " + trip.address.country
-        }
+        vm.getPoiDetails(
+            trip.xid,
+            "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d"
+        )
 
-        address?.text = finalAddress
-        addrLayout?.visibility = View.VISIBLE
+        vm.poiDetailsLiveData.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+                    name?.text = it.data?.name
 
-        if (trip.wikipedia_extracts?.text == null) {
-            descriptionTxt?.visibility = View.INVISIBLE
-            descrLayout?.visibility = View.INVISIBLE
-        } else {
-            description?.text = trip.wikipedia_extracts.text
-            descrLayout?.visibility = View.VISIBLE
-        }
+                    if (it.data?.address?.house_number != null) {
+                        finalAddress += it.data.address.house_number + " "
+                    }
+                    if (it.data?.address?.road != null) {
+                        finalAddress += it.data.address.road
+                    }
+                    if (it.data?.address?.suburb != null) {
+                        finalAddress += ", " + it.data.address.suburb
+                    }
+                    if (it.data?.address?.city != null) {
+                        finalAddress += it.data.address.city
+                    }
+                    if (it.data?.address?.country != null) {
+                        finalAddress += ", " + it.data.address.county
+                    }
+                    if (it.data?.address?.postcode != null) {
+                        finalAddress += ", " + it.data.address.postcode
+                    }
+                    if (it.data?.address?.country != null) {
+                        finalAddress += " " + it.data.address.country
+                    }
 
-
-        val kindsString = trip.kinds
-        val kindsArray = kindsString?.split(",")
-
-        for (kind: String in kindsArray!!) {
-
-            val chip = Chip(context)
-
-            chip.chipBackgroundColor = ColorStateList.valueOf(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.background_start_color_30_darker_midnight
-                )
-            )
-            chip.chipStrokeColor = ColorStateList.valueOf(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.primary_text_color
-                )
-            )
+                    address?.text = finalAddress
+                    addrLayout?.visibility = View.VISIBLE
 
 
-            chip.chipStrokeWidth = 2F
-            chip.setTextColor(resources.getColor(R.color.primary_text_color))
-            chip.text = kind.replace("_", " ").capitalizeWords()
-            chip.textSize = 12F
-            chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            chipGrp?.addView(chip)
-        }
+                    if (it.data?.wikipedia_extracts?.text == null) {
+                        descriptionTxt?.visibility = View.INVISIBLE
+                        descrLayout?.visibility = View.INVISIBLE
+                    } else {
+                        description?.text = it.data.wikipedia_extracts.text
+                        descrLayout?.visibility = View.VISIBLE
+                    }
+
+                    val kindsString = it.data?.kinds
+                    val kindsArray = kindsString?.split(",")
 
 
-        if (image != null) {
-            Glide.with(requireContext()).load(trip.preview?.source)
-                .placeholder(R.drawable.poi_placeholder).into(image)
-        }
+                    for (kind: String in kindsArray!!) {
+                        val chip = Chip(context)
+
+                        chip.chipBackgroundColor = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.background_start_color_30_darker_midnight
+                            )
+                        )
+                        chip.chipStrokeColor = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.primary_text_color
+                            )
+                        )
+
+                        chip.chipStrokeWidth = 2F
+                        chip.setTextColor(resources.getColor(R.color.primary_text_color))
+                        chip.text = kind.replace("_", " ").capitalizeWords()
+                        chip.textSize = 12F
+                        chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                        chipGrp?.addView(chip)
+                    }
+
+                    if (image != null) {
+                        Glide.with(requireContext()).load(it.data.preview.source)
+                            .placeholder(R.drawable.poi_placeholder).into(image)
+                    }
+                }
+                is Resource.Error -> {
+                    if (trip.address?.house_number != null) {
+                        finalAddress += trip.address.house_number + " "
+                    }
+                    if (trip.address?.road != null) {
+                        finalAddress += trip.address.road
+                    }
+                    if (trip.address?.suburb != null) {
+                        finalAddress += ", " + trip.address.suburb
+                    }
+                    if (trip.address?.city != null) {
+                        finalAddress += trip.address.city
+                    }
+                    if (trip.address?.country != null) {
+                        finalAddress += ", " + trip.address.county
+                    }
+                    if (trip.address?.postcode != null) {
+                        finalAddress += ", " + trip.address.postcode
+                    }
+                    if (trip.address?.country != null) {
+                        finalAddress += " " + trip.address.country
+                    }
+
+                    address?.text = finalAddress
+                    addrLayout?.visibility = View.VISIBLE
+
+                    if (trip.wikipedia_extracts?.text == null) {
+                        descriptionTxt?.visibility = View.INVISIBLE
+                        descrLayout?.visibility = View.INVISIBLE
+                    } else {
+                        description?.text = trip.wikipedia_extracts.text
+                        descrLayout?.visibility = View.VISIBLE
+                    }
+
+
+                    val kindsString = trip.kinds
+                    val kindsArray = kindsString?.split(",")
+
+                    for (kind: String in kindsArray!!) {
+
+                        val chip = Chip(context)
+
+                        chip.chipBackgroundColor = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.background_start_color_30_darker_midnight
+                            )
+                        )
+                        chip.chipStrokeColor = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.primary_text_color
+                            )
+                        )
+
+
+                        chip.chipStrokeWidth = 2F
+                        chip.setTextColor(resources.getColor(R.color.primary_text_color))
+                        chip.text = kind.replace("_", " ").capitalizeWords()
+                        chip.textSize = 12F
+                        chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                        chipGrp?.addView(chip)
+                    }
+
+
+                    if (image != null) {
+                        Glide.with(requireContext()).load(trip.preview?.source)
+                            .placeholder(R.drawable.poi_placeholder).into(image)
+                    }
+                }
+            }
+        })
+
 
         return view
     }

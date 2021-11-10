@@ -35,6 +35,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
     lateinit var data: SuggestionResponse
 
+    lateinit var trips: Trips
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +52,12 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
 
         val intent: Intent? = activity?.intent
         val placeToSearch = intent?.getStringExtra("place")
+        val databaseAction = intent?.getStringExtra("database")
+        var idDatabase = 0
+        if(databaseAction == "Update") {
+            trips = intent?.getSerializableExtra("trip") as Trips
+            idDatabase = trips.id
+        }
 
         view?.rootView?.locationNameText?.text = placeToSearch + " trip"
 
@@ -61,12 +69,12 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         }
 
         view?.rootView?.scheduleTripButton?.setOnClickListener {
-            var allUnChecked: Boolean = false
-            val listOfTrips: ListOfPOI = ListOfPOI(mutableListOf(),null,null)
+            var allUnChecked = false
+            val listOfTrips = ListOfPOI(mutableListOf(),null,null)
 
            recyclerViewAdapter.locations.forEachIndexed { index, locationPOIScreen ->
 
-                if(recyclerViewAdapter.locations[index].isChecked && recyclerViewAdapter.locations[index].name == data.features[index].properties.name){
+                if(recyclerViewAdapter.locations[index].isChecked && findIfSameName(recyclerViewAdapter.locations[index].name, data)){
                     listOfTrips.listOfPoints.add(data.features[index])
                 }
             }
@@ -74,11 +82,16 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                 allUnChecked = item.isChecked.or(allUnChecked)
             }
             if(allUnChecked == false){
-                val trips = Trips(0, name, country, arrayListOf(), null, null)
-                val confirmationDialog: ConfirmationDialogFragment = ConfirmationDialogFragment(trips)
+                var id = 0
+                if(databaseAction == "Update"){
+                    id = idDatabase
+                }
+                val trips = Trips(id, name, country, arrayListOf(), null, null)
+                val confirmationDialog = ConfirmationDialogFragment(trips, databaseAction!!)
                 confirmationDialog.show(childFragmentManager,"Confirmation Dialog")
             }
             else{
+                println("Size + " + listOfTrips.listOfPoints.size)
                 var listOfPOI: MutableList<String> = mutableListOf()
                 listOfTrips.listOfPoints.forEach { poi_item ->
                     listOfPOI.add(poi_item.properties.xid)
@@ -87,9 +100,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                 vm.poiDetalisLiveDataList.observe(viewLifecycleOwner,{
                     when (it) {
                         is Resource.Success -> {
-                            //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
                             it.data?.let { it1 -> val poi_List: List<Trips.Trip> = it.data.listOfTrip
-                                setDateForTrip(poi_List, name, country) }
+                                setDateForTrip(poi_List, name, country, databaseAction!!, idDatabase) }
                         }
                         is Resource.Error -> {
                             Toast.makeText(context, "error: ${it.message}", Toast.LENGTH_LONG).show()
@@ -98,11 +110,6 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                         }
                     }
                 })
-                //Toast.makeText(context, listOfPOI.toString(), Toast.LENGTH_LONG).show()
-                //Toast.makeText(context, trips.toString(), Toast.LENGTH_LONG).show()
-                //vm.getPoiDetailsForList(listOfIds, "5ae2e3f221c38a28845f05b6dd571f66600ae5630f709863edc61b5d")
-                /*val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(listOfTrips.listOfPoints.size, placeToSearch!!)
-                findNavController().navigate(action)*/
             }
         }
 
@@ -116,10 +123,8 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         vm.locationLivedata.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    //Toast.makeText(context, it.data.toString(), Toast.LENGTH_LONG).show()
                     country = it.data?.country.toString()
                     name = it.data?.name.toString()
-                    //Toast.makeText(context, trips.toString(), Toast.LENGTH_LONG).show()
                 }
                 is Resource.Error -> {
                     errorDisplay()
@@ -136,17 +141,42 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
                 is Resource.Success -> {
 
                     val locations = mutableListOf<LocationPOIScreenCheck>()
+                    var index = 0
                     it.data?.features?.forEach { it2 ->
-                        locations.add(
-                            LocationPOIScreenCheck(
-                                it2.properties.name,
-                                it2.properties.kinds.replace("_", " ").capitalizeWords(),
-                                false,
-                                it2.properties.xid
+                        if(databaseAction == "Insert") {
+                            locations.add(
+                                LocationPOIScreenCheck(
+                                    it2.properties.name,
+                                    it2.properties.kinds.replace("_", " ").capitalizeWords(),
+                                    false,
+                                    it2.properties.xid
+                                )
                             )
-                        )
+                        }
+                        if(databaseAction == "Update") {
+                            if(findIfChecked(trips, it2.properties.name)) {
+                                index += 1
+                                locations.add(0,
+                                    LocationPOIScreenCheck(
+                                        it2.properties.name,
+                                        it2.properties.kinds.replace("_", " ").capitalizeWords(),
+                                        true,
+                                        it2.properties.xid
+                                    )
+                                )
+                            }else{
+                                locations.add(locations.size,
+                                    LocationPOIScreenCheck(
+                                        it2.properties.name,
+                                        it2.properties.kinds.replace("_", " ").capitalizeWords(),
+                                        false,
+                                        it2.properties.xid
+                                    )
+                                )
+                            }
+                        }
                     }
-                    recyclerViewAdapter = RecyclerViewAdapter(locations, requireContext())
+                    recyclerViewAdapter = RecyclerViewAdapter(locations, requireContext(), index)
                     recycleView?.adapter = recyclerViewAdapter
                     recycleView?.layoutManager = LinearLayoutManager(context)
                     if (locations.size == 0) {
@@ -186,9 +216,31 @@ class POIScreenFragment : Fragment(R.layout.fragment_poi_screen) {
         view?.tripNotFoundCard?.visibility = View.INVISIBLE
     }
 
-    fun setDateForTrip(listPoi: List<Trips.Trip>, name: String, country: String){
-        val trips = Trips(0, name, country, listPoi, null, null)
-        val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips)
+    fun findIfChecked(trips: Trips, name: String): Boolean{
+        trips.listOfPOI.forEach {
+            if(it.name == name){
+                return true
+            }
+        }
+        return false
+    }
+
+    fun findIfSameName(name: String, trips: SuggestionResponse): Boolean{
+        trips.features.forEach {
+            if(it.properties.name == name){
+                return true
+            }
+        }
+        return false
+    }
+
+    fun setDateForTrip(listPoi: List<Trips.Trip>, name: String, country: String, databaseAction: String, idDatabase: Int){
+        var id = 0
+        if(databaseAction == "Update"){
+            id = idDatabase
+        }
+        val trips = Trips(id, name, country, listPoi, null, null)
+        val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips, databaseAction)
         view?.let { Navigation.findNavController(it).navigate(action) }
     }
 

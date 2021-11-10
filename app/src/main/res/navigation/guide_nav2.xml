@@ -8,22 +8,27 @@
     <fragment
         android:id="@+id/seeTripFragment"
         android:name="com.example.cityguide.presentation.SavedTrip.SeeTripFragment"
-        android:label="fragment_see_trip"
-        tools:layout="@layout/fragment_see_trip" >
+        android:label="SeeTripFragment"
+        android:tag="seeTrip"
+        tools:layout="@layout/fragment_see_trip">
         <action
             android:id="@+id/navigationFromSavedTripToPOIDetails"
-            app:destination="@id/poiDetailsFragment22" />
+            app:destination="@id/poiDetailsFragment2" />
         <action
             android:id="@+id/navigationFromSavedTripToMaps"
             app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/poiDetailsFragment22"
+        android:id="@+id/poiDetailsFragment2"
         android:name="com.example.cityguide.presentation.POIDetails.PoiDetailsFragment2"
-        android:label="PoiDetailsFragment2" >
+        android:label="PoiDetailsFragment2"
+        android:tag="poiDetails">
         <argument
             android:name="trip"
             app:argType="com.example.cityguide.data.db.entity.Trips$Trip" />
+        <action
+            android:id="@+id/navigationFromPoiDetailsToSavedTrip"
+            app:destination="@id/seeTripFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"

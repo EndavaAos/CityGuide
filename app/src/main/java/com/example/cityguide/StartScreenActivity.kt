@@ -41,23 +41,13 @@ class StartScreenActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val intent = intent;
-        var s1 = intent.getStringExtra("Check")
 
-
-        if(s1.equals("1"))
-        {
-            s1=""
+        if(navigationBar.selectedItemId == R.id.nav_mytrip){
             fragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container, tripsFragment)
                 .commit()
-            navigationBar.selectedItemId = R.id.nav_mytrip
         }
-        if(s1.equals("0")) {
-            fragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container, searchFragment)
-                .commit()
-        }
+
 
     }
 
@@ -84,4 +74,5 @@ class StartScreenActivity : AppCompatActivity() {
             else -> return false
         }
     }
+
 }

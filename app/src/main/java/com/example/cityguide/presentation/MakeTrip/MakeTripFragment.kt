@@ -65,7 +65,7 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         }
 
         val trips = args.trips
-
+        val databaseAction = args.databaseAction
 
 
         val expPoints = trips.listOfPOI?.size
@@ -119,7 +119,12 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 dialog.setCancelable(false)
 
                 view.yes.setOnClickListener {
-                    vm.insertTrips(trips)
+                    if(databaseAction == "Insert") {
+                        vm.insertTrips(trips)
+                    }
+                    if(databaseAction == "Update") {
+                        vm.updateTrips(trips)
+                    }
                     activity?.finish()
                     dialog.dismiss()
                 }
@@ -135,7 +140,12 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
             }  else {
                 trips.dateStart = startDateTrip!!
                 trips.dateEnd = endDateTrip!!
-                vm.insertTrips(trips)
+                if(databaseAction == "Insert") {
+                    vm.insertTrips(trips)
+                }
+                if(databaseAction == "Update") {
+                    vm.updateTrips(trips)
+                }
                 activity?.finish()
 
             }

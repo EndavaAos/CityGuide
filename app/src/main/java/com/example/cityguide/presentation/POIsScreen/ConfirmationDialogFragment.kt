@@ -17,7 +17,7 @@ import com.example.cityguide.R
 import com.example.cityguide.data.db.entity.Trips
 import kotlinx.android.synthetic.main.fragment_make_trip.*
 
-class ConfirmationDialogFragment( val trips: Trips ) : DialogFragment() {
+class ConfirmationDialogFragment( val trips: Trips, val databaseAction: String ) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +42,7 @@ class ConfirmationDialogFragment( val trips: Trips ) : DialogFragment() {
 
         yesButton.setOnClickListener {
             val totalPoints = 0
-            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips)
+            val action = POIScreenFragmentDirections.navigateFromPOIScreenToMakeTripFragment(trips, databaseAction)
             findNavController().navigate(action)
 
             dismiss()

@@ -28,4 +28,5 @@ class POIScreenActivity : AppCompatActivity() {
 
     }
 
+
 }

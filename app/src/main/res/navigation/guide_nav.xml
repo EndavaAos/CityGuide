@@ -29,6 +29,9 @@
         <argument
             android:name="trips"
             app:argType="com.example.cityguide.data.db.entity.Trips" />
+        <argument
+            android:name="databaseAction"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/poiDetailsFragment"

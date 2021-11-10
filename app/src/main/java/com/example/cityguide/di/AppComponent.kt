@@ -21,7 +21,9 @@ import javax.inject.Singleton
         POIScreenFragmentModule::class,
         MakeTripFragmentModule::class,
         PoiDetailsFragmentModule::class,
-        PoiDetailsFragment2Module::class
+        PoiDetailsFragment2Module::class,
+        SavedTripFragmentModule::class,
+        SavedTripActivityModule::class
     ]
 
 )
