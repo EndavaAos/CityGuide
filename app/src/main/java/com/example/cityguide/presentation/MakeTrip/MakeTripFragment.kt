@@ -1,10 +1,15 @@
 package com.example.cityguide.presentation.makeATrip
 
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -21,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.cityguide.AlarmReceiver
 import com.example.cityguide.R
 import com.example.cityguide.presentation.MakeTrip.MakeTripVM
 import com.example.cityguide.presentation.POIsScreen.LocationSearchVM
@@ -48,6 +54,10 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
     var startDateTrip: LocalDate? = null
     var endDateTrip: LocalDate? = null
 
+    var startDateNotif: Long = 0
+    lateinit var alarmManager: AlarmManager
+    lateinit var calendar: Calendar
+
     val args: MakeTripFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -56,6 +66,8 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_make_trip, container, false)
+
+        createNotificationChannel()
 
         button = view.findViewById(R.id.finishScheduleButton)
 
@@ -135,6 +147,14 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
             }  else {
                 trips.dateStart = startDateTrip!!
                 trips.dateEnd = endDateTrip!!
+
+                val intent: Intent = Intent(context, AlarmReceiver::class.java)
+                val pendingIntent: PendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+
+                alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                val tenSecondsInMillis = 172800000
+                alarmManager.set(AlarmManager.RTC_WAKEUP, startDateNotif - tenSecondsInMillis, pendingIntent)
+
                 vm.insertTrips(trips)
                 activity?.finish()
 
@@ -161,6 +181,8 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
 
             val startDate = dateSelected.first
             val endDate = dateSelected.second
+
+            startDateNotif = startDate
 
             startDateTrip = Instant.ofEpochMilli(startDate).atZone(ZoneId.systemDefault()).toLocalDate()
             endDateTrip = Instant.ofEpochMilli(endDate).atZone(ZoneId.systemDefault()).toLocalDate()
@@ -194,6 +216,19 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         AndroidSupportInjection.inject(this)
 
     }
+    private fun createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
+            val name: CharSequence = "Upcoming Trip"
+            val description = "Channel for Alarm Manager"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("foxandroid", name, importance)
+            channel.description = description
+
+            val notificationManager = requireActivity().getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
+
+        }
+    }
 
 }

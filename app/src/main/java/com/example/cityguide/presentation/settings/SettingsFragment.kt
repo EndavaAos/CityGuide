@@ -8,17 +8,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.text.format.DateFormat.is24HourFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.cityguide.AlarmReceiver
 import com.example.cityguide.R
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import kotlinx.android.synthetic.main.fragment_make_trip.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 import java.util.*
@@ -59,10 +56,18 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             val h = picker.hour
             val min = picker.minute
 
-            if(h > 12) {
-                timeExpect.text = String.format("%02d", picker.hour - 12) + ":" + String.format("%02d", picker.minute) + " PM"
+            if (h > 12) {
+                requireView().timeExpect.text =
+                    String.format("%02d", picker.hour - 12) + ":" + String.format(
+                        "%02d",
+                        picker.minute
+                    ) + " PM"
             } else {
-                timeExpect.text = String.format("%02d", picker.hour) + ":" + String.format("%02d", picker.minute) + " AM"
+                requireView().timeExpect.text =
+                    String.format("%02d", picker.hour) + ":" + String.format(
+                        "%02d",
+                        picker.minute
+                    ) + " AM"
             }
 
             calendar = Calendar.getInstance()
@@ -76,7 +81,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 setTimeButton.text = "change time"
                 setAlarm()
             }
-            requireView().timeExpect.text = "$h:$min"
         }
 
         requireView()
@@ -84,13 +88,14 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name: CharSequence = "DOESNTMATTER"
             val description = "LAST TIME AT ENDAVA"
             val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel("foxandroid", name, importance)
             channel.description = description
-            val notificationManager = requireActivity().getSystemService(NotificationManager::class.java)
+            val notificationManager =
+                requireActivity().getSystemService(NotificationManager::class.java)
 
             notificationManager.createNotificationChannel(channel)
 
