@@ -7,15 +7,14 @@
     android:background="@drawable/background_gradient"
     android:paddingBottom="7dp">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".presentation.trips.MyTripsFragment">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/my_trips_fragment_title"
@@ -55,6 +54,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>
