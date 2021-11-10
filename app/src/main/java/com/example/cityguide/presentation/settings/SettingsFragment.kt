@@ -14,6 +14,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerFactory
 import com.example.cityguide.R
+import com.example.cityguide.data.responses.Resource
 import com.example.cityguide.data.services.UpcomingNotification
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -31,6 +32,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     lateinit var minString: String
     lateinit var hString: String
 
+    @Inject
+    lateinit var settingsVM: SettingsVM
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +47,20 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             openTimePicker()
         }
 
+        settingsVM.getTime()
 
+        settingsVM.timeData.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+                    requireView().timeExpect.text = "${it.data?.hour}:${it.data?.minutes}"
+                }
+                is Resource.Error -> {
+
+                }
+                is Resource.Loading -> {
+                }
+            }
+        })
 
         return view
     }
@@ -83,6 +100,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                 setTimeButton.text = "change time"
             }
             requireView().timeExpect.text = "$hString:$minString"
+            settingsVM.insertTime(h, min)
 
             val currentDate = Calendar.getInstance()
             val dueDate = Calendar.getInstance()

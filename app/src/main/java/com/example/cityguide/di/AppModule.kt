@@ -5,10 +5,7 @@ import androidx.work.WorkerFactory
 import com.example.cityguide.data.db.TripDatabase
 import com.example.cityguide.data.network.LocationApi
 import com.example.cityguide.data.network.RemoteDataSource
-import com.example.cityguide.data.repository.LocationRepository
-import com.example.cityguide.data.repository.LocationRepositoryImpl
-import com.example.cityguide.data.repository.TripRepository
-import com.example.cityguide.data.repository.TripRepositoryImpl
+import com.example.cityguide.data.repository.*
 import com.example.cityguide.data.services.UpcomingNotificationFactory
 import com.example.cityguide.presentation.trips.tripSegment.ActiveTripsViewModel
 import com.example.cityguide.presentation.trips.tripSegment.CompletedTripsViewModel
@@ -48,6 +45,12 @@ class AppModule(
     @Provides
     fun providesLocationRepository(locationApi: LocationApi): LocationRepository {
         return LocationRepositoryImpl(locationApi)
+    }
+
+    @Singleton
+    @Provides
+    fun providesUpcomingNotificationTimeRepository(tripDatabase: TripDatabase): UpcomingNotificationTimeRepository{
+        return UpcomingNotificationTimeRepositoryImpl(tripDatabase)
     }
 
     @Singleton

@@ -83,15 +83,15 @@ class UpcomingNotification(val context: Context, workerParameters: WorkerParamet
 
         val CHANNEL_ID = "Heads_Up_Notification"
 
-        val intent = Intent(context, SeeTripActivity::class.java)
+        /*val intent = Intent(context, SeeTripActivity::class.java)
         intent.putExtra("trip", trip)
         val pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        requestCode += 1
+        requestCode += 1*/
 
-        val builder = NotificationCompat.Builder(applicationContext, "1")
+        val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("Notification")
-            .setContentIntent(pendingIntent)
+            //.setContentIntent(pendingIntent)
             .setContentText(name)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setDefaults(Notification.DEFAULT_ALL)
