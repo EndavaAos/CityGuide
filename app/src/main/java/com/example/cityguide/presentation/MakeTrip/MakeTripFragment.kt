@@ -1,15 +1,9 @@
 package com.example.cityguide.presentation.makeATrip
 
-import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -19,23 +13,16 @@ import android.view.animation.AlphaAnimation
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.cityguide.AlarmReceiver
 import com.example.cityguide.R
 import com.example.cityguide.presentation.MakeTrip.MakeTripVM
-import com.example.cityguide.presentation.POIsScreen.LocationSearchVM
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.alert_dialog_view.view.*
 import kotlinx.android.synthetic.main.fragment_make_trip.*
 import kotlinx.android.synthetic.main.fragment_make_trip.view.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
@@ -48,15 +35,13 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
     lateinit var button: Button
 
     var MAX_CLICK_DURATION = 300
+
     @Inject
     lateinit var vm: MakeTripVM
 
     var startDateTrip: LocalDate? = null
     var endDateTrip: LocalDate? = null
 
-    var startDateNotif: Long = 0
-    lateinit var alarmManager: AlarmManager
-    lateinit var calendar: Calendar
 
     val args: MakeTripFragmentArgs by navArgs()
 
@@ -67,7 +52,6 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_make_trip, container, false)
 
-        createNotificationChannel()
 
         button = view.findViewById(R.id.finishScheduleButton)
 
@@ -77,7 +61,6 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         }
 
         val trips = args.trips
-
 
 
         val expPoints = trips.listOfPOI?.size
@@ -97,12 +80,22 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                             Color.rgb(223, 223, 223),
                             PorterDuff.Mode.MULTIPLY
                         )
-                        setTripButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar2, 0, 0, 0)
+                        setTripButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_calendar2,
+                            0,
+                            0,
+                            0
+                        )
                         setTripButton.setTextColor(Color.parseColor("#ced4d8"))
                     }
                     MotionEvent.ACTION_UP -> {
                         setTripButton.background.clearColorFilter()
-                        setTripButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0)
+                        setTripButton.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.ic_calendar,
+                            0,
+                            0,
+                            0
+                        )
                         setTripButton.setTextColor(Color.parseColor("#f0f1f3"))
 
                         val startClickTime = Calendar.getInstance().timeInMillis
@@ -144,16 +137,9 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
                 view.dismiss.setOnClickListener {
                     dialog.dismiss()
                 }
-            }  else {
+            } else {
                 trips.dateStart = startDateTrip!!
                 trips.dateEnd = endDateTrip!!
-
-                val intent: Intent = Intent(context, AlarmReceiver::class.java)
-                val pendingIntent: PendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
-
-                alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val tenSecondsInMillis = 172800000
-                alarmManager.set(AlarmManager.RTC_WAKEUP, startDateNotif - tenSecondsInMillis, pendingIntent)
 
                 vm.insertTrips(trips)
                 activity?.finish()
@@ -182,9 +168,9 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
             val startDate = dateSelected.first
             val endDate = dateSelected.second
 
-            startDateNotif = startDate
 
-            startDateTrip = Instant.ofEpochMilli(startDate).atZone(ZoneId.systemDefault()).toLocalDate()
+            startDateTrip =
+                Instant.ofEpochMilli(startDate).atZone(ZoneId.systemDefault()).toLocalDate()
             endDateTrip = Instant.ofEpochMilli(endDate).atZone(ZoneId.systemDefault()).toLocalDate()
 
             if (startDate != null && endDate != null) {
@@ -211,24 +197,12 @@ class MakeTripFragment : Fragment(R.layout.fragment_make_trip) {
         val buttonClick = AlphaAnimation(1F, 0.8F)
         button.startAnimation(buttonClick)
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
     }
-    private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
-            val name: CharSequence = "Upcoming Trip"
-            val description = "Channel for Alarm Manager"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("foxandroid", name, importance)
-            channel.description = description
-
-            val notificationManager = requireActivity().getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-
-        }
-    }
 
 }
