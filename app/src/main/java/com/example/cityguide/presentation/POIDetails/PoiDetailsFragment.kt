@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,7 +47,7 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
         val name = view?.findViewById<TextView>(R.id.poi_name)
@@ -173,9 +174,34 @@ class PoiDetailsFragment : Fragment(R.layout.fragment_poi_details) {
                         chip.text = kind.replace("_", " ").capitalizeWords()
                         chip.textSize = 12F
                         chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
+                        when (kindsArray.size) {
+                            1, 2 -> {
+                                chip.maxWidth = 500
+                                chipGrp?.isSingleLine = true
+                            }
+                            3 -> {
+                                chip.maxWidth = 330
+                                chipGrp?.isSingleLine = true
+                            }
+                            4 -> {
+                                chip.maxWidth = 500
+                            }
+                            5 -> {
+                                chip.maxWidth = 350
+                            }
+                            6, 7, 8 -> {
+                                chip.maxWidth = 220
+                            }
+                            else -> {
+                                chip.maxWidth = 500
+                            }
+                        }
+
+                        chip.ellipsize = TextUtils.TruncateAt.END
+
                         chipGrp?.addView(chip)
                     }
-
                     if (image != null) {
                         Glide.with(requireContext()).load(it.data.preview.source)
                             .placeholder(R.drawable.poi_placeholder).into(image)
