@@ -47,9 +47,14 @@ class UpcomingNotification(val context: Context, workerParameters: WorkerParamet
     @SuppressLint("WrongThread")
     override fun doWork(): Result {
 
-        val year = Calendar.getInstance().get(Calendar.YEAR)
-        val month = Calendar.getInstance().get(Calendar.MONTH) + 1
-        val day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+        val dueDate = Calendar.getInstance()
+
+        dueDate.add(Calendar.DAY_OF_MONTH, 2)
+
+        val year = dueDate.get(Calendar.YEAR)
+        val month = dueDate.get(Calendar.MONTH) + 1
+        val day = dueDate.get(Calendar.DAY_OF_MONTH)
 
         println("$year $month $day")
 
@@ -62,7 +67,8 @@ class UpcomingNotification(val context: Context, workerParameters: WorkerParamet
                            trips.forEach {
                                 val tripDay = it.dateStart?.dayOfMonth
                                 val tripMonth = it.dateStart?.monthValue
-                               if(day + 2 == tripDay && month == tripMonth)
+                               val tripYear = it.dateStart?.year
+                               if(day == tripDay && month == tripMonth && tripYear == year)
                                {
                                    if(oneTime)
                                    createNotification(it.name, it)
