@@ -105,6 +105,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                         if(isChecked){
                             startNotification()
                         }
+                        else {
+                            WorkManager.getInstance(requireContext()).cancelAllWork()
+                        }
                     }
                 }
                 is Resource.Error -> {
